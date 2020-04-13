@@ -12,8 +12,8 @@ if ( ! empty( $settings['hotspots']['0'] ) ) {
 }
 
 if ( empty( $has_hotspots ) ) : ?>
-	<p><?php _e( 'You need to define some clickable areas for your image.', 'draw-attention' ); ?></p>
-	<p><?php echo edit_post_link( __( 'Edit Image', 'draw-attention' ), false, false, $settings['image_id'] ); ?></p>
+	<p><?php _e( 'You need to define some clickable areas for your image.', 'bolig-velger' ); ?></p>
+	<p><?php echo edit_post_link( __( 'Edit Image', 'bolig-velger' ), false, false, $settings['image_id'] ); ?></p>
 
 <?php // In page builder edit mode - just display the image ?>
 <?php elseif ( !empty( $_GET['fl_builder'] ) || !empty( $_GET['elementor-preview'] ) || ( !empty( $_GET['action'] ) && $_GET['action'] == 'elementor' ) ): ?>

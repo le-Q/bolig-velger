@@ -4,14 +4,14 @@ class DrawAttention_Themes {
 
 	function __construct( $parent ) {
 		$this->parent = $parent;
-		
+
 		add_action( 'da_register_admin_script', array( $this, 'pass_themes_to_admin_js' ) );
 	}
 	
 	function display_theme_pack_metabox() {
-		echo '<p>'.__( 'Quickly apply a theme (you can adjust each color afterwards).', 'draw-attention' ).'</p>'; ?>
+		echo '<p>'.__( 'Quickly apply a theme (you can adjust each color afterwards).', 'bolig-velger' ).'</p>'; ?>
 		<select id="da-theme-pack-select">
-			<option value=""><?php  _e( 'Select a theme...', 'draw-attention' ) ?></option>
+			<option value=""><?php  _e( 'Select a theme...', 'bolig-velger' ) ?></option>
 			<?php foreach ( $this->get_themes() as $key => $theme ) : ?>
 			<option value="<?php echo $theme['slug']; ?>"><?php echo $theme['name']; ?></option>
 			<?php endforeach; ?>
@@ -70,8 +70,8 @@ class DrawAttention_Themes {
 					'map_background_color' => '#000000',
 				),
 			),
-			'drawattention' => array(
-				'slug' => 'drawattention',
+			'boligvelger' => array(
+				'slug' => 'boligvelger',
 				'name' => 'Draw Attention',
 				'values' => array(
 					'map_highlight_color' => '#3CA2A2',

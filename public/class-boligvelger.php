@@ -86,7 +86,7 @@ if ( !class_exists( 'BoligVelger' ) ) {
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 
 			// Shortcode for displaying the image map
-			add_shortcode( 'drawattention', array( $this, 'shortcode' ) );
+			add_shortcode( 'boligvelger', array( $this, 'shortcode' ) );
 
 			add_action( 'admin_notices', array( $this, 'php_52_notice' ) );
 
@@ -286,13 +286,13 @@ if ( !class_exists( 'BoligVelger' ) ) {
 		public function load_plugin_textdomain() {
 
 
-			$domain = 'drawattention';
+			$domain = 'boligvelger';
 			$locale = apply_filters( 'plugin_locale', get_locale(), $domain );
 
 			load_textdomain( $domain, trailingslashit( WP_LANG_DIR ) . $domain . '/' . $domain . '-' . $locale . '.mo' );
 			load_plugin_textdomain( $domain, FALSE, basename( plugin_dir_path( dirname( __FILE__ ) ) ) . '/languages/' );
 
-			$domain = 'draw-attention';
+			$domain = 'bolig-velger';
 			$locale = apply_filters( 'plugin_locale', get_locale(), $domain );
 
 			load_textdomain( $domain, trailingslashit( WP_LANG_DIR ) . $domain . '/' . $domain . '-' . $locale . '.mo' );
@@ -513,7 +513,7 @@ if ( !class_exists( 'BoligVelger' ) ) {
 		/*
 
 		function add_shortcode_metabox() {
-			add_meta_box( 'da_shortcode', __('Copy Shortcode', 'draw-attention' ), array( $this, 'display_shortcode_metabox' ), $this->cpt->post_type, 'side', 'low');
+			add_meta_box( 'da_shortcode', __('Copy Shortcode', 'bolig-velger' ), array( $this, 'display_shortcode_metabox' ), $this->cpt->post_type, 'side', 'low');
 		}
 
 		function display_shortcode_metabox() {

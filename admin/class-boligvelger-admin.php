@@ -201,8 +201,8 @@ if ( !class_exists( 'BoligVelger_Admin' ) ) {
 			 *   For reference: http://codex.wordpress.org/Roles_and_Capabilities
 			 */
 			$this->plugin_screen_hook_suffix = add_options_page(
-				__( 'DrawAttention', 'draw-attention' ),
-				__( 'DrawAttention', 'draw-attention' ),
+				__( 'DrawAttention', 'bolig-velger' ),
+				__( 'DrawAttention', 'bolig-velger' ),
 				'manage_options',
 				$this->plugin_slug,
 				array( $this, 'display_plugin_admin_page' )
@@ -231,7 +231,7 @@ if ( !class_exists( 'BoligVelger_Admin' ) ) {
 
 			return array_merge(
 				array(
-					'settings' => '<a href="' . admin_url( 'options-general.php?page=' . $this->plugin_slug ) . '">' . __( 'Settings', 'draw-attention' ) . '</a>'
+					'settings' => '<a href="' . admin_url( 'options-general.php?page=' . $this->plugin_slug ) . '">' . __( 'Settings', 'bolig-velger' ) . '</a>'
 				),
 				$links
 			);
@@ -243,7 +243,7 @@ if ( !class_exists( 'BoligVelger_Admin' ) ) {
 
 			remove_submenu_page( 'edit.php?post_type=da_image', 'post-new.php?post_type=da_image'  );
 			remove_submenu_page( 'edit.php?post_type=da_image', 'edit.php?post_type=da_image'  );
-			add_submenu_page( 'edit.php?post_type=da_image', __('Edit Image', 'draw-attention' ), __('Edit Image', 'draw-attention' ), 'edit_others_posts', 'edit.php?post_type=da_image' );
+			add_submenu_page( 'edit.php?post_type=da_image', __('Edit Image', 'bolig-velger' ), __('Edit Image', 'bolig-velger' ), 'edit_others_posts', 'edit.php?post_type=da_image' );
 		}
 
 		public function remove_add_new_submenu() {
@@ -283,7 +283,7 @@ if ( !class_exists( 'BoligVelger_Admin' ) ) {
 						'post_status' => 'publish',
 						'post_title' => '',
 					) );
-					DrawAttention_Themes::apply_theme( $imageID, 'drawattention' );
+					DrawAttention_Themes::apply_theme( $imageID, 'boligvelger' );
 				}
 				if ( empty( $imageID ) ) die( 'An error occurred setting up DrawAttention, please contact support@wpdrawattention.com');
 

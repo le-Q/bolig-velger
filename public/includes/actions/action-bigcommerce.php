@@ -21,7 +21,7 @@ class DrawAttention_BigCommerce_Action extends DrawAttention_Action {
 			return $group_details;
 		}
 
-		$group_details['fields'][0]['fields']['action']['options']['bigcommerce'] = __( 'Display BigCommerce Product', 'draw-attention' );
+		$group_details['fields'][0]['fields']['action']['options']['bigcommerce'] = __( 'Display BigCommerce Product', 'bolig-velger' );
 
 		$product_options = get_transient( 'da_bc_product_options' );
 		if ( empty( $product_options ) ) {
@@ -38,7 +38,7 @@ class DrawAttention_BigCommerce_Action extends DrawAttention_Action {
 		$select_options = array_replace( $select_options, $product_options );
 
 		$group_details['fields'][0]['fields']['action-bigcommerce-product-id'] = array(
-			'name' => __('Big Commerce Product', 'draw-attention' ),
+			'name' => __('Big Commerce Product', 'bolig-velger' ),
 			'id'   => 'action-bigcommerce-product-id',
 			'type' => 'select',
 			'options' => $select_options,
@@ -49,15 +49,15 @@ class DrawAttention_BigCommerce_Action extends DrawAttention_Action {
 
 		// TODO: Add display options
 		// $group_details['fields'][0]['fields']['action-bigcommerce-display-parts'] = array(
-		// 	'name' => __('BigCommerce Sections to Display', 'draw-attention' ),
+		// 	'name' => __('BigCommerce Sections to Display', 'bolig-velger' ),
 		// 	'id'   => 'action-bigcommerce-display-parts',
 		// 	'type' => 'multicheck',
 		// 	'options' => array(
-		// 		'image' => __( 'Image', 'draw-attention' ),
-		// 		'title' => __( 'Title', 'draw-attention' ),
-		// 		'description' => __( 'Description', 'draw-attention' ),
-		// 		'reviews' => __( 'Reviews', 'draw-attention' ),
-		// 		'add_to_cart' => __( 'Add to Cart', 'draw-attention' ),
+		// 		'image' => __( 'Image', 'bolig-velger' ),
+		// 		'title' => __( 'Title', 'bolig-velger' ),
+		// 		'description' => __( 'Description', 'bolig-velger' ),
+		// 		'reviews' => __( 'Reviews', 'bolig-velger' ),
+		// 		'add_to_cart' => __( 'Add to Cart', 'bolig-velger' ),
 		// 	),
 		// 	'attributes' => array(
 		// 		'data-action' => 'bigcommerce',
