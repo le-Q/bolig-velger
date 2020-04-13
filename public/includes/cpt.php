@@ -28,7 +28,7 @@ class DrawAttention_CPT {
 		$result = register_post_type( $this->post_type, /* (http://codex.wordpress.org/Function_Reference/register_post_type) */
 		 	// let's now add all the options for this post type
 			array('labels' => array(
-				'name' => __('Draw Attention', $this->post_type.' general name', 'bolig-velger' ), /* This is the Title of the Group */
+				'name' => __('Bolig Velger', $this->post_type.' general name', 'bolig-velger' ), /* This is the Title of the Group */
 				'singular_name' => __('Image', $this->post_type.' singular name', 'bolig-velger' ), /* This is the individual type */
 				'all_items' => __('All Images', 'bolig-velger' ), /* the all items menu item */
 				'add_new' => __('Add New', 'custom '.$this->post_type.' item', 'bolig-velger' ), /* The add new menu item */
