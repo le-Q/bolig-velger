@@ -90,9 +90,6 @@ if ( !class_exists( 'BoligVelger' ) ) {
 
 			add_action( 'admin_notices', array( $this, 'php_52_notice' ) );
 
-			// shortcode metabox
-			//add_action( 'add_meta_boxes', array( $this, 'add_shortcode_metabox' ) );
-
 			add_action( 'template_include', array( $this, 'single_template' ) );
 
 			add_filter( 'jetpack_photon_skip_image', array ($this, 'jetpack_photon_skip_image' ), 10, 3 );

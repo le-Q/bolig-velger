@@ -4,13 +4,8 @@ class DrawAttention_Themes {
 
 	function __construct( $parent ) {
 		$this->parent = $parent;
-
-		//add_action( 'add_meta_boxes', array( $this, 'add_theme_pack_metabox' ) );
+		
 		add_action( 'da_register_admin_script', array( $this, 'pass_themes_to_admin_js' ) );
-	}
-
-	function add_theme_pack_metabox() {
-		add_meta_box( 'da_theme_pack', __( 'Apply Color Scheme', 'draw-attention' ), array( $this, 'display_theme_pack_metabox' ), $this->parent->cpt->post_type, 'side', 'low');
 	}
 	
 	function display_theme_pack_metabox() {
