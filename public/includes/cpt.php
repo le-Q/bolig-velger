@@ -6,9 +6,6 @@ class DrawAttention_CPT {
 	function __construct( $parent ) {
 
 		add_action( 'init' , array( $this, 'register_cpt' ) );
-		// add_filter( 'manage_edit-' . $this->post_type . '_columns', array( $this, 'register_custom_column_headings' ), 10, 1 );
-		// add_action( 'manage_' . $this->post_type .'_posts_custom_column', array( $this, 'register_custom_columns' ), 10, 2 );
-
 		add_action( 'init', array( $this, 'load_drag_drop_featured_image' ) );
 	}
 
@@ -84,84 +81,4 @@ class DrawAttention_CPT {
 		));
 	}
 
-	function get_image ( $id, $size = 'projects-thumbnail' ) {
-		$response = '';
-
-		if ( has_post_thumbnail( $id ) ) {
-			// If not a string or an array, and not an integer, default to 150x9999.
-			if ( is_int( $size ) || ( 0 < intval( $size ) ) ) {
-				$size = array( intval( $size ), intval( $size ) );
-			} elseif ( ! is_string( $size ) && ! is_array( $size ) ) {
-				$size = array( 150, 9999 );
-			}
-			$response = get_the_post_thumbnail( intval( $id ), $size );
-		}
-
-		return $response;
-	} // End projects_get_image()
-
-	/**
-	 * Add custom columns for the "manage" screen of this post type.
-	 *
-	 * @access public
-	 * @param string $column_name
-	 * @param int $id
-	 * @since  1.0.0
-	 * @return void
-	 */
-	public function register_custom_columns ( $column_name, $id ) {
-		global $wpdb, $post;
-
-		$meta = get_post_custom( $id );
-
-		switch ( $column_name ) {
-
-			case 'image':
-			$value = '';
-
-			$value = $this->get_image( $id, 120 );
-
-			echo $value;
-			break;
-
-			default:
-			break;
-
-		}
-	} // End register_custom_columns()
-
-	/**
-	 * Add custom column headings for the "manage" screen of this post type.
-	 *
-	 * @access public
-	 * @param array $defaults
-	 * @since  1.0.0
-	 * @return void
-	 */
-	public function register_custom_column_headings ( $defaults ) {
-
-		$new_columns          = array();
-		$new_columns['cb']    = $defaults['cb'];
-		$new_columns['image'] = __( 'Image', 'bolig-velger' );
-
-		$last_item = '';
-
-		if ( isset( $defaults['date'] ) ) { unset( $defaults['date'] ); }
-
-		if ( count( $defaults ) > 2 ) {
-			$last_item = array_slice( $defaults, -1 );
-
-			array_pop( $defaults );
-		}
-		$defaults = array_merge( $new_columns, $defaults );
-
-		if ( $last_item != '' ) {
-			foreach ( $last_item as $k => $v ) {
-				$defaults[$k] = $v;
-				break;
-			}
-		}
-
-		return $defaults;
-	} // End register_custom_column_headings()
 }

@@ -26,7 +26,7 @@ if ( !class_exists( 'BoligVelger' ) ) {
 		 *
 		 * @var     string
 		 */
-		const VERSION = '1.8.26';
+		const VERSION = '1.0.0';
 		const file = __FILE__;
 		const name = 'Bolig Velger';
 		const slug = 'boligvelger';
