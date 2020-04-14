@@ -419,10 +419,10 @@ if ( !class_exists( 'BoligVelger' ) ) {
 			}
 			$settings['styles'][] = array(
 				'title' => 'default',
-				'map_highlight_color' => !empty( $settings['img_settings'][$this->custom_fields->prefix.'map_highlight_color'][0] ) ? $settings['img_settings'][$this->custom_fields->prefix.'map_highlight_color'][0] : '',
+				'map_highlight_color' => '#3CA2A2',
 				'map_highlight_opacity' => !empty( $settings['img_settings'][$this->custom_fields->prefix.'map_highlight_opacity'][0] ) ? $settings['img_settings'][$this->custom_fields->prefix.'map_highlight_opacity'][0] : '',
 				'map_border_color' => !empty( $settings['img_settings'][$this->custom_fields->prefix.'map_border_color'][0] ) ? $settings['img_settings'][$this->custom_fields->prefix.'map_border_color'][0] : '',
-				'_bv_map_hover_color' => !empty( $settings['img_settings'][$this->custom_fields->prefix.'map_hover_color'][0] ) ? $settings['img_settings'][$this->custom_fields->prefix.'map_hover_color'][0] : '',
+				'_bv_map_hover_color' => '#3CA2A2',
 				'_bv_map_hover_opacity' => !empty( $settings['img_settings'][$this->custom_fields->prefix.'map_hover_opacity'][0] ) ? $settings['img_settings'][$this->custom_fields->prefix.'map_hover_opacity'][0] : ''
 			);
 
@@ -445,7 +445,7 @@ if ( !class_exists( 'BoligVelger' ) ) {
 					'borderOpacity' => 0,
 				);
 				$new_style['hover'] = array(
-					'fillColor' => $style['map_highlight_color'],
+					'fillColor' => '#3CA2A2',
 					'fillOpacity' => $style['map_highlight_opacity'],
 					'borderColor' => $style['map_border_color'],
 					'borderOpacity' => $settings['border_opacity'],

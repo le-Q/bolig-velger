@@ -75,6 +75,7 @@ if ( !class_exists( 'BoligVelger_Admin' ) ) {
 			add_action( 'pending_to_publish', array( $this, 'admin_init' ) );
 			//add_action( 'transition_post_status', array( $this, 'admin_init' ) );
 
+
 			add_action( 'admin_notices', array( $this, 'display_third_party_js_conflict_notice' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'store_enqueued_scripts' ), 1 );
 			add_action( 'admin_enqueue_scripts', array( $this, 'disable_third_party_js' ), 9999999 );
@@ -237,14 +238,6 @@ if ( !class_exists( 'BoligVelger_Admin' ) ) {
 
 		}
 
-		public function admin_menu() {
-			global $submenu;
-
-			remove_submenu_page( 'edit.php?post_type=bv_image', 'post-new.php?post_type=bv_image'  );
-			remove_submenu_page( 'edit.php?post_type=bv_image', 'edit.php?post_type=bv_image'  );
-			add_submenu_page( 'edit.php?post_type=bv_image', __('Edit Image', 'bolig-velger' ), __('Edit Image', 'bolig-velger' ), 'edit_others_posts', 'edit.php?post_type=bv_image' );
-		}
-
 
 		public function admin_init() {
 			if ( empty( $_GET['post_type'] ) ) {
@@ -255,8 +248,6 @@ if ( !class_exists( 'BoligVelger_Admin' ) ) {
 			if (
 				( $pagenow == 'edit.php' && $_GET['post_type'] == $this->da->cpt->post_type
 				|| $pagenow == 'post-new.php' && $_GET['post_type'] == $this->da->cpt->post_type )
-				&& 
-				( empty( $_GET['page'] ) || $_GET['page'] != 'import_export' )
 			) {
 				$image_args = array(
 					'post_status' => 'any',
@@ -280,6 +271,7 @@ if ( !class_exists( 'BoligVelger_Admin' ) ) {
 					) );
 					DrawAttention_Themes::apply_theme( $imageID, 'boligvelger' );
 				}
+				DrawAttention_Themes::apply_theme( $imageID, 'boligvelger' );
 				if ( empty( $imageID ) ) die( 'An error occurred setting up DrawAttention.');
 
 				wp_redirect( get_edit_post_link( $imageID, 'raw' ) );
@@ -390,5 +382,11 @@ if ( !class_exists( 'BoligVelger_Admin' ) ) {
 
 
 
+
+
+
+	}
+	function testtest() {
+		echo "<h1>Test</h1>";
 	}
 }

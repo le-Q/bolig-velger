@@ -21,17 +21,8 @@ class DrawAttention_CustomFields {
 		include_once __DIR__ . '/actions/action-url.php';
 		$this->actions['url'] = new DrawAttention_URL_Action();
 
-		//add_action( 'cmb2_render_text_number', array( $this, 'cmb2_render_text_number' ), 10, 5 );
-		//add_filter( 'cmb2_sanitize_text_number', array( $this, 'cmb2_sanitize_text_number' ), 10, 5 );
+		add_action( 'wp_ajax_hotspot_update_custom_fields', array( $this, 'update_hotspot_area_details' ) );
 
-		//add_action( 'cmb2_render_opacity', array( $this, 'cmb2_render_opacity' ), 10, 5 );
-		//add_filter( 'cmb2_sanitize_opacity', array( $this, 'cmb2_sanitize_opacity' ) );
-
-		//add_filter( 'cmb2_override_meta_value', array( $this, 'hotspot_area_override_title_and_content' ), 10, 4 );
-		//add_action( 'wp_ajax_hotspot_update_custom_fields', array( $this, 'update_hotspot_area_details' ) );
-
-		//add_filter( 'cmb2_meta_boxes', array( $this, 'highlight_styling_metabox' ) );
-		//add_filter( 'cmb2_meta_boxes', array( $this, 'moreinfo_metabox' ) );
 		add_filter( 'cmb2_meta_boxes', array( $this, 'hotspot_area_group_details_metabox' ), 11 );
 	}
 
