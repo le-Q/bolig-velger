@@ -21,10 +21,10 @@ class DrawAttention_CustomFields {
 		include_once __DIR__ . '/actions/action-url.php';
 		$this->actions['url'] = new DrawAttention_URL_Action();
 
-		add_action( 'cmb2_render_text_number', array( $this, 'cmb2_render_text_number' ), 10, 5 );
+		//add_action( 'cmb2_render_text_number', array( $this, 'cmb2_render_text_number' ), 10, 5 );
 		add_filter( 'cmb2_sanitize_text_number', array( $this, 'cmb2_sanitize_text_number' ), 10, 5 );
 
-		add_action( 'cmb2_render_opacity', array( $this, 'cmb2_render_opacity' ), 10, 5 );
+		//add_action( 'cmb2_render_opacity', array( $this, 'cmb2_render_opacity' ), 10, 5 );
 		add_filter( 'cmb2_sanitize_opacity', array( $this, 'cmb2_sanitize_opacity' ) );
 
 		add_filter( 'cmb2_override_meta_value', array( $this, 'hotspot_area_override_title_and_content' ), 10, 4 );
@@ -178,19 +178,27 @@ class DrawAttention_CustomFields {
 			$thumbnail_src = wp_get_attachment_image_src( get_post_thumbnail_id( esc_attr( $_REQUEST['post'] ) ), 'full' );
 		}
 
+		$leilighet = array(
+			'post_type' => 'leilighet'
+		);
+		$loop = new WP_Query($leilighet);
+		$leiligheter = array();
+
+		while($loop->have_posts()) : $loop->the_post();
+			$leiligheter[get_the_ID()] = get_the_title(); 
+		endwhile;
+
 		$metaboxes['field_group'] = apply_filters( 'bv_hotspot_area_group_details', array(
 			'id'           => 'field_group',
-			'title'        => __( 'Hotspot Areas', 'bolig-velger' ),
+			'title'        => __( 'Leiligheter', 'bolig-velger' ),
 			'object_types' => array( $this->parent->cpt->post_type, ),
 			'fields'       => array(
 				array(
 					'id'          => $this->prefix . 'hotspots',
 					'type'        => 'group',
-					'description' => __( 'Draw the clickable areas of your image', 'bolig-velger' ),
 					'options'     => array(
-						'group_title'   => __( 'Clickable Area #{#}', 'bolig-velger' ), // {#} gets replaced by row number
-						'add_button'    => __( 'Add Another Area', 'bolig-velger' ),
-						'remove_button' => __( 'Remove Area', 'bolig-velger' ),
+						'group_title'   => __( 'Område #{#}', 'bolig-velger' ), // {#} gets replaced by row number
+						'add_button'    => __( 'Legg til', 'bolig-velger' ),
 						'sortable'      => false, // beta
 					),
 					// Fields array works the same, except id's only need to be unique for this group. Prefix is not needed.
@@ -203,55 +211,15 @@ class DrawAttention_CustomFields {
 								'data-image-url' => ( !empty( $thumbnail_src[0] ) ) ? $thumbnail_src[0] : '',
 							),
 						),
-						'title' => array(
-							'name' => __('Title', 'bolig-velger' ),
-							'id'   => 'title',
-							'type' => 'text',
-						),
-						'action' => array(
-							'name' => __('Action', 'bolig-velger' ),
+						'option' => array(
+							'name' => __('Leilighet', 'bolig-velger' ),
 							'description' => '',
 							'id'   => 'action',
 							'attributes' => array(
 								'class' => 'cmb2_select action',
 							),
-							// 'type' => 'textarea_small',
 							'type' => 'select',
-							'options' => array(
-								'' => 'Show More Info',
-							),
-						),
-						'description' => array(
-							'name' => __('Description', 'bolig-velger' ),
-							'description' => '',
-							'id'   => 'description',
-							// 'type' => 'textarea_small',
-							'type' => 'wysiwyg',
-							'options' => array(
-								// 'wpautop' => true, // use wpautop?
-								'media_buttons' => false, // show insert/upload button(s)
-								// 'textarea_name' => $editor_id, // set the textarea name to something different, square brackets [] can be used here
-								'textarea_rows' => get_option('default_post_edit_rows', 7), // rows="..."
-								// 'tabindex' => '',
-								// 'editor_css' => '', // intended for extra styles for both visual and HTML editors buttons, needs to include the `<style>` tags, can use "scoped".
-								// 'editor_class' => '', // add extra class(es) to the editor textarea
-								'teeny' => true, // output the minimal editor config used in Press This
-								// 'dfw' => false, // replace the default fullscreen with DFW (needs specific css)
-								// 'tinymce' => true, // load TinyMCE, can be used to pass settings directly to TinyMCE using an array()
-								// 'quicktags' => true // load Quicktags, can be used to pass settings directly to Quicktags using an array()
-							),
-							'attributes' => array(
-								'data-action' => 'more-info',
-							),
-						),
-						'detail_image' => array(
-							'name' => __( 'Detail Image', 'bolig-velger' ),
-							'desc' => __( 'Upload an image or enter a URL to show in the more info box', 'bolig-velger' ),
-							'id'   => 'detail_image',
-							'type' => 'file',
-							'attributes' => array(
-								'data-action' => 'more-info',
-							),
+							'options' => $leiligheter,
 						),
 					),
 				),

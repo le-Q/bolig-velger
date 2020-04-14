@@ -64,7 +64,7 @@ class CMB2_Types {
 	 */
 	public function render() {
 		if ( $this->field->args( 'repeatable' ) ) {
-			$this->render_repeatable_field();
+			//$this->render_repeatable_field();
 		} else {
 			$this->_render();
 		}

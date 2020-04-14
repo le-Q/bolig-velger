@@ -67,6 +67,21 @@ class DrawAttention_CPT {
 				'supports' => array( 'title', 'thumbnail' ),
 		 	) /* end of options */
 		); /* end of register post type */
+
+
+	  // Leilighet Post Type
+		register_post_type('leilighet', array(
+			'supports' => array('title', 'editor', 'thumbnail'),
+			'public' => true,
+			'labels' => array(					
+				'name' => 'Leilighet',
+				'add_new_item' => 'Legg til leilighet',
+				'edit_item' => 'Endre leilighet',
+				'all_items' => 'Alle leiligheter',
+				'singular_name' => 'Leilighet'
+			),
+			'menu_icon' => 'dashicons-welcome-learn-more'
+		));
 	}
 
 	function get_image ( $id, $size = 'projects-thumbnail' ) {
