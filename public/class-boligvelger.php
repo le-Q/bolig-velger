@@ -366,13 +366,15 @@ if ( !class_exists( 'BoligVelger' ) ) {
 				'urls_class' => '',
 			);
 
+
 			// Get the DA image ID
-			$latest_da = get_posts('post_type=' . $this->cpt->post_type . '&numberposts=1');
-			$settings['image_id'] = $latest_da[0]->ID;
+			//$latest_da = get_posts('post_type=' . $this->cpt->post_type . '&numberposts=1');
+			$latest_da = get_post( get_the_ID() );
+			$settings['image_id'] = $latest_da->ID;
 
 			// WPML Support
 			if ( function_exists ( 'icl_object_id' ) ) {
-				$settings['image_id'] = icl_object_id($latest_da[0]->ID, 'bv_image', true);
+				$settings['image_id'] = icl_object_id($latest_da['ID'], 'bv_image', true);
 			}
 
 			// Get and set DA settings

@@ -70,9 +70,10 @@ if ( !class_exists( 'BoligVelger_Admin' ) ) {
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_styles' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ) );
 
-			add_action( 'admin_menu', array( $this, 'admin_menu' ) );
-			add_action( 'admin_init', array( $this, 'admin_init' ) );
-			add_action( 'wp_before_admin_bar_render', array( $this, 'remove_add_new_submenu' ) );
+			add_action( 'new_to_publish', array( $this, 'admin_init' ) );
+			add_action( 'draft_to_publish', array( $this, 'admin_init' ) );
+			add_action( 'pending_to_publish', array( $this, 'admin_init' ) );
+			//add_action( 'transition_post_status', array( $this, 'admin_init' ) );
 
 			add_action( 'admin_notices', array( $this, 'display_third_party_js_conflict_notice' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'store_enqueued_scripts' ), 1 );
@@ -244,10 +245,6 @@ if ( !class_exists( 'BoligVelger_Admin' ) ) {
 			add_submenu_page( 'edit.php?post_type=bv_image', __('Edit Image', 'bolig-velger' ), __('Edit Image', 'bolig-velger' ), 'edit_others_posts', 'edit.php?post_type=bv_image' );
 		}
 
-		public function remove_add_new_submenu() {
-			global $wp_admin_bar;
-			$wp_admin_bar->remove_menu( 'new-bv_image' );
-		}
 
 		public function admin_init() {
 			if ( empty( $_GET['post_type'] ) ) {
@@ -264,7 +261,7 @@ if ( !class_exists( 'BoligVelger_Admin' ) ) {
 				$image_args = array(
 					'post_status' => 'any',
 					'post_type' => $this->da->cpt->post_type,
-					'posts_per_page' => 1,
+					'post_count' => 1,
 					'order' => 'DESC',
 					'orderby' => 'ID',
 					);
