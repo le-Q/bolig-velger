@@ -22,153 +22,17 @@ class DrawAttention_CustomFields {
 		$this->actions['url'] = new DrawAttention_URL_Action();
 
 		//add_action( 'cmb2_render_text_number', array( $this, 'cmb2_render_text_number' ), 10, 5 );
-		add_filter( 'cmb2_sanitize_text_number', array( $this, 'cmb2_sanitize_text_number' ), 10, 5 );
+		//add_filter( 'cmb2_sanitize_text_number', array( $this, 'cmb2_sanitize_text_number' ), 10, 5 );
 
 		//add_action( 'cmb2_render_opacity', array( $this, 'cmb2_render_opacity' ), 10, 5 );
-		add_filter( 'cmb2_sanitize_opacity', array( $this, 'cmb2_sanitize_opacity' ) );
+		//add_filter( 'cmb2_sanitize_opacity', array( $this, 'cmb2_sanitize_opacity' ) );
 
-		add_filter( 'cmb2_override_meta_value', array( $this, 'hotspot_area_override_title_and_content' ), 10, 4 );
-		add_action( 'wp_ajax_hotspot_update_custom_fields', array( $this, 'update_hotspot_area_details' ) );
+		//add_filter( 'cmb2_override_meta_value', array( $this, 'hotspot_area_override_title_and_content' ), 10, 4 );
+		//add_action( 'wp_ajax_hotspot_update_custom_fields', array( $this, 'update_hotspot_area_details' ) );
 
 		//add_filter( 'cmb2_meta_boxes', array( $this, 'highlight_styling_metabox' ) );
 		//add_filter( 'cmb2_meta_boxes', array( $this, 'moreinfo_metabox' ) );
 		add_filter( 'cmb2_meta_boxes', array( $this, 'hotspot_area_group_details_metabox' ), 11 );
-	}
-
-	function cmb2_render_text_number( $field_object, $escaped_value, $object_id, $object_type, $field_type_object ) {
-		if ( $escaped_value == "-1" ) $escaped_value = 0;
-		if ( $escaped_value === '' ) $escaped_value = 1;
-		echo $field_type_object->input( array( 'class' => 'cmb2-text-small', 'type' => 'number', 'value' => $escaped_value, ) ).'px';
-	}
-	function cmb2_sanitize_text_number( $new, $value, $object_id, $args, $field ) {
-		$new = preg_replace( "/[^0-9]/", "", $value );
-		if ( empty( $new ) ) $new = -1;
-
-		return $new;
-	}
-
-	function cmb2_render_opacity( $field_object, $escaped_value, $object_id, $object_type, $field_type_object ) {
-		echo $field_type_object->input( array( 'class' => 'cmb2-text-small', 'type' => 'range', 'min' => 0.01, 'max' => 1.01, 'step' => 0.05, ) );
-		echo '<span class="opacity-percentage-value">'.( ( $escaped_value - .01 ) * 100).'</span>%';
-	}
-	function cmb2_sanitize_opacity( $new ) {
-		return $new;
-	}
-
-	public function add_hotspot_area_details_table_metabox() {
-		add_meta_box( 'hotspot_area_details_table',
-			__('Hotspot Areas', 'bolig-velger' ),
-			array( $this, 'hotspot_area_details_table_metabox_callback' ),
-			$page,
-			'normal',
-			'default'
-		) ;
-	}
-
-	function highlight_styling_metabox( array $metaboxes ) {
-		$metaboxes['highlight_styling'] = array(
-			'id' => 'highlight_styling_metabox',
-			'title' => __( 'Highlight Styling', 'bolig-velger' ),
-			'object_types' => array( $this->parent->cpt->post_type, ),
-			'context'       => 'normal',
-			'priority'      => 'high',
-			'fields' => array(
-
-				array(
-					'name'    => __( 'Highlight Color', 'bolig-velger' ),
-					'desc'    => '',
-					'id'      => $this->prefix . 'map_highlight_color',
-					'type'    => 'colorpicker',
-					'default' => '#ffffff'
-				),
-				array(
-					'name'    => __( 'Highlight Opacity', 'bolig-velger' ),
-					'desc'    => '',
-					'id'      => $this->prefix . 'map_highlight_opacity',
-					'type'    => 'opacity',
-					'default' => '0.81',
-					'escape_cb' => array( $this, 'cmb2_allow_0_value' ),
-				),
-				array(
-					'name'    => __( 'Border Color', 'bolig-velger' ),
-					'desc'    => '',
-					'id'      => $this->prefix . 'map_border_color',
-					'type'    => 'colorpicker',
-					'default' => '#ffffff'
-				),
-				array(
-					'name'    => __( 'Border Opacity', 'bolig-velger' ),
-					'desc'    => '',
-					'id'      => $this->prefix . 'map_border_opacity',
-					'type'    => 'opacity',
-					'default' => '0.81'
-				),
-				array(
-					'name'    => __( 'Border Width', 'bolig-velger' ),
-					'desc'    => '',
-					'id'      => $this->prefix . 'map_border_width',
-					'type'    => 'text_number',
-				),
-
-
-			),
-		);
-
-		return $metaboxes;
-	}
-
-	function moreinfo_metabox( array $metaboxes ) {
-		$metaboxes['moreinfo'] = array(
-			'id' => 'moreinfo_metabox',
-			'title' => __( 'More Info Box Styling', 'bolig-velger' ),
-			'object_types' => array( $this->parent->cpt->post_type, ),
-			'context'       => 'normal',
-			'priority'      => 'high',
-			'fields' => array(
-
-				array(
-					'name'    => __( 'Image Background Color', 'bolig-velger' ),
-					'desc'    => __( 'Set the background color of behind the image', 'bolig-velger' ),
-					'id'      => $this->prefix . 'image_background_color',
-					'type'    => 'colorpicker',
-					'default' => '#efefef'
-				),
-
-				array(
-					'name'    => __( 'Title Color', 'bolig-velger' ),
-					'desc'    => __( 'Set the color of titles in More Info box', 'bolig-velger' ),
-					'id'      => $this->prefix . 'map_title_color',
-					'type'    => 'colorpicker',
-					'default' => '#000000'
-				),
-
-				array(
-					'name'    => __( 'Text Color', 'bolig-velger' ),
-					'desc'    => __( 'Set the color of body text in More Info box', 'bolig-velger' ),
-					'id'      => $this->prefix . 'map_text_color',
-					'type'    => 'colorpicker',
-					'default' => '#000000'
-				),
-
-				array(
-					'name'    => __( 'More Info Background Color', 'bolig-velger' ),
-					'desc'    => __( 'Set the background color of the More Info box', 'bolig-velger' ),
-					'id'      => $this->prefix . 'map_background_color',
-					'type'    => 'colorpicker',
-					'default' => '#ffffff'
-				),
-
-				array(
-					'name'    => __( 'Default More Info', 'bolig-velger' ),
-					'desc'    => __( 'Set the text to show up in the more info box (when no area is selected)', 'bolig-velger' ),
-					'id'      => $this->prefix . 'map_more_info',
-					'type'    => 'textarea_small',
-				),
-				
-			),
-		);
-
-		return $metaboxes;
 	}
 
 	function hotspot_area_group_details_metabox( array $metaboxes ) {

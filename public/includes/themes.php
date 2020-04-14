@@ -38,38 +38,6 @@ class DrawAttention_Themes {
 
 	public static function get_themes() {
 		$themes = array(
-			'light' => array(
-				'slug' => 'light',
-				'name' => 'Light',
-				'values' => array(
-					'map_highlight_color' => '#222222',
-					'map_highlight_opacity' => 0.8,
-
-					'map_border_color' => '#000000',
-					'map_border_opacity' => 0.8,
-					'map_border_width' => 1,
-
-					'map_title_color' => '#000000',
-					'map_text_color' => '#000000',
-					'map_background_color' => '#ffffff',
-				),
-			),
-			'dark' => array(
-				'slug' => 'dark',
-				'name' => 'Dark',
-				'values' => array(
-					'map_highlight_color' => '#cccccc',
-					'map_highlight_opacity' => 0.8,
-
-					'map_border_color' => '#ffffff',
-					'map_border_opacity' => 0.8,
-					'map_border_width' => 1,
-
-					'map_title_color' => '#ffffff',
-					'map_text_color' => '#ffffff',
-					'map_background_color' => '#000000',
-				),
-			),
 			'boligvelger' => array(
 				'slug' => 'boligvelger',
 				'name' => 'Draw Attention',
@@ -86,7 +54,6 @@ class DrawAttention_Themes {
 					'map_background_color' => '#2E2D29',
 				),
 			),
-
 		);
 
 		return apply_filters( 'bv_themes', $themes );
