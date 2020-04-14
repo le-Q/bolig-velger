@@ -13,8 +13,6 @@
  * Plugin class. This class should ideally be used to work with the
  * administrative side of the WordPress site.
  *
- * If you're interested in introducing public-facing
- * functionality, then refer to `class-drawattention.php`
  *
  * @TODO: Rename this class to a proper name for your plugin.
  *
@@ -170,7 +168,7 @@ if ( !class_exists( 'BoligVelger_Admin' ) ) {
 			if ( $this->da->cpt->post_type==$screen->post_type || $this->plugin_screen_hook_suffix == $screen->id ) {
 				wp_register_script( $this->plugin_slug . '-canvasareadraw', plugins_url( 'assets/js/jquery.canvasAreaDraw.js', __FILE__ ), array( 'jquery' ), BoligVelger::VERSION );
 				wp_register_script( $this->plugin_slug . '-admin-script', plugins_url( 'assets/js/admin.js', __FILE__ ), array( 'jquery', $this->plugin_slug . '-canvasareadraw' ), BoligVelger::VERSION );
-				do_action( 'da_register_admin_script' );
+				do_action( 'bv_register_admin_script' );
 				wp_localize_script( $this->plugin_slug . '-admin-script', 'hotspotAdminVars', array(
 					'ajaxURL' => admin_url( 'admin-ajax.php' ),
 				) );
@@ -241,14 +239,14 @@ if ( !class_exists( 'BoligVelger_Admin' ) ) {
 		public function admin_menu() {
 			global $submenu;
 
-			remove_submenu_page( 'edit.php?post_type=da_image', 'post-new.php?post_type=da_image'  );
-			remove_submenu_page( 'edit.php?post_type=da_image', 'edit.php?post_type=da_image'  );
-			add_submenu_page( 'edit.php?post_type=da_image', __('Edit Image', 'bolig-velger' ), __('Edit Image', 'bolig-velger' ), 'edit_others_posts', 'edit.php?post_type=da_image' );
+			remove_submenu_page( 'edit.php?post_type=bv_image', 'post-new.php?post_type=bv_image'  );
+			remove_submenu_page( 'edit.php?post_type=bv_image', 'edit.php?post_type=bv_image'  );
+			add_submenu_page( 'edit.php?post_type=bv_image', __('Edit Image', 'bolig-velger' ), __('Edit Image', 'bolig-velger' ), 'edit_others_posts', 'edit.php?post_type=bv_image' );
 		}
 
 		public function remove_add_new_submenu() {
 			global $wp_admin_bar;
-			$wp_admin_bar->remove_menu( 'new-da_image' );
+			$wp_admin_bar->remove_menu( 'new-bv_image' );
 		}
 
 		public function admin_init() {
@@ -279,13 +277,13 @@ if ( !class_exists( 'BoligVelger_Admin' ) ) {
 
 				if ( empty( $imageID ) ) {
 					$imageID = wp_insert_post( array(
-						'post_type' => 'da_image',
+						'post_type' => 'bv_image',
 						'post_status' => 'publish',
 						'post_title' => '',
 					) );
 					DrawAttention_Themes::apply_theme( $imageID, 'boligvelger' );
 				}
-				if ( empty( $imageID ) ) die( 'An error occurred setting up DrawAttention, please contact support@wpdrawattention.com');
+				if ( empty( $imageID ) ) die( 'An error occurred setting up DrawAttention.');
 
 				wp_redirect( get_edit_post_link( $imageID, 'raw' ) );
 				exit();
@@ -293,16 +291,16 @@ if ( !class_exists( 'BoligVelger_Admin' ) ) {
 		}
 
 		public function display_third_party_js_conflict_notice() {
-			if ( !empty( $_GET['da_enable_third_party_js'] ) ) {
-				delete_option( 'da_disable_third_party_js' );
+			if ( !empty( $_GET['bv_enable_third_party_js'] ) ) {
+				delete_option( 'bv_disable_third_party_js' );
 			}
-			if ( get_option( 'da_disable_third_party_js' ) ) {
+			if ( get_option( 'bv_disable_third_party_js' ) ) {
 				return;
 			}
 
-			if ( !empty( $_GET['da_disable_third_party_js'] ) ) {
-				update_option( 'da_disable_third_party_js', true );
-				$disable_url = add_query_arg( array( 'da_disable_third_party_js' => 1 ) );
+			if ( !empty( $_GET['bv_disable_third_party_js'] ) ) {
+				update_option( 'bv_disable_third_party_js', true );
+				$disable_url = add_query_arg( array( 'bv_disable_third_party_js' => 1 ) );
 				$class = "da-disabled-third-party-js updated";
 				$message = "
 				<h3>3rd party scripts disabled</h3>
@@ -331,12 +329,12 @@ if ( !class_exists( 'BoligVelger_Admin' ) ) {
 			if ( $screen->base != 'post' || $screen->post_type != $this->da->cpt->post_type ) {
 				return;
 			}
-			if ( get_option( 'da_disable_third_party_js', false ) === false  && empty( $_GET['da_disable_third_party_js'] ) ) {
+			if ( get_option( 'bv_disable_third_party_js', false ) === false  && empty( $_GET['bv_disable_third_party_js'] ) ) {
 				return;
 			}
 
 			$draw_attention_whitelist = array(
-				'drawattention-admin-script',
+				'boligvelger-admin-script',
 				'plupload-all',
 				'dgd_uploaderScript'
 			);
@@ -361,18 +359,18 @@ if ( !class_exists( 'BoligVelger_Admin' ) ) {
 				return;
 			}
 
-			if ( empty( $cmb_object->data_to_save['_da_hotspots'] ) ) {
-				$da_hotspots = array();
+			if ( empty( $cmb_object->data_to_save['_bv_hotspots'] ) ) {
+				$bv_hotspots = array();
 			} else {
-				$da_hotspots = $cmb_object->data_to_save['_da_hotspots'];
+				$bv_hotspots = $cmb_object->data_to_save['_bv_hotspots'];
 			}
-			update_post_meta( $post_id, '_da_hotspots_json', json_encode( $da_hotspots ) );
+			update_post_meta( $post_id, '_bv_hotspots_json', json_encode( $bv_hotspots ) );
 		}
 
 		public function load_from_hotspots_json() {
 			$screen = get_current_screen();
 
-			if ( $screen->post_type!=='da_image' || ( !empty( $_GET['action'] ) && $_GET['action'] !== 'edit' ) ) {
+			if ( $screen->post_type!=='bv_image' || ( !empty( $_GET['action'] ) && $_GET['action'] !== 'edit' ) ) {
 				return;
 			}
 
@@ -382,13 +380,13 @@ if ( !class_exists( 'BoligVelger_Admin' ) ) {
 			
 			$post_id = $_GET['post'];
 
-			$deserialized_hotspots = get_post_meta( $post_id, '_da_hotspots', true );
+			$deserialized_hotspots = get_post_meta( $post_id, '_bv_hotspots', true );
 			if ( empty( $deserialized_hotspots ) ) {
 				/* Maybe a parse error when deserializing */
-				$json = get_post_meta( $post_id, '_da_hotspots_json', true );
+				$json = get_post_meta( $post_id, '_bv_hotspots_json', true );
 				if ( !empty( $json ) ) {
 					/* Fall back to the JSON values */
-					update_post_meta( $post_id, '_da_hotspots', json_decode( $json, true ) );
+					update_post_meta( $post_id, '_bv_hotspots', json_decode( $json, true ) );
 				}
 			}
 		}

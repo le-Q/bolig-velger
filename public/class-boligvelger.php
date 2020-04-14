@@ -73,7 +73,7 @@ if ( !class_exists( 'BoligVelger' ) ) {
 		 * @since     1.0.0
 		 */
 		private function __construct() {
-			add_filter( 'da_description', 'wpautop' );
+			add_filter( 'bv_description', 'wpautop' );
 
 			// Activate plugin when new blog is added
 			add_action( 'wpmu_new_blog', array( $this, 'activate_new_site' ) );
@@ -294,12 +294,12 @@ if ( !class_exists( 'BoligVelger' ) ) {
 			wp_register_script( $this->plugin_slug . '-leaflet-rrose', plugins_url( 'assets/js/leaflet.rrose-min.js', __FILE__ ), array( $this->plugin_slug . '-leaflet' ), '0.2.0', $in_footer = true );
 			wp_register_script( $this->plugin_slug . '-plugin-script', plugins_url( 'assets/js/public.js', __FILE__ ), array( $this->plugin_slug . '-leaflet-rrose', 'jquery' ), self::VERSION, true );
 
-			wp_localize_script( $this->plugin_slug . '-plugin-script', 'drawattentionData', array(
+			wp_localize_script( $this->plugin_slug . '-plugin-script', 'boligvelgerData', array(
 				'isLoggedIn' => is_user_logged_in(),
 				'isAdmin' => current_user_can( 'administrator' )
 			) );
 
-			$enqueue = apply_filters( 'da_enqueue_scripts_everywhere', false );
+			$enqueue = apply_filters( 'bv_enqueue_scripts_everywhere', false );
 			if ( !empty( $enqueue ) ) {
 				wp_enqueue_script( $this->plugin_slug . '-plugin-script' );
 			}
@@ -308,7 +308,7 @@ if ( !class_exists( 'BoligVelger' ) ) {
 		function php_52_notice() {
 			global $pagenow;
 			if ( $pagenow != 'post.php' ) return;
-			if ( get_post_type() != 'da_image' ) return;
+			if ( get_post_type() != 'bv_image' ) return;
 
 			if ( version_compare( phpversion(), '5.2.99') <= 0 ) {
 				$class = "error";
@@ -372,7 +372,7 @@ if ( !class_exists( 'BoligVelger' ) ) {
 
 			// WPML Support
 			if ( function_exists ( 'icl_object_id' ) ) {
-				$settings['image_id'] = icl_object_id($latest_da[0]->ID, 'da_image', true);
+				$settings['image_id'] = icl_object_id($latest_da[0]->ID, 'bv_image', true);
 			}
 
 			// Get and set DA settings
@@ -381,7 +381,7 @@ if ( !class_exists( 'BoligVelger' ) ) {
 
 			// Add hotspots to settings
 			$settings['hotspots'] = get_post_meta( $settings['image_id'], $this->custom_fields->prefix . 'hotspots', true );
-			$settings['hotspots'] = apply_filters( 'da_render_hotspots', $settings['hotspots'], $settings['image_id'] );
+			$settings['hotspots'] = apply_filters( 'bv_render_hotspots', $settings['hotspots'], $settings['image_id'] );
 			if ( empty( $settings['hotspots'] ) ) {
 				$settings['url_hotspots'] = array();
 			} else {
@@ -420,8 +420,8 @@ if ( !class_exists( 'BoligVelger' ) ) {
 				'map_highlight_color' => !empty( $settings['img_settings'][$this->custom_fields->prefix.'map_highlight_color'][0] ) ? $settings['img_settings'][$this->custom_fields->prefix.'map_highlight_color'][0] : '',
 				'map_highlight_opacity' => !empty( $settings['img_settings'][$this->custom_fields->prefix.'map_highlight_opacity'][0] ) ? $settings['img_settings'][$this->custom_fields->prefix.'map_highlight_opacity'][0] : '',
 				'map_border_color' => !empty( $settings['img_settings'][$this->custom_fields->prefix.'map_border_color'][0] ) ? $settings['img_settings'][$this->custom_fields->prefix.'map_border_color'][0] : '',
-				'_da_map_hover_color' => !empty( $settings['img_settings'][$this->custom_fields->prefix.'map_hover_color'][0] ) ? $settings['img_settings'][$this->custom_fields->prefix.'map_hover_color'][0] : '',
-				'_da_map_hover_opacity' => !empty( $settings['img_settings'][$this->custom_fields->prefix.'map_hover_opacity'][0] ) ? $settings['img_settings'][$this->custom_fields->prefix.'map_hover_opacity'][0] : ''
+				'_bv_map_hover_color' => !empty( $settings['img_settings'][$this->custom_fields->prefix.'map_hover_color'][0] ) ? $settings['img_settings'][$this->custom_fields->prefix.'map_hover_color'][0] : '',
+				'_bv_map_hover_opacity' => !empty( $settings['img_settings'][$this->custom_fields->prefix.'map_hover_opacity'][0] ) ? $settings['img_settings'][$this->custom_fields->prefix.'map_hover_opacity'][0] : ''
 			);
 
 			// Create formatted array of styles
@@ -488,7 +488,7 @@ if ( !class_exists( 'BoligVelger' ) ) {
 		/*
 
 		function add_shortcode_metabox() {
-			add_meta_box( 'da_shortcode', __('Copy Shortcode', 'bolig-velger' ), array( $this, 'display_shortcode_metabox' ), $this->cpt->post_type, 'side', 'low');
+			add_meta_box( 'bv_shortcode', __('Copy Shortcode', 'bolig-velger' ), array( $this, 'display_shortcode_metabox' ), $this->cpt->post_type, 'side', 'low');
 		}
 
 		function display_shortcode_metabox() {
@@ -497,7 +497,7 @@ if ( !class_exists( 'BoligVelger' ) ) {
 
 		public function single_template( $template ) {
 			if ( is_singular( $this->cpt->post_type ) ) {
-				$template = self::locate_template( 'single-da_image.php' );
+				$template = self::locate_template( 'single-bv_image.php' );
 			}
 
 			return $template;
@@ -591,6 +591,6 @@ if ( !class_exists( 'BoligVelger' ) ) {
 		}
 
 	}
-} elseif ( function_exists( 'da_deactivate_free_version' ) ) {
-	add_action( 'init', 'da_deactivate_free_version' );
+} elseif ( function_exists( 'bv_deactivate_free_version' ) ) {
+	add_action( 'init', 'bv_deactivate_free_version' );
 }

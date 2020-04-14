@@ -3,7 +3,7 @@ class DrawAttention_Action {
 	public $priority = 10;
 
 	public function __construct() {
-		add_filter( 'da_hotspot_area_group_details', array( $this, 'add_action_fields' ), $this->priority, 1 );
+		add_filter( 'bv_hotspot_area_group_details', array( $this, 'add_action_fields' ), $this->priority, 1 );
 	}
 
 	public static function is_active() {

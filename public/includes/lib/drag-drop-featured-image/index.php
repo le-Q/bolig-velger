@@ -51,7 +51,7 @@
 			add_filter('admin_body_class', array(&$this, 'modify_admin_body_class'));
 
 			// Set local variables:
-			$this->plugin_locale = 'drawattention-fi';
+			$this->plugin_locale = 'boligvelger-fi';
 			$this->plugin_options_slug = 'drag-drop-featured-image';
 			$this->plugin_dirname = dirname(plugin_basename(__FILE__));
 			$this->plugin_directory = BoligVelger::get_plugin_url().'/public/includes/lib/drag-drop-featured-image/';
@@ -70,7 +70,7 @@
 		 * @return array
 		 */
 		public function get_option_post_types(){
-			return array( 'da_image' );
+			return array( 'bv_image' );
 		}
 
 		/**
@@ -94,7 +94,7 @@
 		 * Load plugin textdomain.
 		 */
 		public function load_textdomain(){
-			load_plugin_textdomain('drawattention-fi', false, dirname(plugin_basename(__FILE__)).'/languages/');
+			load_plugin_textdomain('boligvelger-fi', false, dirname(plugin_basename(__FILE__)).'/languages/');
 		}
 
 

@@ -1,6 +1,6 @@
 <?php
 class DrawAttention_CPT {
-	public $post_type = 'da_image';
+	public $post_type = 'bv_image';
 	public $singular_name = 'Image';
 
 	function __construct( $parent ) {

@@ -1,7 +1,7 @@
 <?php
 class DrawAttention_CustomFields {
 	public $parent;
-	public $prefix = '_da_';
+	public $prefix = '_bv_';
 	public $actions = array();
 
 	function __construct( $parent ) {
@@ -178,7 +178,7 @@ class DrawAttention_CustomFields {
 			$thumbnail_src = wp_get_attachment_image_src( get_post_thumbnail_id( esc_attr( $_REQUEST['post'] ) ), 'full' );
 		}
 
-		$metaboxes['field_group'] = apply_filters( 'da_hotspot_area_group_details', array(
+		$metaboxes['field_group'] = apply_filters( 'bv_hotspot_area_group_details', array(
 			'id'           => 'field_group',
 			'title'        => __( 'Hotspot Areas', 'bolig-velger' ),
 			'object_types' => array( $this->parent->cpt->post_type, ),

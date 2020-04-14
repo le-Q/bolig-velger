@@ -181,7 +181,7 @@
 
 		$(window).on( 'beforeunload.edit-post', function(e) {
 			/* Show message only when editing our post type */
-			if ($('body').hasClass('post-type-da_image')) {
+			if ($('body').hasClass('post-type-bv_image')) {
 				var confirmationMessage = 'You\'ve made some changes to your Draw Attention data.';
 				confirmationMessage += 'If you leave before saving, your changes will be lost.';
 
@@ -200,7 +200,7 @@
 	}
 
 	var sortHotspots = function() {
-		var hotspots = $('#_da_hotspots_repeat');
+		var hotspots = $('#_bv_hotspots_repeat');
 		if (hotspots.length) {
 			hotspots.sortable({
 				items: '.cmb-repeatable-grouping',

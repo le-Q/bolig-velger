@@ -10,7 +10,7 @@ get_header(); ?>
 		<div id="content" role="main">
 
 			<?php while ( have_posts() ) : the_post(); ?>
-				<?php echo do_shortcode( '[drawattention ID="'.get_the_id().'"]' ); ?>
+				<?php echo do_shortcode( '[boligvelger ID="'.get_the_id().'"]' ); ?>
 				<?php if ( current_user_can( 'edit_others_posts' ) ): ?>
 					<?php edit_post_link( __( 'Edit Interactive Image', 'bolig-velger' ) ); ?>
 				<?php endif ?>

@@ -5,7 +5,7 @@ class DrawAttention_Themes {
 	function __construct( $parent ) {
 		$this->parent = $parent;
 
-		add_action( 'da_register_admin_script', array( $this, 'pass_themes_to_admin_js' ) );
+		add_action( 'bv_register_admin_script', array( $this, 'pass_themes_to_admin_js' ) );
 	}
 	
 	function display_theme_pack_metabox() {
@@ -31,7 +31,7 @@ class DrawAttention_Themes {
 		if ( empty( $themes[$theme_slug]['values'] ) ) { return false; }
 
 		foreach ($themes[$theme_slug]['values'] as $key => $meta_value) {
-			update_post_meta( $post_id, '_da_'.$key, $meta_value );
+			update_post_meta( $post_id, '_bv_'.$key, $meta_value );
 			// TODO: Make prefix dynamic
 		}
 	}
@@ -89,7 +89,7 @@ class DrawAttention_Themes {
 
 		);
 
-		return apply_filters( 'da_themes', $themes );
+		return apply_filters( 'bv_themes', $themes );
 	}
 
 }

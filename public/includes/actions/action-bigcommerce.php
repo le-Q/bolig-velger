@@ -23,7 +23,7 @@ class DrawAttention_BigCommerce_Action extends DrawAttention_Action {
 
 		$group_details['fields'][0]['fields']['action']['options']['bigcommerce'] = __( 'Display BigCommerce Product', 'bolig-velger' );
 
-		$product_options = get_transient( 'da_bc_product_options' );
+		$product_options = get_transient( 'bv_bc_product_options' );
 		if ( empty( $product_options ) ) {
 			$products = new WP_Query(array(
 				'post_type' => 'bigcommerce_product',
@@ -31,7 +31,7 @@ class DrawAttention_BigCommerce_Action extends DrawAttention_Action {
 			) );
 			$product_options = wp_list_pluck( $products->posts, 'post_title', 'ID' );
 
-			set_transient( 'da_bc_product_options', $product_options, 3600 );
+			set_transient( 'bv_bc_product_options', $product_options, 3600 );
 		}
 		
 		$select_options = array( '' => 'Select a Product...' );

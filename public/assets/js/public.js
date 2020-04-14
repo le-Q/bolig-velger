@@ -1,4 +1,5 @@
-;(function ($, hotspots, undefined) {
+;
+(function ($, hotspots, undefined) {
 	"use strict";
 
 	var ua = window.navigator.userAgent,
@@ -6,15 +7,15 @@
 		isWebkit = !!ua.match(/WebKit/i),
 		isWebkitiOS = isiOS && isWebkit,
 		isMobileSafari = isiOS && isWebkit && !ua.match(/CriOS/i),
-		isBrowserVersion12Up = function(){
+		isBrowserVersion12Up = function () {
 			var temp,
 				M = ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
 
 			M = M[2] ? [M[1], M[2]] : [navigator.appName, navigator.appVersion, '-?'];
-    	if ((temp = ua.match(/version\/(\d+)/i)) != null) {
-    		M.splice(1, 1, temp[1]);
-    	}
-    	return parseInt(M[1]) >= 12;
+			if ((temp = ua.match(/version\/(\d+)/i)) != null) {
+				M.splice(1, 1, temp[1]);
+			}
+			return parseInt(M[1]) >= 12;
 		};
 
 	// Store all the leaflets on the page in an array for access later
@@ -23,16 +24,16 @@
 	// Store all the more info area hotspots in an object for access later
 	var infoSpots = {};
 
-	var mapSetup = function(){
+	var mapSetup = function () {
 		$('.da-error').hide();
 		$('.hotspot-info').addClass('da-hidden');
 
-		$('img.hotspots-image').each(function(){
+		$('img.hotspots-image').each(function () {
 			var img = $(this);
 
 			var tester = new Image();
 
-			tester.onload = function(){
+			tester.onload = function () {
 				markLoaded(img);
 				moreInfoSetup(img);
 				leafletSetup(img);
@@ -41,7 +42,7 @@
 		});
 
 		if (isMobileSafari) {
-			window.onpageshow = function(event){
+			window.onpageshow = function (event) {
 				if (event.persisted) {
 					window.location.reload();
 				}
@@ -49,12 +50,12 @@
 		}
 	};
 
-	var markLoaded = function(img) {
+	var markLoaded = function (img) {
 		img.data('status', 'loaded');
 		var container = img.parents('.hotspots-container').addClass('loaded');
 	};
 
-	var moreInfoSetup = function(img) {
+	var moreInfoSetup = function (img) {
 		var container = img.parents('.hotspots-container');
 
 		if (container.data('layout') == 'tooltip') {
@@ -69,11 +70,11 @@
 		infoboxSetup(container, img);
 	};
 
-	var infoboxSetup = function(container, img) {
+	var infoboxSetup = function (container, img) {
 		var initial = container.find('.hotspot-initial');
 		var content = container.find('.hotspots-placeholder');
 		initial.addClass('visible');
-		container.on('active.responsilight inactive.responsilight', function(e){
+		container.on('active.responsilight inactive.responsilight', function (e) {
 			var data = $(e.target).data('areaData');
 			var info;
 			if (e.type === 'active') {
@@ -96,8 +97,8 @@
 		});
 	};
 
-	var lightboxSetup = function(container, img) {
-		container.on('active.responsilight', function(e){
+	var lightboxSetup = function (container, img) {
+		container.on('active.responsilight', function (e) {
 			var data = $(e.target).data('areaData'),
 				info = $(data.href),
 				target = $(e.target),
@@ -105,7 +106,7 @@
 
 			if (e.type === 'active' && currentLightbox.length === 0) {
 				$.featherlight(info, {
-					afterContent: function(){
+					afterContent: function () {
 						var content = $('.hotspot-info.featherlight-inner'),
 							lb = $('.featherlight-content'),
 							mapId = container.find('map').attr('name'),
@@ -114,7 +115,7 @@
 						content.show();
 						lb.addClass('lightbox-' + mapNo);
 
-						setTimeout(function(){
+						setTimeout(function () {
 							var img = content.find('img'),
 								contentHeight = content.get(0).scrollHeight,
 								imgHeight = img.height(),
@@ -123,18 +124,20 @@
 							if (contentHeight > lbHeight) {
 								var diff = contentHeight - lbHeight + 50,
 									newHeight = imgHeight - diff,
-									minHeight = $(window).innerHeight()/2;
+									minHeight = $(window).innerHeight() / 2;
 
 								newHeight = newHeight < minHeight ? minHeight : newHeight;
 
-								img.css({'width': 'auto'});
+								img.css({
+									'width': 'auto'
+								});
 								img.animate({
 									'height': newHeight
 								}, 200);
 							}
 						}, 100);
 					},
-					afterClose: function(){
+					afterClose: function () {
 						target.removeClass('hotspot-active');
 					}
 				});
@@ -142,12 +145,12 @@
 		});
 	};
 
-	var showTooltip = function(shape, areaData) {
+	var showTooltip = function (shape, areaData) {
 		var container = $(shape._map._container);
 		var content = $(areaData.href).html();
 
 		var tip = new L.Rrose({
-			offset: new L.Point(0,0),
+			offset: new L.Point(0, 0),
 			autoPan: false,
 			maxHeight: container.height() - 48,
 			closeButton: areaData.trigger == 'click'
@@ -157,7 +160,7 @@
 		shape.bindPopup(tip);
 
 		if (areaData.trigger === 'click') {
-			shape.on('click', function(e){
+			shape.on('click', function (e) {
 				if (shape._path.classList.contains('hotspot-active')) {
 					shape.closePopup()
 				} else {
@@ -165,24 +168,24 @@
 				}
 			});
 		} else {
-			shape.on('mouseover', function(){
+			shape.on('mouseover', function () {
 				shape.openPopup();
 			});
-			shape.on('mouseout', function(){
+			shape.on('mouseout', function () {
 				shape.closePopup();
 			});
 		}
 
-		container.on('click', function(e){
+		container.on('click', function (e) {
 			e.stopPropagation();
 		});
-		$(document).on('click', function(e){
+		$(document).on('click', function (e) {
 			shape.closePopup();
 			shape._path.classList.remove('hotspot-active');
 		});
 	};
 
-	var leafletSetup = function(img) {
+	var leafletSetup = function (img) {
 		var id = img.data('id');
 		var container = $('<div id="hotspots-map-container-' + id + '" class="hotspots-map-container"></div>');
 		var imgWidth = img.width();
@@ -213,7 +216,10 @@
 		var natWidth = domImg.naturalWidth;
 		img.data('natW', natWidth);
 		img.data('natH', natHeight);
-		var bounds = [[0,0], [natHeight, natWidth]];
+		var bounds = [
+			[0, 0],
+			[natHeight, natWidth]
+		];
 		var imageLayer = L.imageOverlay(img.attr('src'), bounds).addTo(map);
 		map.fitBounds(bounds);
 
@@ -225,7 +231,7 @@
 		drawSpots(img, map);
 	};
 
-	var showContextMenu = function(shape, areaData, e) {
+	var showContextMenu = function (shape, areaData, e) {
 		var hash = areaData.href;
 		var container = $(shape._map._container);
 
@@ -237,28 +243,28 @@
 
 		var windowAddress = window.location.href.split('#')[0];
 		var shapeAddress = windowAddress + hash;
-    var div = $('<div class="da-address-wrapper"></div>')
-        .css({
-            'left': e.originalEvent.pageX + 'px',
-            'top': e.originalEvent.pageY + 'px'
-        })
-        .append('<p>' + shapeAddress + '</p>')
-        .append('<span class="da-address-close">&times;</span>')
-        .appendTo(document.body);
+		var div = $('<div class="da-address-wrapper"></div>')
+			.css({
+				'left': e.originalEvent.pageX + 'px',
+				'top': e.originalEvent.pageY + 'px'
+			})
+			.append('<p>' + shapeAddress + '</p>')
+			.append('<span class="da-address-close">&times;</span>')
+			.appendTo(document.body);
 
-    div.find('.da-address-close').on('click', function(){
-    	div.remove();
-    });
+		div.find('.da-address-close').on('click', function () {
+			div.remove();
+		});
 	};
 
-	var drawSpots = function(img, map) {
+	var drawSpots = function (img, map) {
 		var id = img.data('id');
 		var mapName = img.attr('usemap').replace('#', '');
 		var imageMap = $('map[name="' + mapName + '"]');
 		var areas = imageMap.find('area');
 		var container = img.parents('.hotspots-container');
 
-		areas.each(function(){
+		areas.each(function () {
 			var area = $(this);
 			var shape = area.attr('shape');
 			var coords = area.attr('coords').split(',');
@@ -271,7 +277,7 @@
 				layout: container.data('layout'),
 				trigger: container.data('trigger')
 			};
-			switch(shape) {
+			switch (shape) {
 				case 'circle':
 					renderCircle(coords, map, img, areaData);
 					break;
@@ -287,11 +293,11 @@
 		linkToArea();
 	};
 
-	var renderCircle = function(coords, map, img, areaData) {
+	var renderCircle = function (coords, map, img, areaData) {
 		var x = coords[0];
 		var y = img.data('natH') - coords[1];
 		var rad = coords[2];
-		var circle = L.circle([y,x], {
+		var circle = L.circle([y, x], {
 			radius: rad,
 			className: 'hotspot-' + areaData.style,
 			title: areaData.title
@@ -310,7 +316,7 @@
 			}
 		}
 
-		var polyCoords = yCoords.map(function(coord, index) {
+		var polyCoords = yCoords.map(function (coord, index) {
 			return [img.data('natH') - coord, xCoords[index]];
 		});
 
@@ -328,7 +334,7 @@
 		shapeEvents(poly, areaData);
 	};
 
-	var shapeOver = function(shape, areaData, e) {
+	var shapeOver = function (shape, areaData, e) {
 		var $shape = $(e.target.getElement());
 		$shape.data('areaData', areaData);
 		$shape.trigger('over.responsilight');
@@ -338,7 +344,7 @@
 		}
 	};
 
-	var shapeOut = function(shape, areaData, e) {
+	var shapeOut = function (shape, areaData, e) {
 		var $shape = $(e.target.getElement());
 		$shape.data('areaData', areaData);
 		$shape.trigger('out.responsilight');
@@ -348,7 +354,7 @@
 		}
 	};
 
-	var shapeClick = function(shape, areaData, e) {
+	var shapeClick = function (shape, areaData, e) {
 		var $shape = $(e.target.getElement());
 		$shape.data('areaData', areaData);
 		$shape.trigger('areaClick.responsilight');
@@ -367,13 +373,13 @@
 		}
 	};
 
-	var shapeEvents = function(shape, areaData) {
+	var shapeEvents = function (shape, areaData) {
 		// Handle URL spots
 		if (areaData.action == 'url') {
 			if (areaData.title) {
 				shape.bindTooltip(areaData.title);
 			}
-			shape.on('click', function(e) {
+			shape.on('click', function (e) {
 				if (areaData.target == '_new' && !isMobileSafari) { // new window
 					window.open(areaData.href, '_blank');
 				} else { // same window
@@ -387,7 +393,7 @@
 					if (targetElem && targetElem.length) { // hash link to existing target
 						$('html, body').animate({
 							scrollTop: targetElem.offset().top - 50
-						}, 750, function(){ // callback after scrolling
+						}, 750, function () { // callback after scrolling
 							history.pushState({}, '', areaData.href);
 						})
 					} else {
@@ -399,8 +405,8 @@
 		}
 
 		// Show right-click context menu for logged-in admins only
-		if (drawattentionData.isLoggedIn && drawattentionData.isAdmin) {
-			shape.on('contextmenu', function(e){
+		if (boligvelgerData.isLoggedIn && boligvelgerData.isAdmin) {
+			shape.on('contextmenu', function (e) {
 				showContextMenu(shape, areaData, e);
 			});
 		}
@@ -420,8 +426,8 @@
 		// Handle all other spots
 		var moved = false;
 
-		shape.on('touchstart touchmove touchend click mouseover mouseout', function(e){
-			switch(e.type) {
+		shape.on('touchstart touchmove touchend click mouseover mouseout', function (e) {
+			switch (e.type) {
 				case 'touchstart':
 					moved = false;
 					break;
@@ -451,7 +457,7 @@
 		});
 	};
 
-	var linkToArea = function(){ // Called after the shapes are drawn
+	var linkToArea = function () { // Called after the shapes are drawn
 		var hash = window.location.hash,
 			area = null;
 
@@ -465,15 +471,15 @@
 		infoSpots[spotName].fire('click')
 	};
 
-	hotspots.setup = function(){
+	hotspots.setup = function () {
 		mapSetup();
 	};
 
 	hotspots.resizeTimer = null;
 	hotspots.resizing = false;
 
-	hotspots.init = function(){ // For backward compatibility - resets the size of the leaflet on demand
-		leaflets.forEach(function(item){
+	hotspots.init = function () { // For backward compatibility - resets the size of the leaflet on demand
+		leaflets.forEach(function (item) {
 			var isLoaded = item.img.data('status') === 'loaded';
 
 			if (!isLoaded) {
@@ -485,44 +491,48 @@
 				'height': item.img.height() + 'px'
 			});
 			item.map.invalidateSize(true);
-			item.map.fitBounds([[0,0], [item.img.data('natH'), item.img.data('natW')]]);
+			item.map.fitBounds([
+				[0, 0],
+				[item.img.data('natH'), item.img.data('natW')]
+			]);
 		});
 	};
 
-	hotspots.compatibilityFixes = function(){
-		if (window.Foundation) { /* Fix for Foundation firing tag change event indiscriminately when some items are clicked on the page */
-			$(window).on('change.zf.tabs', function(e){
+	hotspots.compatibilityFixes = function () {
+		if (window.Foundation) {
+			/* Fix for Foundation firing tag change event indiscriminately when some items are clicked on the page */
+			$(window).on('change.zf.tabs', function (e) {
 				if (e.target.tagName !== 'INPUT') {
 					hotspots.init();
 				}
 			});
 		}
-		$(window).on('pageloaded', function(){
+		$(window).on('pageloaded', function () {
 			hotspots.init();
 		});
-		$(window).on('load', function(){
+		$(window).on('load', function () {
 			hotspots.init();
 		});
-		$('a[data-vc-accordion], .et_pb_tabs .et_pb_tabs_controls li, .et_pb_toggle_title').on('click', function() {
-			setTimeout(function() {
+		$('a[data-vc-accordion], .et_pb_tabs .et_pb_tabs_controls li, .et_pb_toggle_title').on('click', function () {
+			setTimeout(function () {
 				hotspots.init();
 			}, 1000);
 		});
-		$('.ui-tabs-anchor, .nav-tabs > li').on('click', function() {
-			setTimeout(function() {
+		$('.ui-tabs-anchor, .nav-tabs > li').on('click', function () {
+			setTimeout(function () {
 				hotspots.init();
 			}, 750);
 		});
-		$('.responsive-tabs').on('click', '.responsive-tabs__list__item', function(){
+		$('.responsive-tabs').on('click', '.responsive-tabs__list__item', function () {
 			hotspots.init();
 		});
-		$(window).on('et_hashchange', function() {
-			setTimeout(function() {
+		$(window).on('et_hashchange', function () {
+			setTimeout(function () {
 				hotspots.init();
 			}, 1000);
 		});
-		$('.vc_tta-tabs-container').on('click', '.vc_tta-tab', function(){
-			setTimeout(function() {
+		$('.vc_tta-tabs-container').on('click', '.vc_tta-tab', function () {
+			setTimeout(function () {
 				hotspots.init();
 			}, 1000);
 		});
@@ -530,26 +540,26 @@
 
 }(jQuery, window.hotspots = window.hotspots || {}));
 
-jQuery(function(){
+jQuery(function () {
 	hotspots.setup();
 	hotspots.compatibilityFixes();
 });
 
-jQuery(window).on('resize orientationchange', function(e){
+jQuery(window).on('resize orientationchange', function (e) {
 	var $window = jQuery(this);
 	if (!hotspots.resizing) {
 		$window.trigger('resizeStart.responsilight');
 		hotspots.resizing = true;
 	}
 	clearTimeout(hotspots.resizeTimer);
-	hotspots.resizeTimer = setTimeout(function(){
+	hotspots.resizeTimer = setTimeout(function () {
 		hotspots.init();
 		$window.trigger('resizeComplete.responsilight');
 		hotspots.resizing = false;
 	}, 250);
 });
 
-window.onerror = function(errorMsg, url, lineNumber) { // This should be a fun little experiement!
+window.onerror = function (errorMsg, url, lineNumber) { // This should be a fun little experiement!
 	var errorBox = jQuery('.da-error').show();
 	if (errorBox.length) {
 		var contents = errorBox.html();

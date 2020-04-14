@@ -45,19 +45,19 @@ class DrawAttention_Block_Image {
 	function register_image_block() {
 		if( function_exists('register_block_type') ){
 			wp_register_script(
-				'drawattention-image-block-js',
+				'boligvelger-image-block-js',
 				trailingslashit( $this->plugin->get_plugin_url() ) . 'admin/assets/js/draw-attention-block.js',
 				array( 'wp-blocks', 'wp-element', 'wp-components', 'wp-editor' )
 			);
 
 			wp_register_style(
-				'drawattention-image-block-css',
+				'boligvelger-image-block-css',
 				trailingslashit( $this->plugin->get_plugin_url() ) . 'admin/assets/css/draw-attention-block.css'
 			);
 
 			register_block_type( 'draw-attention/image', array(
-				'editor_script' => 'drawattention-image-block-js',
-				'editor_style' => 'drawattention-image-block-css',
+				'editor_script' => 'boligvelger-image-block-js',
+				'editor_style' => 'boligvelger-image-block-css',
 				'keywords' => array( 'image', 'hotspot', 'map' ),
 
 				'render_callback' => array( $this, 'render' ),

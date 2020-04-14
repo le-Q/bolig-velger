@@ -130,7 +130,7 @@ if ( empty( $has_hotspots ) ) : ?>
 					if ( empty( $hotspot['description'] ) ) {
 						$hotspot['description'] = '';
 					}
-					if ( empty( $settings['img_settings']['_da_has_multiple_styles']['0'] ) || $settings['img_settings']['_da_has_multiple_styles']['0'] != 'on' || empty( $hotspot['style'] ) ) {
+					if ( empty( $settings['img_settings']['_bv_has_multiple_styles']['0'] ) || $settings['img_settings']['_bv_has_multiple_styles']['0'] != 'on' || empty( $hotspot['style'] ) ) {
 						$color_scheme = '';
 					} else {
 						$color_scheme = $hotspot['style'];
@@ -152,7 +152,7 @@ if ( empty( $has_hotspots ) ) : ?>
 		</map>
 
 		<?php /* Error message for admins when there's a JS error */
-		if ( ! empty( $_GET['da_debug'] ) ) : ?>
+		if ( ! empty( $_GET['bv_debug'] ) ) : ?>
 			<div id="error-<?php echo $settings['spot_id']; ?>" class="da-error">
 				<p>It looks like there is a JavaScript error in a plugin or theme that is causing a conflict with Draw Attention. For more information on troubleshooting this issue, please see our <a href="https://wpdrawattention.com/document/troubleshooting-conflicts-themes-plugins/" target="_new">help page</a>.
 			</div>
@@ -160,7 +160,7 @@ if ( empty( $has_hotspots ) ) : ?>
 
 		<?php /* Loop through the hotspots and output the more info content for each */
 		foreach( $settings['hotspots'] as $key => $hotspot ) : ?>
-			<?php if ( empty( $settings['img_settings']['_da_has_multiple_styles']['0'] ) || $settings['img_settings']['_da_has_multiple_styles']['0'] != 'on' || empty( $hotspot['style'] ) ) {
+			<?php if ( empty( $settings['img_settings']['_bv_has_multiple_styles']['0'] ) || $settings['img_settings']['_bv_has_multiple_styles']['0'] != 'on' || empty( $hotspot['style'] ) ) {
 				$color_scheme_class = '';
 			} else {
 				$color_scheme_class = 'da-style-' . $hotspot['style'];
@@ -182,10 +182,10 @@ if ( empty( $has_hotspots ) ) : ?>
 				}
 				?>
 
-				<?php echo apply_filters( 'drawattention_hotspot_title', '<h2 class="hotspot-title">' . $hotspot['title'] . '</h2>', $hotspot ); ?>
+				<?php echo apply_filters( 'boligvelger_hotspot_title', '<h2 class="hotspot-title">' . $hotspot['title'] . '</h2>', $hotspot ); ?>
 				<?php if ( !empty($hotspot['detail_image_id'])) : ?>
 					<div class="hotspot-thumb">
-						<?php echo wp_get_attachment_image( $hotspot['detail_image_id'], apply_filters( 'da_detail_image_size', 'large', $hotspot, $settings['img_post'], $settings['img_settings'] ) ); ?>
+						<?php echo wp_get_attachment_image( $hotspot['detail_image_id'], apply_filters( 'bv_detail_image_size', 'large', $hotspot, $settings['img_post'], $settings['img_settings'] ) ); ?>
 					</div>
 				<?php elseif( empty( $hotspot['detail_image_id'] ) && ! empty( $hotspot[ 'detail_image' ] ) ) : ?>
 					<div class="hotspot-thumb">
@@ -193,7 +193,7 @@ if ( empty( $has_hotspots ) ) : ?>
 					</div>
 				<?php endif; ?>
 				<div class="hotspot-content">
-					<?php if( !empty( $hotspot['description'] ) ) echo apply_filters( 'da_description', do_shortcode( $wp_embed->autoembed( $wp_embed->run_shortcode( $hotspot['description'] ) ) ) ); ?>
+					<?php if( !empty( $hotspot['description'] ) ) echo apply_filters( 'bv_description', do_shortcode( $wp_embed->autoembed( $wp_embed->run_shortcode( $hotspot['description'] ) ) ) ); ?>
 				</div>
 			</div>
 		<?php endforeach; ?>
