@@ -383,7 +383,7 @@ if ( !class_exists( 'BoligVelger' ) ) {
 
 			// Add hotspots to settings
 			$settings['hotspots'] = get_post_meta( $settings['image_id'], $this->custom_fields->prefix . 'hotspots', true );
-			$settings['hotspots'] = apply_filters( 'bv_render_hotspots', $settings['hotspots'], $settings['image_id'] );
+			//$settings['hotspots'] = apply_filters( 'da_render_hotspots', $settings['hotspots'], $settings['image_id'] );
 			if ( empty( $settings['hotspots'] ) ) {
 				$settings['url_hotspots'] = array();
 			} else {
@@ -445,7 +445,7 @@ if ( !class_exists( 'BoligVelger' ) ) {
 					'borderOpacity' => 0,
 				);
 				$new_style['hover'] = array(
-					'fillColor' => '#3CA2A2',
+					'fillColor' => '#F00',
 					'fillOpacity' => $style['map_highlight_opacity'],
 					'borderColor' => $style['map_border_color'],
 					'borderOpacity' => $settings['border_opacity'],

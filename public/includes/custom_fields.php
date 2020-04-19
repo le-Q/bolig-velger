@@ -51,10 +51,7 @@ class DrawAttention_CustomFields {
 				array(
 					'id'          => $this->prefix . 'hotspots',
 					'type'        => 'group',
-					'options'     => array(
-						'group_title'   => __( 'Område #{#}', 'bolig-velger' ), // {#} gets replaced by row number
-						'add_button'    => __( 'Legg til', 'bolig-velger' ),
-						'sortable'      => false, // beta
+					'options'     => array('group_title'   => __( 'Område #{#}', 'bolig-velger' ) // {#} gets replaced by row number
 					),
 					// Fields array works the same, except id's only need to be unique for this group. Prefix is not needed.
 					'fields'      => array(
@@ -63,22 +60,21 @@ class DrawAttention_CustomFields {
 							'id'   => 'coordinates',
 							'type' => 'text',
 							'attributes' => array(
-								'data-image-url' => ( !empty( $thumbnail_src[0] ) ) ? $thumbnail_src[0] : '',
-							),
+								'data-image-url' => ( !empty( $thumbnail_src[0] ) ) ? $thumbnail_src[0] : '')
 						),
 						'option' => array(
 							'name' => __('Leilighet', 'bolig-velger' ),
 							'description' => '',
 							'id'   => 'action',
 							'attributes' => array(
-								'class' => 'cmb2_select action',
+								'class' => 'cmb2_select action'
 							),
 							'type' => 'select',
-							'options' => $leiligheter,
-						),
-					),
-				),
-			),
+							'options' => $leiligheter
+						)
+					)
+				)
+			)
 		) );
   
 		return $metaboxes;

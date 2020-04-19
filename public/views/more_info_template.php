@@ -8,6 +8,7 @@
 				<?php if ( !empty( $settings['img_settings'][$this->custom_fields->prefix.'map_more_info'][0] ) ) : ?>
 				<?php echo apply_filters( 'bv_description', do_shortcode( $wp_embed->run_shortcode( $settings['img_settings'][$this->custom_fields->prefix.'map_more_info'][0] ) ) ); ?>
 				<?php endif; ?>
+				dette er en beskrivelse av prosjektet(blokken)
 			</div>
 		</div>
 	</div>

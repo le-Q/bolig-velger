@@ -59,8 +59,8 @@ if ( empty( $has_hotspots ) ) : ?>
 		}
 		#<?php echo $settings['spot_id']; ?> .hotspot-<?php echo $style['name']; ?>:hover,
 		#<?php echo $settings['spot_id']; ?> .hotspot-<?php echo $style['name']; ?>.hotspot-active {
-			fill: <?php echo $style['hover']['fillColor']; ?>;
-			fill-opacity: <?php echo $style['hover']['fillOpacity']; ?>;
+			fill: <?php echo "#F00" ?>;
+			fill-opacity: <?php echo "0.7" ?>;
 			stroke: <?php echo $style['hover']['borderColor']; ?>;
 			stroke-opacity: <?php echo $style['hover']['borderOpacity']; ?>;
 		}
@@ -126,7 +126,7 @@ if ( empty( $has_hotspots ) ) : ?>
 					$area_class = $target == 'url' ? 'url-area' : 'more-info-area';
 					$href = $target == 'url' ? $target_url : '#hotspot-' . $settings['spot_id'] . '-' . $key;
 					$href = !empty($href) ? $href : '#';
-					$title = !empty( $hotspot['title'] ) ? $hotspot['title'] : '';
+					$title = !empty( $hotspot['action'] ) ? $hotspot['action'] : '';
 					if ( empty( $hotspot['description'] ) ) {
 						$hotspot['description'] = '';
 					}
@@ -163,7 +163,7 @@ if ( empty( $has_hotspots ) ) : ?>
 			<?php if ( empty( $settings['img_settings']['_bv_has_multiple_styles']['0'] ) || $settings['img_settings']['_bv_has_multiple_styles']['0'] != 'on' || empty( $hotspot['style'] ) ) {
 				$color_scheme_class = '';
 			} else {
-				$color_scheme_class = 'da-style-' . $hotspot['style'];
+				$color_scheme_class = 'bv-style-' . $hotspot['style'];
 			}
 			
 			if ( empty( $hotspot['title'] ) ) {
@@ -182,7 +182,7 @@ if ( empty( $has_hotspots ) ) : ?>
 				}
 				?>
 
-				<?php echo apply_filters( 'boligvelger_hotspot_title', '<h2 class="hotspot-title">' . $hotspot['title'] . '</h2>', $hotspot ); ?>
+				<?php echo apply_filters( 'boligvelger_hotspot_title', '<h2 class="hotspot-title"> Leilighet ' . get_the_title($hotspot['action']) . '</h2>', $hotspot ); ?>
 				<?php if ( !empty($hotspot['detail_image_id'])) : ?>
 					<div class="hotspot-thumb">
 						<?php echo wp_get_attachment_image( $hotspot['detail_image_id'], apply_filters( 'bv_detail_image_size', 'large', $hotspot, $settings['img_post'], $settings['img_settings'] ) ); ?>
@@ -194,6 +194,7 @@ if ( empty( $has_hotspots ) ) : ?>
 				<?php endif; ?>
 				<div class="hotspot-content">
 					<?php if( !empty( $hotspot['description'] ) ) echo apply_filters( 'bv_description', do_shortcode( $wp_embed->autoembed( $wp_embed->run_shortcode( $hotspot['description'] ) ) ) ); ?>
+				 <?php echo get_post_field('post_content', $hotspot['action']) ?><!-- kode her for å fylle inn info om leiligheten! --->
 				</div>
 			</div>
 		<?php endforeach; ?>
