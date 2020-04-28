@@ -487,15 +487,7 @@ if ( !class_exists( 'BoligVelger' ) ) {
 
 			return ob_get_clean();
 		}
-		/*
 
-		function add_shortcode_metabox() {
-			add_meta_box( 'bv_shortcode', __('Copy Shortcode', 'bolig-velger' ), array( $this, 'display_shortcode_metabox' ), $this->cpt->post_type, 'side', 'low');
-		}
-
-		function display_shortcode_metabox() {
-			echo '[drawattention]';
-		}*/
 
 		public function single_template( $template ) {
 			if ( is_singular( $this->cpt->post_type ) ) {
@@ -593,6 +585,4 @@ if ( !class_exists( 'BoligVelger' ) ) {
 		}
 
 	}
-} elseif ( function_exists( 'bv_deactivate_free_version' ) ) {
-	add_action( 'init', 'bv_deactivate_free_version' );
 }

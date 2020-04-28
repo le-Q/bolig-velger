@@ -379,14 +379,5 @@ if ( !class_exists( 'BoligVelger_Admin' ) ) {
 				}
 			}
 		}
-
-
-
-
-
-
-	}
-	function testtest() {
-		echo "<h1>Test</h1>";
 	}
 }

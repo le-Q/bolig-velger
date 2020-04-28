@@ -1,7 +1,7 @@
 <?php
 class DrawAttention_CPT {
 	public $post_type = 'bv_image';
-	public $singular_name = 'Image';
+	public $singular_name = 'Bilde';
 
 	function __construct( $parent ) {
 
@@ -26,15 +26,15 @@ class DrawAttention_CPT {
 		 	// let's now add all the options for this post type
 			array('labels' => array(
 				'name' => __('Bolig Velger', $this->post_type.' general name', 'bolig-velger' ), /* This is the Title of the Group */
-				'singular_name' => __('Image', $this->post_type.' singular name', 'bolig-velger' ), /* This is the individual type */
-				'all_items' => __('All Images', 'bolig-velger' ), /* the all items menu item */
-				'add_new' => __('Add New', 'custom '.$this->post_type.' item', 'bolig-velger' ), /* The add new menu item */
-				'add_new_item' => __('Add New Image', 'bolig-velger' ), /* Add New Display Title */
+				'singular_name' => __('Bilde', $this->post_type.' singular name', 'bolig-velger' ), /* This is the individual type */
+				'all_items' => __('Alle Bilder', 'bolig-velger' ), /* the all items menu item */
+				'add_new' => __('Legg til ny', 'custom '.$this->post_type.' item', 'bolig-velger' ), /* The add new menu item */
+				'add_new_item' => __('Legg til bilde', 'bolig-velger' ), /* Add New Display Title */
 				'edit' => __( 'Edit' ), /* Edit Dialog */
-				'edit_item' => __('Edit Image', 'bolig-velger' ), /* Edit Display Title */
-				'new_item' => __('New Image', 'bolig-velger' ), /* New Display Title */
-				'view_item' => __('View Image', 'bolig-velger' ), /* View Display Title */
-				'search_items' => __('Search Images', 'bolig-velger' ), /* Search CPT_SINGULAR_NAME Title */
+				'edit_item' => __('Endre bilde', 'bolig-velger' ), /* Edit Display Title */
+				'new_item' => __('Nytt bilde', 'bolig-velger' ), /* New Display Title */
+				'view_item' => __('Vis bilde', 'bolig-velger' ), /* View Display Title */
+				'search_items' => __('Søkte bilder', 'bolig-velger' ), /* Search CPT_SINGULAR_NAME Title */
 				'not_found' =>  __('Nothing found in the Database.', 'bolig-velger' ), /* This displays if there are no entries yet */
 				'not_found_in_trash' => __('Nothing found in Trash', 'bolig-velger' ), /* This displays if there is nothing in the trash */
 				'parent_item_colon' => ''
@@ -77,7 +77,8 @@ class DrawAttention_CPT {
 				'all_items' => 'Alle leiligheter',
 				'singular_name' => 'Leilighet'
 			),
-			'menu_icon' => 'dashicons-welcome-learn-more'
+			'menu_icon' => 'dashicons-welcome-learn-more',
+			'taxonomies' => array('category', 'post_tag')
 		));
 	}
 
