@@ -47,8 +47,7 @@ class DrawAttention_CPT {
 				'query_var' => true,
 				'menu_position' => 8, /* this is what order you want it to appear in on the left hand side menu */
 				'menu_icon' => 'dashicons-images-alt2', /* the icon for the custom post type menu */
-				'rewrite'	=> false,
-				'has_archive' => $this->post_type.'s', /* you can rename the slug here */
+
 				'capabilities' => array(
 					'edit_post' => 'edit_others_posts',
 					'edit_posts' => 'edit_others_posts',
