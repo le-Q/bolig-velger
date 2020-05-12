@@ -24,8 +24,10 @@ class DrawAttention_CustomFields {
 		add_action( 'wp_ajax_hotspot_update_custom_fields', array( $this, 'update_hotspot_area_details' ) );
 
 		add_filter( 'cmb2_meta_boxes', array( $this, 'hotspot_area_group_details_metabox' ), 11 );
-		add_filter( 'cmb2_meta_boxes', array( $this, 'choosen_element' ) );
+		add_filter( 'cmb2_meta_boxes', array( $this, 'choosen_element' ));
+
 		//add_action( 'cmb2_admin_init', 'choosen_element' );
+		
 	}
 
 	function choosen_element(array $metaboxes) {
@@ -53,7 +55,7 @@ class DrawAttention_CustomFields {
 						'option' => array(
 							'name' => __('Leilighet', 'bolig-velger' ),
 							'description' => '',
-							'id'   => 'action',
+							'id'   => 'blokk_velger',
 							'attributes' => array(
 								'class' => 'cmb2_select action'
 							),
@@ -164,64 +166,6 @@ class DrawAttention_CustomFields {
 
 	//Opprettet ny metode for custom fields til leiligheten
 
-	function cmb2_leilighet_metabox() {
-
-		$cmb = new_cmb2_box( array(
-			'id'           => 'cmb2_leilighet_metabox',
-			'title'        => 'Informasjon',
-			'object_types' => array( 'post' ),
-		) );
-	
-		// Nummer
-		$cmb->add_field( array(
-			'name' => 'Leilighet (nummer)',
-			'id'   => '_cmb2_leilighet_nr',
-			'type' => 'text',
-			'desc' => 'Dette er leiligheten sitt nummer (Eksempel: A101)',
-		) );
-
-		// Etasje
-		$cmb->add_field( array(
-			'name' => 'Etasje',
-			'id'   => '_cmb2_leilighet_etasje',
-			'type' => 'number',
-			'desc' => 'Dette er en etasje',
-		) );
-
-		// Bruttoareal
-		$cmb->add_field( array(
-			'name' => 'Bruttoareal',
-			'id'   => '_cmb2_leilighet_bruttoareal',
-			'type' => 'number',
-			'desc' => 'Dette er bruttoarealet til leiligheten',
-		) );
-
-		// Antall rom
-		$cmb->add_field( array(
-			'name' => 'Antall rom',
-			'id'   => '_cmb2_leilighet_antall',
-			'type' => 'number',
-			'desc' => 'Beskrivelse av antall rom i leilighet',
-		) );
-
-		// Pris
-		$cmb->add_field( array(
-			'name' => 'Pris',
-			'id'   => '_cmb2_leilighet_pris',
-			'type' => 'number',
-			'desc' => 'Pris på leiligheten',
-		) );
-
-		// Status
-		$cmb->add_field( array(
-			'name' => 'Status',
-			'id'   => '_cmb2_leilighet_status',
-			'type' => 'text',
-			'desc' => 'Oversikt om leiligheten er solgt eller ledig',
-		) );
-
-		add_action( 'cmb2_admin_init', 'cmb2_leilighet_metabox' );
-	}
 	
 	//Oppretter ny metode for custom fields til blokken
 

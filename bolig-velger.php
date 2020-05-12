@@ -15,6 +15,14 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
+if ( !class_exists( 'CMB2' ) ) {
+	if ( file_exists(  __DIR__ .'/public/includes/lib/cmb2/init.php' ) ) {
+		require_once  __DIR__ .'/public/includes/lib/cmb2/init.php';
+	} elseif ( file_exists(  __DIR__ .'/public/includes/lib/CMB2/init.php' ) ) {
+		require_once  __DIR__ .'/public/includes/lib/CMB2/init.php';
+	}
+}
+
 /*----------------------------------------------------------------------------*
  * Public-Facing Functionality
  *----------------------------------------------------------------------------*/
@@ -62,3 +70,97 @@ function na_parse_request( $query ) {
 	}
 }
 add_action( 'pre_get_posts', 'na_parse_request' );
+
+
+	//Opprettet ny metode for custom fields til leiligheten
+	
+	function cmb2_leilighet_metabox() {
+
+		$cmb = new_cmb2_box( array(
+			'id'           => 'cmb2_leilighet_metabox',
+			'title'        => 'Informasjon',
+			'object_types' => array( 'leilighet' ),
+		) );
+	
+		// Nummer
+		$cmb->add_field( array(
+			'name' => 'Leilighet (nummer)',
+			'id'   => '_cmb2_leilighet_nr',
+			'type' => 'text',
+			'desc' => 'Dette er leiligheten sitt nummer (Eksempel: A101)',
+		) );
+
+		// Etasje
+		$cmb->add_field( array(
+			'name' => 'Etasje',
+			'id'   => '_cmb2_leilighet_etasje',
+			'desc' => 'Dette er en etasje',
+			'type' => 'text',
+			'attributes' => array(
+				'type' => 'number',
+				'pattern' => '\d*',
+			),
+			'sanitization_cb' => 'absint',
+			'escape_cb'       => 'absint',
+		) );
+
+		// Bruttoareal
+		$cmb->add_field( array(
+			'name' => 'Bruttoareal',
+			'id'   => '_cmb2_leilighet_bruttoareal',
+			'desc' => 'Dette er bruttoarealet til leiligheten',
+			'type' => 'text',
+			'attributes' => array(
+				'type' => 'number',
+				'pattern' => '\d*',
+			),
+			'sanitization_cb' => 'absint',
+			'escape_cb'       => 'absint',
+		) );
+
+		// Antall rom
+		$cmb->add_field( array(
+			'name' => 'Antall rom',
+			'id'   => '_cmb2_leilighet_antall',
+			'desc' => 'Beskrivelse av antall rom i leilighet',
+			'type' => 'text',
+			'attributes' => array(
+				'type' => 'number',
+				'pattern' => '\d*',
+			),
+			'sanitization_cb' => 'absint',
+			'escape_cb'       => 'absint',
+		) );
+
+		// Pris
+		$cmb->add_field( array(
+			'name' => 'Pris',
+			'id'   => '_cmb2_leilighet_pris',
+			'desc' => 'Pris på leiligheten',
+			'type' => 'text',
+			'attributes' => array(
+				'type' => 'number',
+				'pattern' => '\d*',
+			),
+			'sanitization_cb' => 'absint',
+			'escape_cb'       => 'absint',
+		) );
+
+		// Status
+		$cmb->add_field( array(
+			'name'             => 'Status',
+			'desc'             => 'Oversikt om leiligheten er solgt eller ledig',
+			'id'               => '_cmb2_leilighet_status',
+			'type'             => 'select',
+			'default'          => 'custom',
+			'options'          => array(
+				'ledig' => __( 'Ledig' ),
+				'opptatt'   => __( 'Opptatt'),
+			),
+		) );
+
+		
+
+
+		add_action( 'cmb2_admin_init', 'cmb2_leilighet_metabox' );
+	}
