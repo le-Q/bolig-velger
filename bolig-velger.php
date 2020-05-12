@@ -72,8 +72,10 @@ function na_parse_request( $query ) {
 add_action( 'pre_get_posts', 'na_parse_request' );
 
 
+
+			// Leilighet metabox
+			add_action( 'cmb2_init', 'cmb2_leilighet_metabox' );
 	//Opprettet ny metode for custom fields til leiligheten
-	
 	function cmb2_leilighet_metabox() {
 
 		$cmb = new_cmb2_box( array(

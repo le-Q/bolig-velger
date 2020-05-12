@@ -93,8 +93,7 @@ if ( !class_exists( 'BoligVelger' ) ) {
 
 			add_filter( 'cmb2_meta_box_url', array( $this, 'cmb2_meta_box_url' ) );
 
-			// Leilighet metabox
-			add_action( 'cmb2_init', 'cmb2_leilighet_metabox' );
+
 
 		/**
 		 * @TODO - Uncomment requried features

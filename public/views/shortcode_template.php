@@ -59,7 +59,7 @@ if ( empty( $has_hotspots ) ) : ?>
 		}
 		#<?php echo $settings['spot_id']; ?> .hotspot-<?php echo $style['name']; ?>:hover,
 		#<?php echo $settings['spot_id']; ?> .hotspot-<?php echo $style['name']; ?>.hotspot-active {
-			fill: <?php echo (esc_html(get_post_meta( get_the_ID(), '_cmb2_leilighet_status', true)) == 'ledig') ? "#F00" : '#0F0'; ?>;
+			fill: <?php echo (esc_html(get_post_meta( $hotspot['action'], '_cmb2_leilighet_status', true)) == 'ledig') ? "#F00" : '#0F0'; ?>;
 			fill-opacity: <?php echo "0.7" ?>;
 			stroke: <?php echo $style['hover']['borderColor']; ?>;
 			stroke-opacity: <?php echo $style['hover']['borderOpacity']; ?>;
@@ -198,10 +198,11 @@ if ( empty( $has_hotspots ) ) : ?>
 
 				 <?php
 					// Grab the metadata from the database
-					$text = get_post_meta( get_the_ID(), '_cmb2_leilighet_pris', true );
+					$text = get_post_meta( $hotspot['action'], '_cmb2_leilighet_status', true );
 
 					// Echo the metadata
 					echo esc_html( $text );
+					echo $hotspot['action'];
 				?>
 
 				</div>
