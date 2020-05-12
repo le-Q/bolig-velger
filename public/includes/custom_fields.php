@@ -24,6 +24,51 @@ class DrawAttention_CustomFields {
 		add_action( 'wp_ajax_hotspot_update_custom_fields', array( $this, 'update_hotspot_area_details' ) );
 
 		add_filter( 'cmb2_meta_boxes', array( $this, 'hotspot_area_group_details_metabox' ), 11 );
+		add_filter( 'cmb2_meta_boxes', array( $this, 'choosen_element' ) );
+		//add_action( 'cmb2_admin_init', 'choosen_element' );
+	}
+
+	function choosen_element(array $metaboxes) {
+		if ( empty( $_REQUEST['post'] ) && empty( $_POST ) ) { return $metaboxes; }
+
+		if ( !empty( $_REQUEST['post'] ) ) {
+			$thumbnail_src = wp_get_attachment_image_src( get_post_thumbnail_id( esc_attr( $_REQUEST['post'] ) ), 'full' );
+		}
+
+		$categories = get_categories();
+		$loop = new WP_Query($categories);
+
+		while($loop->have_posts()) : $loop->the_post();
+			$leiligheter[get_the_ID()] = get_the_title(); 
+		endwhile;
+
+		foreach ( $loop as $category ) {
+			printf( '<a href="%1$s">%2$s</a><br />',
+					esc_url( get_category_link( $category->term_id ) ),
+					esc_html( $category->name )
+			);
+	}
+
+		$metaboxes['test'] = apply_filters( 'test', array(
+			'id'           => 'test',
+			'title'        => __( 'Valg', 'bolig-velger' ),
+			'object_types' => array( $this->parent->cpt->post_type, ),
+			'fields'       => array(
+						'option' => array(
+							'name' => __('Leilighet', 'bolig-velger' ),
+							'description' => '',
+							'id'   => 'action',
+							'attributes' => array(
+								'class' => 'cmb2_select action'
+							),
+							'type' => 'select',
+							'options' => $leiligheter
+						)
+					)
+			)
+		);
+  
+		return $metaboxes;
 	}
 
 	function hotspot_area_group_details_metabox( array $metaboxes ) {
