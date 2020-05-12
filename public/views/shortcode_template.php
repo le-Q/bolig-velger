@@ -59,7 +59,7 @@ if ( empty( $has_hotspots ) ) : ?>
 		}
 		#<?php echo $settings['spot_id']; ?> .hotspot-<?php echo $style['name']; ?>:hover,
 		#<?php echo $settings['spot_id']; ?> .hotspot-<?php echo $style['name']; ?>.hotspot-active {
-			fill: <?php echo ($leilighet) ? "F00" : "#0F0" ?>;
+			fill: <?php echo "#F00" ?>;
 			fill-opacity: <?php echo "0.7" ?>;
 			stroke: <?php echo $style['hover']['borderColor']; ?>;
 			stroke-opacity: <?php echo $style['hover']['borderOpacity']; ?>;
