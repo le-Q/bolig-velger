@@ -24,6 +24,47 @@ class DrawAttention_CustomFields {
 		add_action( 'wp_ajax_hotspot_update_custom_fields', array( $this, 'update_hotspot_area_details' ) );
 
 		add_filter( 'cmb2_meta_boxes', array( $this, 'hotspot_area_group_details_metabox' ), 11 );
+		add_filter( 'cmb2_meta_boxes', array( $this, 'choosen_element' ) );
+		//add_action( 'cmb2_admin_init', 'choosen_element' );
+	}
+
+	function choosen_element(array $metaboxes) {
+		if ( empty( $_REQUEST['post'] ) && empty( $_POST ) ) { return $metaboxes; }
+
+		if ( !empty( $_REQUEST['post'] ) ) {
+			$thumbnail_src = wp_get_attachment_image_src( get_post_thumbnail_id( esc_attr( $_REQUEST['post'] ) ), 'full' );
+		}
+
+		$categories = get_categories( array(
+			'orderby' => 'name',
+			'parent'  => 0
+		) );
+		$cats = array();
+
+		foreach ( $categories as $category ) {
+			$cats[$category->term_id ] = $category->name;
+		}
+
+		$metaboxes['test'] = apply_filters( 'test', array(
+			'id'           => 'test',
+			'title'        => __( 'Valg', 'bolig-velger' ),
+			'object_types' => array( $this->parent->cpt->post_type, ),
+			'fields'       => array(
+						'option' => array(
+							'name' => __('Leilighet', 'bolig-velger' ),
+							'description' => '',
+							'id'   => 'action',
+							'attributes' => array(
+								'class' => 'cmb2_select action'
+							),
+							'type' => 'select',
+							'options' => $cats
+						)
+					)
+			)
+		);
+  
+		return $metaboxes;
 	}
 
 	function hotspot_area_group_details_metabox( array $metaboxes ) {
@@ -119,6 +160,104 @@ class DrawAttention_CustomFields {
 
 		$coordinates = $_POST[$this->prefix.'coordinates'];
 		update_post_meta( $_POST['_pid'], $this->prefix.'coordinates', $coordinates );
+	}
+
+	//Opprettet ny metode for custom fields til leiligheten
+
+	function cmb2_leilighet_metabox() {
+
+		$cmb = new_cmb2_box( array(
+			'id'           => 'cmb2_leilighet_metabox',
+			'title'        => 'Informasjon',
+			'object_types' => array( 'post' ),
+		) );
+	
+		// Nummer
+		$cmb->add_field( array(
+			'name' => 'Leilighet (nummer)',
+			'id'   => '_cmb2_leilighet_nr',
+			'type' => 'text',
+			'desc' => 'Dette er leiligheten sitt nummer (Eksempel: A101)',
+		) );
+
+		// Etasje
+		$cmb->add_field( array(
+			'name' => 'Etasje',
+			'id'   => '_cmb2_leilighet_etasje',
+			'type' => 'number',
+			'desc' => 'Dette er en etasje',
+		) );
+
+		// Bruttoareal
+		$cmb->add_field( array(
+			'name' => 'Bruttoareal',
+			'id'   => '_cmb2_leilighet_bruttoareal',
+			'type' => 'number',
+			'desc' => 'Dette er bruttoarealet til leiligheten',
+		) );
+
+		// Antall rom
+		$cmb->add_field( array(
+			'name' => 'Antall rom',
+			'id'   => '_cmb2_leilighet_antall',
+			'type' => 'number',
+			'desc' => 'Beskrivelse av antall rom i leilighet',
+		) );
+
+		// Pris
+		$cmb->add_field( array(
+			'name' => 'Pris',
+			'id'   => '_cmb2_leilighet_pris',
+			'type' => 'number',
+			'desc' => 'Pris på leiligheten',
+		) );
+
+		// Status
+		$cmb->add_field( array(
+			'name' => 'Status',
+			'id'   => '_cmb2_leilighet_status',
+			'type' => 'text',
+			'desc' => 'Oversikt om leiligheten er solgt eller ledig',
+		) );
+
+		add_action( 'cmb2_admin_init', 'cmb2_leilighet_metabox' );
+	}
+	
+	//Oppretter ny metode for custom fields til blokken
+
+	function cmb2_blokk_metabox() {
+
+		$cmb = new_cmb2_box_2( array(
+			'id'           => 'cmb2_blokk_metabox',
+			'title'        => 'Informasjon',
+			'object_types' => array( 'post' ),
+		) );
+	
+		// Blokknummer
+		$cmb->add_field( array(
+			'name' => 'Blokknummer',
+			'id'   => '_cmb2_blokk_nr',
+			'type' => 'text',
+			'desc' => 'Dette er blokken sitt nummer (Eksempel: A)',
+		) );
+
+		// Addresse
+		$cmb->add_field( array(
+			'name' => 'Addresse',
+			'id'   => '_cmb2_blokk_addresse',
+			'type' => 'text',
+			'desc' => 'Dette er en addresse',
+		) );
+
+		// Antall leiligheter
+		$cmb->add_field( array(
+			'name' => 'Antall leiligheter',
+			'id'   => '_cmb2_blokk_antall',
+			'type' => 'number',
+			'desc' => 'Dette er antall leiligheter i en blokk',
+		) );
+
+		add_action( 'cmb2_admin_init', 'cmb2_blokk_metabox' );
 	}
 
 }

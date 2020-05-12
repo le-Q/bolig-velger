@@ -60,7 +60,7 @@ class DrawAttention_CPT {
 
 				'hierarchical' => false,
 				/* the next one is important, it tells what's enabled in the post editor */
-				'supports' => array( 'title', 'thumbnail' ),
+				'supports' => array( 'title', 'thumbnail', 'editor' ),
 		 	) /* end of options */
 		); /* end of register post type */
 
