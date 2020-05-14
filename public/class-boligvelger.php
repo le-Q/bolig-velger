@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Plugin Name.
  *
@@ -16,8 +17,9 @@
  * If you're interested in introducing administrative or dashboard
  * functionality, then refer to `class-drawattention-admin.php`
  */
-if ( !class_exists( 'BoligVelger' ) ) {
-	class BoligVelger {
+if (!class_exists('BoligVelger')) {
+	class BoligVelger
+	{
 
 		/**
 		 * Plugin version, used for cache-busting of style and script file references.
@@ -72,45 +74,46 @@ if ( !class_exists( 'BoligVelger' ) ) {
 		 *
 		 * @since     1.0.0
 		 */
-		private function __construct() {
-			add_filter( 'bv_description', 'wpautop' );
+		private function __construct()
+		{
+			add_filter('bv_description', 'wpautop');
 
 			// Activate plugin when new blog is added
-			add_action( 'wpmu_new_blog', array( $this, 'activate_new_site' ) );
+			add_action('wpmu_new_blog', array($this, 'activate_new_site'));
 
 			// Load public-facing style sheet and JavaScript.
-			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ) );
-			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+			add_action('wp_enqueue_scripts', array($this, 'enqueue_styles'));
+			add_action('wp_enqueue_scripts', array($this, 'enqueue_scripts'));
 
 			// Shortcode for displaying the image map
-			add_shortcode( 'boligvelger', array( $this, 'shortcode' ) );
+			add_shortcode('boligvelger', array($this, 'shortcode'));
 
-			add_action( 'admin_notices', array( $this, 'php_52_notice' ) );
+			add_action('admin_notices', array($this, 'php_52_notice'));
 
-			add_action( 'template_include', array( $this, 'single_template' ) );
+			add_action('template_include', array($this, 'single_template'));
 
-			add_filter( 'jetpack_photon_skip_image', array ($this, 'jetpack_photon_skip_image' ), 10, 3 );
+			add_filter('jetpack_photon_skip_image', array($this, 'jetpack_photon_skip_image'), 10, 3);
 
-			add_filter( 'cmb2_meta_box_url', array( $this, 'cmb2_meta_box_url' ) );
+			add_filter('cmb2_meta_box_url', array($this, 'cmb2_meta_box_url'));
 
 
 
-		/**
-		 * @TODO - Uncomment requried features
-		 *
-		 * Various functionality is separated into external files
-		 */
-			include_once( 'includes/cpt.php' );
-			$this->cpt = new DrawAttention_CPT( $this );
+			/**
+			 * @TODO - Uncomment requried features
+			 *
+			 * Various functionality is separated into external files
+			 */
+			include_once('includes/cpt.php');
+			$this->cpt = new DrawAttention_CPT($this);
 
-			include_once( 'includes/custom_fields.php' );
-			$this->custom_fields = new DrawAttention_CustomFields( $this );
+			include_once('includes/custom_fields.php');
+			$this->custom_fields = new DrawAttention_CustomFields($this);
 
-			include_once( 'includes/themes.php' );
-			$this->themes = new DrawAttention_Themes( $this );
+			include_once('includes/themes.php');
+			$this->themes = new DrawAttention_Themes($this);
 
-			include_once( 'includes/class-block-image.php' );
-			$this->block_image = new DrawAttention_Block_Image( $this );
+			include_once('includes/class-block-image.php');
+			$this->block_image = new DrawAttention_Block_Image($this);
 		}
 
 		/**
@@ -120,7 +123,8 @@ if ( !class_exists( 'BoligVelger' ) ) {
 		 *
 		 * @return    Plugin slug variable.
 		 */
-		public function get_plugin_slug() {
+		public function get_plugin_slug()
+		{
 			return $this->plugin_slug;
 		}
 
@@ -131,10 +135,11 @@ if ( !class_exists( 'BoligVelger' ) ) {
 		 *
 		 * @return    object    A single instance of this class.
 		 */
-		public static function get_instance() {
+		public static function get_instance()
+		{
 
 			// If the single instance hasn't been set, set it now.
-			if ( null == self::$instance ) {
+			if (null == self::$instance) {
 				self::$instance = new self;
 			}
 
@@ -151,31 +156,29 @@ if ( !class_exists( 'BoligVelger' ) ) {
 		 *                                       WPMU is disabled or plugin is
 		 *                                       activated on an individual blog.
 		 */
-		public static function activate( $network_wide ) {
+		public static function activate($network_wide)
+		{
 
-			if ( function_exists( 'is_multisite' ) && is_multisite() ) {
+			if (function_exists('is_multisite') && is_multisite()) {
 
-				if ( $network_wide  ) {
+				if ($network_wide) {
 
 					// Get all blog ids
 					$blog_ids = self::get_blog_ids();
 
-					foreach ( $blog_ids as $blog_id ) {
+					foreach ($blog_ids as $blog_id) {
 
-						switch_to_blog( $blog_id );
+						switch_to_blog($blog_id);
 						self::single_activate();
 
 						restore_current_blog();
 					}
-
 				} else {
 					self::single_activate();
 				}
-
 			} else {
 				self::single_activate();
 			}
-
 		}
 
 		/**
@@ -188,32 +191,29 @@ if ( !class_exists( 'BoligVelger' ) ) {
 		 *                                       WPMU is disabled or plugin is
 		 *                                       deactivated on an individual blog.
 		 */
-		public static function deactivate( $network_wide ) {
+		public static function deactivate($network_wide)
+		{
 
-			if ( function_exists( 'is_multisite' ) && is_multisite() ) {
+			if (function_exists('is_multisite') && is_multisite()) {
 
-				if ( $network_wide ) {
+				if ($network_wide) {
 
 					// Get all blog ids
 					$blog_ids = self::get_blog_ids();
 
-					foreach ( $blog_ids as $blog_id ) {
+					foreach ($blog_ids as $blog_id) {
 
-						switch_to_blog( $blog_id );
+						switch_to_blog($blog_id);
 						self::single_deactivate();
 
 						restore_current_blog();
-
 					}
-
 				} else {
 					self::single_deactivate();
 				}
-
 			} else {
 				self::single_deactivate();
 			}
-
 		}
 
 		/**
@@ -223,16 +223,16 @@ if ( !class_exists( 'BoligVelger' ) ) {
 		 *
 		 * @param    int    $blog_id    ID of the new blog.
 		 */
-		public function activate_new_site( $blog_id ) {
+		public function activate_new_site($blog_id)
+		{
 
-			if ( 1 !== did_action( 'wpmu_new_blog' ) ) {
+			if (1 !== did_action('wpmu_new_blog')) {
 				return;
 			}
 
-			switch_to_blog( $blog_id );
+			switch_to_blog($blog_id);
 			self::single_activate();
 			restore_current_blog();
-
 		}
 
 		/**
@@ -245,7 +245,8 @@ if ( !class_exists( 'BoligVelger' ) ) {
 		 *
 		 * @return   array|false    The blog ids, false if no matches.
 		 */
-		private static function get_blog_ids() {
+		private static function get_blog_ids()
+		{
 
 			global $wpdb;
 
@@ -254,8 +255,7 @@ if ( !class_exists( 'BoligVelger' ) ) {
 				WHERE archived = '0' AND spam = '0'
 				AND deleted = '0'";
 
-			return $wpdb->get_col( $sql );
-
+			return $wpdb->get_col($sql);
 		}
 
 		/**
@@ -263,7 +263,8 @@ if ( !class_exists( 'BoligVelger' ) ) {
 		 *
 		 * @since    1.0.0
 		 */
-		private static function single_activate() {
+		private static function single_activate()
+		{
 			// @TODO: Define activation functionality here
 			flush_rewrite_rules();
 		}
@@ -273,7 +274,8 @@ if ( !class_exists( 'BoligVelger' ) ) {
 		 *
 		 * @since    1.0.0
 		 */
-		private static function single_deactivate() {
+		private static function single_deactivate()
+		{
 			// @TODO: Define deactivation functionality here
 		}
 
@@ -282,8 +284,10 @@ if ( !class_exists( 'BoligVelger' ) ) {
 		 *
 		 * @since    1.0.0
 		 */
-		public function enqueue_styles() {
-			wp_register_style( $this->plugin_slug . '-plugin-styles', plugins_url( 'assets/css/public.css', __FILE__ ), array(), self::VERSION );
+		public function enqueue_styles()
+		{
+			wp_register_style($this->plugin_slug . '-plugin-styles', plugins_url('assets/css/public.css', __FILE__), array(), self::VERSION);
+			wp_register_style($this->plugin_slug . '-plugin-styles-boligvelger', plugins_url('assets/css/bolig-velger.css', __FILE__), array(), self::VERSION);
 		}
 
 		/**
@@ -291,28 +295,30 @@ if ( !class_exists( 'BoligVelger' ) ) {
 		 *
 		 * @since    1.0.0
 		 */
-		public function enqueue_scripts() {
-			wp_register_script( $this->plugin_slug . '-leaflet', plugins_url( 'assets/js/leaflet.js', __FILE__ ), array(), '1.3.4', $in_footer = true );
-			wp_register_script( $this->plugin_slug . '-leaflet-rrose', plugins_url( 'assets/js/leaflet.rrose-min.js', __FILE__ ), array( $this->plugin_slug . '-leaflet' ), '0.2.0', $in_footer = true );
-			wp_register_script( $this->plugin_slug . '-plugin-script', plugins_url( 'assets/js/public.js', __FILE__ ), array( $this->plugin_slug . '-leaflet-rrose', 'jquery' ), self::VERSION, true );
+		public function enqueue_scripts()
+		{
+			wp_register_script($this->plugin_slug . '-leaflet', plugins_url('assets/js/leaflet.js', __FILE__), array(), '1.3.4', $in_footer = true);
+			wp_register_script($this->plugin_slug . '-leaflet-rrose', plugins_url('assets/js/leaflet.rrose-min.js', __FILE__), array($this->plugin_slug . '-leaflet'), '0.2.0', $in_footer = true);
+			wp_register_script($this->plugin_slug . '-plugin-script', plugins_url('assets/js/public.js', __FILE__), array($this->plugin_slug . '-leaflet-rrose', 'jquery'), self::VERSION, true);
 
-			wp_localize_script( $this->plugin_slug . '-plugin-script', 'boligvelgerData', array(
+			wp_localize_script($this->plugin_slug . '-plugin-script', 'boligvelgerData', array(
 				'isLoggedIn' => is_user_logged_in(),
-				'isAdmin' => current_user_can( 'administrator' )
-			) );
+				'isAdmin' => current_user_can('administrator')
+			));
 
-			$enqueue = apply_filters( 'bv_enqueue_scripts_everywhere', false );
-			if ( !empty( $enqueue ) ) {
-				wp_enqueue_script( $this->plugin_slug . '-plugin-script' );
+			$enqueue = apply_filters('bv_enqueue_scripts_everywhere', false);
+			if (!empty($enqueue)) {
+				wp_enqueue_script($this->plugin_slug . '-plugin-script');
 			}
 		}
 
-		function php_52_notice() {
+		function php_52_notice()
+		{
 			global $pagenow;
-			if ( $pagenow != 'post.php' ) return;
-			if ( get_post_type() != 'bv_image' ) return;
+			if ($pagenow != 'post.php') return;
+			if (get_post_type() != 'bv_image') return;
 
-			if ( version_compare( phpversion(), '5.2.99') <= 0 ) {
+			if (version_compare(phpversion(), '5.2.99') <= 0) {
 				$class = "error";
 				$message = "<p>
 				<h3>Your server is out of date</h3>
@@ -330,23 +336,25 @@ if ( !class_exists( 'BoligVelger' ) ) {
 					<li><a href='http://php.net/releases/'>http://php.net/releases/</a></li>
 				</ul>
 				</p>";
-				echo"<div class=\"$class\"> <p>$message</p></div>";
+				echo "<div class=\"$class\"> <p>$message</p></div>";
 			}
 		}
 
-		public function cmb2_meta_box_url( $url ) {
+		public function cmb2_meta_box_url($url)
+		{
 			$screen = get_current_screen();
-			if ( 'page' == $screen->post_type ) {
+			if ('page' == $screen->post_type) {
 				return $url;
 			}
 
-			$url = self::get_plugin_url().'/public/includes/lib/CMB2/';
+			$url = self::get_plugin_url() . '/public/includes/lib/CMB2/';
 			return $url;
 		}
 
-		public function jetpack_photon_skip_image( $val, $src, $tag ) {
+		public function jetpack_photon_skip_image($val, $src, $tag)
+		{
 			foreach ($this->photon_excluded_images as $key => $photon_excluded_image) {
-				if ( strpos( $src, $photon_excluded_image ) !== false ) {
+				if (strpos($src, $photon_excluded_image) !== false) {
 					return true;
 				}
 			}
@@ -359,10 +367,11 @@ if ( !class_exists( 'BoligVelger' ) ) {
 		 *
 		 * @since    1.0.0
 		 */
-		public function shortcode( $atts ) {
+		public function shortcode($atts)
+		{
 			// Begin settings array
 			$settings = array(
-				'has_photon' => class_exists( 'Jetpack_Photon' ),
+				'has_photon' => class_exists('Jetpack_Photon'),
 				'url_hotspots' => array(),
 				'urls_only' => false,
 				'urls_class' => '',
@@ -371,67 +380,67 @@ if ( !class_exists( 'BoligVelger' ) ) {
 
 			// Get the DA image ID
 			//$latest_da = get_posts('post_type=' . $this->cpt->post_type . '&numberposts=1');
-			$latest_da = get_post( get_the_ID() );
+			$latest_da = get_post(get_the_ID());
 			$settings['image_id'] = $latest_da->ID;
 
 			// WPML Support
-			if ( function_exists ( 'icl_object_id' ) ) {
+			if (function_exists('icl_object_id')) {
 				$settings['image_id'] = icl_object_id($latest_da['ID'], 'bv_image', true);
 			}
 
 			// Get and set DA settings
-			$settings['img_settings'] = get_metadata( 'post', $settings['image_id'], '', false );
+			$settings['img_settings'] = get_metadata('post', $settings['image_id'], '', false);
 			$settings['spot_id'] = 'hotspot-' . $settings['image_id'];
 
 			// Add hotspots to settings
-			$settings['hotspots'] = get_post_meta( $settings['image_id'], $this->custom_fields->prefix . 'hotspots', true );
+			$settings['hotspots'] = get_post_meta($settings['image_id'], $this->custom_fields->prefix . 'hotspots', true);
 			//$settings['hotspots'] = apply_filters( 'da_render_hotspots', $settings['hotspots'], $settings['image_id'] );
-			if ( empty( $settings['hotspots'] ) ) {
+			if (empty($settings['hotspots'])) {
 				$settings['url_hotspots'] = array();
 			} else {
-				$settings['url_hotspots'] = array_filter($settings['hotspots'], function($var){
-					if ( empty( $var['action'] ) ) {
+				$settings['url_hotspots'] = array_filter($settings['hotspots'], function ($var) {
+					if (empty($var['action'])) {
 						return false;
 					}
 
 					return $var['action'] == 'url';
 				});
-				if ( count( $settings['hotspots'] ) == count( $settings['url_hotspots'] ) ) {
+				if (count($settings['hotspots']) == count($settings['url_hotspots'])) {
 					$settings['urls_only'] = true;
 					$settings['urls_class'] = 'links-only';
 				}
 			}
 
 			// Set default values for free settings
-			$settings['layout'] = 'left';
+			$settings['layout'] = 'center';
 			$settings['event_trigger'] = 'click';
 			$settings['always_visible'] = 'false';
 
 			// Add styles to settings
-			$settings['border_width'] = $settings['img_settings'][$this->custom_fields->prefix.'map_border_width'][0];
-			$settings['border_opacity'] = $settings['img_settings'][$this->custom_fields->prefix.'map_border_opacity'][0];
-			$settings['more_info_bg'] = ( !empty( $settings['img_settings'][$this->custom_fields->prefix.'map_background_color'][0] ) ) ? $settings['img_settings'][$this->custom_fields->prefix.'map_background_color'][0] : '';
-			$settings['more_info_text'] = ( !empty( $settings['img_settings'][$this->custom_fields->prefix.'map_text_color'][0] ) ) ? $settings['img_settings'][$this->custom_fields->prefix.'map_text_color'][0] : '';
-			$settings['more_info_title'] = ( !empty( $settings['img_settings'][$this->custom_fields->prefix.'map_title_color'][0] ) ) ? $settings['img_settings'][$this->custom_fields->prefix.'map_title_color'][0] : '';
-			$settings['img_bg'] = ( !empty( $settings['img_settings'][$this->custom_fields->prefix.'image_background_color'][0] ) ) ? $settings['img_settings'][$this->custom_fields->prefix.'image_background_color'][0] : '#efefef';
+			$settings['border_width'] = $settings['img_settings'][$this->custom_fields->prefix . 'map_border_width'][0];
+			$settings['border_opacity'] = $settings['img_settings'][$this->custom_fields->prefix . 'map_border_opacity'][0];
+			$settings['more_info_bg'] = (!empty($settings['img_settings'][$this->custom_fields->prefix . 'map_background_color'][0])) ? $settings['img_settings'][$this->custom_fields->prefix . 'map_background_color'][0] : '';
+			$settings['more_info_text'] = (!empty($settings['img_settings'][$this->custom_fields->prefix . 'map_text_color'][0])) ? $settings['img_settings'][$this->custom_fields->prefix . 'map_text_color'][0] : '';
+			$settings['more_info_title'] = (!empty($settings['img_settings'][$this->custom_fields->prefix . 'map_title_color'][0])) ? $settings['img_settings'][$this->custom_fields->prefix . 'map_title_color'][0] : '';
+			$settings['img_bg'] = (!empty($settings['img_settings'][$this->custom_fields->prefix . 'image_background_color'][0])) ? $settings['img_settings'][$this->custom_fields->prefix . 'image_background_color'][0] : '#efefef';
 
 			// Create hotspot style
-			if ( empty( $settings['styles'] ) ) {
+			if (empty($settings['styles'])) {
 				$settings['styles'] = array();
 			}
 			$settings['styles'][] = array(
 				'title' => 'default',
 				'map_highlight_color' => '#3CA2A2',
-				'map_highlight_opacity' => !empty( $settings['img_settings'][$this->custom_fields->prefix.'map_highlight_opacity'][0] ) ? $settings['img_settings'][$this->custom_fields->prefix.'map_highlight_opacity'][0] : '',
-				'map_border_color' => !empty( $settings['img_settings'][$this->custom_fields->prefix.'map_border_color'][0] ) ? $settings['img_settings'][$this->custom_fields->prefix.'map_border_color'][0] : '',
+				'map_highlight_opacity' => !empty($settings['img_settings'][$this->custom_fields->prefix . 'map_highlight_opacity'][0]) ? $settings['img_settings'][$this->custom_fields->prefix . 'map_highlight_opacity'][0] : '',
+				'map_border_color' => !empty($settings['img_settings'][$this->custom_fields->prefix . 'map_border_color'][0]) ? $settings['img_settings'][$this->custom_fields->prefix . 'map_border_color'][0] : '',
 				'_bv_map_hover_color' => '#3CA2A2',
-				'_bv_map_hover_opacity' => !empty( $settings['img_settings'][$this->custom_fields->prefix.'map_hover_opacity'][0] ) ? $settings['img_settings'][$this->custom_fields->prefix.'map_hover_opacity'][0] : ''
+				'_bv_map_hover_opacity' => !empty($settings['img_settings'][$this->custom_fields->prefix . 'map_hover_opacity'][0]) ? $settings['img_settings'][$this->custom_fields->prefix . 'map_hover_opacity'][0] : ''
 			);
 
 			// Create formatted array of styles
 			$formatted_styles = array();
 			foreach ($settings['styles'] as $key => $style) {
-				if ( empty( $style['title'] ) ) {
+				if (empty($style['title'])) {
 					$style['title'] = 'Custom';
 				}
 
@@ -457,134 +466,141 @@ if ( !class_exists( 'BoligVelger' ) ) {
 
 			// Get image post, src, and meta
 			$settings['img_post'] = get_post($settings['image_id']);
-			$settings['img_src'] = wp_get_attachment_image_src( get_post_thumbnail_id( $settings['image_id'] ), 'full' );
+			$settings['img_src'] = wp_get_attachment_image_src(get_post_thumbnail_id($settings['image_id']), 'full');
 			$settings['img_url'] = $settings['img_src'][0];
 			$settings['img_width'] = $settings['img_src'][1];
 			$settings['img_height'] = $settings['img_src'][2];
-			$settings['img_alt'] = get_post_meta( get_post_thumbnail_id( $settings['img_post'] ), '_wp_attachment_image_alt', true );
-			if ( empty( $settings['img_alt'] ) ) {
-				$settings['img_alt'] = get_the_title( $settings['img_post'] );
+			$settings['img_alt'] = get_post_meta(get_post_thumbnail_id($settings['img_post']), '_wp_attachment_image_alt', true);
+			if (empty($settings['img_alt'])) {
+				$settings['img_alt'] = get_the_title($settings['img_post']);
 			}
 
 			// Enqueue CSS and Scripts
-			wp_enqueue_style( $this->plugin_slug . '-plugin-styles' );
-			wp_enqueue_script( $this->plugin_slug . '-plugin-script' );
+			wp_enqueue_style($this->plugin_slug . '-plugin-styles');
+			wp_enqueue_style($this->plugin_slug . '-plugin-styles-boligvelger');
+			wp_enqueue_script($this->plugin_slug . '-plugin-script');
 
 			// Remove Photon filter
-			if ( $settings['has_photon'] ) {
-				$photon_removed = remove_filter( 'image_downsize', array( Jetpack_Photon::instance(), 'filter_image_downsize' ) );
+			if ($settings['has_photon']) {
+				$photon_removed = remove_filter('image_downsize', array(Jetpack_Photon::instance(), 'filter_image_downsize'));
 			}
-			$this->photon_excluded_images[ $settings['image_id'] ] = $settings['img_url'];
+			$this->photon_excluded_images[$settings['image_id']] = $settings['img_url'];
 
 			// Create a new embed
 			$wp_embed = new WP_Embed();
 
 			ob_start();
 
-			require( $this->get_plugin_dir() . '/public/views/shortcode_template.php' );
+			require($this->get_plugin_dir() . '/public/views/shortcode_template.php');
 
-			if ( $settings['has_photon'] && $photon_removed ) {
-				add_filter( 'image_downsize', array( Jetpack_Photon::instance(), 'filter_image_downsize' ), 10, 3 );
+			if ($settings['has_photon'] && $photon_removed) {
+				add_filter('image_downsize', array(Jetpack_Photon::instance(), 'filter_image_downsize'), 10, 3);
 			}
 
 			return ob_get_clean();
 		}
 
 
-		public function single_template( $template ) {
-			if ( is_singular( $this->cpt->post_type ) ) {
-				$template = self::locate_template( 'single-bv_image.php' );
+		public function single_template($template)
+		{
+			if (is_singular($this->cpt->post_type)) {
+				$template = self::locate_template('single-bv_image.php');
 			}
 
 			return $template;
 		}
 
-		public static function locate_template( $template_name, $template_path = '', $default_path = '' ) {
-			if ( ! $template_path ) {
+		public static function locate_template($template_name, $template_path = '', $default_path = '')
+		{
+			if (!$template_path) {
 				$template_path = self::template_path();
 			}
 
-			if ( ! $default_path ) {
+			if (!$default_path) {
 				$default_path = self::get_plugin_dir() . '/public/views/';
 			}
 
 			// Look within passed path within the theme - this is priority
 			$template = locate_template(
 				array(
-					trailingslashit( $template_path ) . $template_name,
+					trailingslashit($template_path) . $template_name,
 					$template_name
-					)
-				);
+				)
+			);
 
 			// Get default template
-			if ( ! $template ) {
+			if (!$template) {
 				$template = $default_path . $template_name;
 			}
 			// Return what we found
-			return apply_filters( self::slug.'_locate_template', $template, $template_name, $template_path );
+			return apply_filters(self::slug . '_locate_template', $template, $template_name, $template_path);
 		}
 
-		public static function get_template( $template_name, $args = array(), $template_path = '', $default_path = '' ) {
-			if ( $args && is_array( $args ) ) {
-				extract( $args );
+		public static function get_template($template_name, $args = array(), $template_path = '', $default_path = '')
+		{
+			if ($args && is_array($args)) {
+				extract($args);
 			}
 
-			$located = self::locate_template( $template_name, $template_path, $default_path );
+			$located = self::locate_template($template_name, $template_path, $default_path);
 
-			if ( ! file_exists( $located ) ) {
-				_doing_it_wrong( __FUNCTION__, sprintf( '<code>%s</code> does not exist.', $located ), '2.1' );
+			if (!file_exists($located)) {
+				_doing_it_wrong(__FUNCTION__, sprintf('<code>%s</code> does not exist.', $located), '2.1');
 				return;
 			}
 
 			// Allow 3rd party plugin filter template file from their plugin
-			$located = apply_filters( self::slug.'get_template', $located, $template_name, $args, $template_path, $default_path );
+			$located = apply_filters(self::slug . 'get_template', $located, $template_name, $args, $template_path, $default_path);
 
-			do_action( self::slug.'_before_template_part', $template_name, $template_path, $located, $args );
+			do_action(self::slug . '_before_template_part', $template_name, $template_path, $located, $args);
 
-			include( $located );
+			include($located);
 
-			do_action( self::slug.'_after_template_part', $template_name, $template_path, $located, $args );
+			do_action(self::slug . '_after_template_part', $template_name, $template_path, $located, $args);
 		}
 
-		public static function get_template_part( $slug, $name = '' ) {
+		public static function get_template_part($slug, $name = '')
+		{
 			$template = '';
 
 			// Look in yourtheme/slug-name.php and yourtheme/drawattention/slug-name.php
-			if ( $name ) {
-				$template = locate_template( array( "{$slug}-{$name}.php", self::template_path() . "{$slug}-{$name}.php" ) );
+			if ($name) {
+				$template = locate_template(array("{$slug}-{$name}.php", self::template_path() . "{$slug}-{$name}.php"));
 			}
 
 			// Get default slug-name.php
-			if ( ! $template && $name && file_exists( self::get_plugin_dir() . "/templates/{$slug}-{$name}.php" ) ) {
+			if (!$template && $name && file_exists(self::get_plugin_dir() . "/templates/{$slug}-{$name}.php")) {
 				$template = self::get_plugin_dir() . "/templates/{$slug}-{$name}.php";
 			}
 
 			// If template file doesn't exist, look in yourtheme/slug.php and yourtheme/drawattention/slug.php
-			if ( ! $template ) {
-				$template = locate_template( array( "{$slug}.php", self::template_path() . "{$slug}.php" ) );
+			if (!$template) {
+				$template = locate_template(array("{$slug}.php", self::template_path() . "{$slug}.php"));
 			}
 
 			// Allow 3rd party plugin filter template file from their plugin
-			if ( $template ) {
-				$template = apply_filters( self::slug.'_get_template_part', $template, $slug, $name );
+			if ($template) {
+				$template = apply_filters(self::slug . '_get_template_part', $template, $slug, $name);
 			}
 
-			if ( $template ) {
-				load_template( $template, false );
+			if ($template) {
+				load_template($template, false);
 			}
 		}
 
-		public static function template_path() {
+		public static function template_path()
+		{
 			return self::slug . '/';
 		}
 
-		public static function get_plugin_dir() {
-			return dirname( dirname( __FILE__ ) );
+		public static function get_plugin_dir()
+		{
+			return dirname(dirname(__FILE__));
 		}
 
-		public static function get_plugin_url() {
-			return dirname( plugin_dir_url( __FILE__ ) );
+		public static function get_plugin_url()
+		{
+			return dirname(plugin_dir_url(__FILE__));
 		}
-
 	}
 }
