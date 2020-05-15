@@ -121,7 +121,7 @@ if (empty($has_hotspots)) : ?>
 				$area_class = $target == 'url' ? 'url-area' : 'more-info-area';
 				$href = $target == 'url' ? $target_url : '#hotspot-' . $settings['spot_id'] . '-' . $key;
 				$href = !empty($href) ? $href : '#';
-				$title = !empty($hotspot['action']) ? get_the_title($hotspot['action']) : '';
+				$title = !empty($hotspot['action']) ? 'Leilighet' . get_the_title($hotspot['action']) : '';
 				if (empty($hotspot['description'])) {
 					$hotspot['description'] = '';
 				}
