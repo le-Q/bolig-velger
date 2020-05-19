@@ -3,12 +3,12 @@
 // No hotspots are defined
 $has_hotspots = false;
 if (!empty($settings['hotspots']['0'])) {
-  foreach ($settings['hotspots'] as $key => $hotspot) {
-    if (!empty($hotspot['coordinates'])) {
-      $has_hotspots = true;
-      break;
-    }
-  }
+	foreach ($settings['hotspots'] as $key => $hotspot) {
+		if (!empty($hotspot['coordinates'])) {
+			$has_hotspots = true;
+			break;
+		}
+	}
 }
 
 if (empty($has_hotspots)) : ?>
@@ -160,7 +160,7 @@ elseif (
 				$area_class = $target == 'url' ? 'url-area' : 'more-info-area';
 				$href = $target == 'url' ? $target_url : '#hotspot-' . $settings['spot_id'] . '-' . $key;
 				$href = !empty($href) ? $href : '#';
-				$title = !empty($hotspot['action']) ? 'Leilighet' . get_the_title($hotspot['action']) : '';
+				$title = !empty($hotspot['action']) ? 'Enhet ' . get_the_title($hotspot['action']) : '';
 				if (empty($hotspot['description'])) {
 					$hotspot['description'] = '';
 				}
