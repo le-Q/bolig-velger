@@ -105,7 +105,7 @@ class DrawAttention_CustomFields {
 								'class' => 'cmb2_select action'
 							),
 							'type' => 'select',
-							'options_cb' => 'set_option',
+							'options' => $this->set_option(),
 						)
 					)
 				)
@@ -138,30 +138,6 @@ class DrawAttention_CustomFields {
 			return $leiligheter;
 		}
 		*/
-
-		
-	function set_option() {
-
-		$current_vehicle = get_post_meta( get_the_ID(), 'blokk_velger', true);
-		return get_colors( $current_vehicle );
-	}
-
-	function get_colors( $vehicle = '' ) {
-
-			$leilighet = array(
-				'post_type' => 'leilighet',
-				'cat' => $vehicle,
-			);
-
-		$loop = new WP_Query($leilighet);
-		$leiligheter = array();
-
-		while($loop->have_posts()) : $loop->the_post();
-			$leiligheter[get_the_ID()] = get_the_title(); 
-		endwhile;
-
-		return $leiligheter;
-	}
 
 
 
@@ -260,7 +236,12 @@ class DrawAttention_CustomFields {
 	
 
 		// TEST TEST
+		public function set_option() {
 
+			$current_vehicle = get_post_meta( get_the_ID(), 'blokk_velger', true);
+			return $this->get_colors( $current_vehicle );
+		}
+	
 		public function get_colors( $vehicle = '' ) {
 
 			$leilighet = array(
