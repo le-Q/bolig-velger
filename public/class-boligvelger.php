@@ -300,6 +300,7 @@ if (!class_exists('BoligVelger')) {
 			wp_register_script($this->plugin_slug . '-leaflet', plugins_url('assets/js/leaflet.js', __FILE__), array(), '1.3.4', $in_footer = true);
 			wp_register_script($this->plugin_slug . '-leaflet-rrose', plugins_url('assets/js/leaflet.rrose-min.js', __FILE__), array($this->plugin_slug . '-leaflet'), '0.2.0', $in_footer = true);
 			wp_register_script($this->plugin_slug . '-plugin-script', plugins_url('assets/js/public.js', __FILE__), array($this->plugin_slug . '-leaflet-rrose', 'jquery'), self::VERSION, true);
+			wp_register_script($this->plugin_slug . '-plugin-script-main', plugins_url('assets/js/main.js', __FILE__), array(), self::VERSION, true);
 
 			wp_localize_script($this->plugin_slug . '-plugin-script', 'boligvelgerData', array(
 				'isLoggedIn' => is_user_logged_in(),
@@ -479,6 +480,7 @@ if (!class_exists('BoligVelger')) {
 			wp_enqueue_style($this->plugin_slug . '-plugin-styles');
 			wp_enqueue_style($this->plugin_slug . '-plugin-styles-boligvelger');
 			wp_enqueue_script($this->plugin_slug . '-plugin-script');
+			wp_enqueue_script($this->plugin_slug . '-plugin-script-main');
 
 			// Remove Photon filter
 			if ($settings['has_photon']) {

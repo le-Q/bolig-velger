@@ -2795,7 +2795,7 @@
       options: {
         stroke: !0,
         color: "#3388ff",
-        weight: 3,
+        weight: 1,
         opacity: 1,
         lineCap: "round",
         lineJoin: "round",
