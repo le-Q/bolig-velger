@@ -289,8 +289,9 @@ if (!class_exists('BoligVelger')) {
 		 */
 		public function enqueue_styles()
 		{
-			wp_register_style($this->plugin_slug . '-plugin-styles', plugins_url('assets/css/public.css', __FILE__), array(), self::VERSION);
 			wp_register_style($this->plugin_slug . '-plugin-styles-boligvelger', plugins_url('assets/css/bolig-velger.css', __FILE__), array(), self::VERSION);
+			wp_register_style($this->plugin_slug . '-plugin-styles', plugins_url('assets/css/public.css', __FILE__), array(), self::VERSION);
+			
 		}
 
 		/**

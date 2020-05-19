@@ -339,8 +339,12 @@
 		$shape.data('areaData', areaData);
 		$shape.trigger('over.responsilight');
 		if (areaData.trigger === 'hover' && e.type !== 'touchstart') {
-			$shape.addClass('hotspot-active');
-			$shape.trigger('active.responsilight');
+			if ($shape.classList.contains('ledig')) {
+				$shape.addClass('hotspot-active2');
+				$shape.trigger('active.responsilight');
+			} else {
+
+			}
 		}
 	};
 
