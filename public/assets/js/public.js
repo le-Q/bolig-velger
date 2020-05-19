@@ -322,12 +322,13 @@
 			return [img.data('natH') - coord, xCoords[index]];
 		});
 
-		var test_result = "ledig";
+		var test_result = "";
 
 		console.log(areaData.action);
 		console.log(carName);
-		if (carName.filter(x => x.id == areaData.action).map(x => x.status) == 'Ledig')
-			console.log('ledig');
+		if (carName.filter(x => x.id == areaData.action).map(x => x.status) == 'Ledig') {
+			test_result = 'ledig';
+		}
 
 
 		/*

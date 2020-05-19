@@ -239,12 +239,7 @@ elseif (
 							$rooms = get_post_meta($hotspot['action'], '_cmb2_leilighet_antall', true);
 							$price = get_post_meta($hotspot['action'], '_cmb2_leilighet_pris', true);
 							?>
-							<script>
-							var nyEl={};
-							nyEl['id'] = '<?php echo $hotspot['action'] ?>';
-							nyEl['status'] = '<?php echo $status ?>';
-							carName.push(nyEl); 
-							</script>
+							
 						</div>
 					</div>
 					<div class="aprt-content-info">
@@ -253,6 +248,12 @@ elseif (
 						<span class="floor">Etasje: <?php echo $floor ?></span>
 						<span class="rooms">Antall rom: <?php echo $rooms ?></span>
 						<span class="price">Pris: <?php echo $price ?></span>
+						<script>
+							var nyEl={};
+							nyEl['id'] = '<?php echo $hotspot['action'] ?>';
+							nyEl['status'] = '<?php echo $status ?>';
+							carName.push(nyEl); 
+							</script>
 					</div>
 				</div>
 			</div>
