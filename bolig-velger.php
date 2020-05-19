@@ -168,3 +168,24 @@ function cmb2_leilighet_metabox()
 
 	add_action('cmb2_admin_init', 'cmb2_leilighet_metabox');
 }
+
+
+function get_status_callback() {
+	$post_id = intval($_POST['value'] );
+
+	$post_meta = esc_html(get_post_meta($post_id, '_cmb2_leilighet_status', true));
+
+
+	$resp = array ('title' => 'Ledig');
+	//wp_send_json_success( array('data' => 'ledig') );
+	wp_send_json_success('hello');
+
+	//wp_send_json( array('message'=> "hello") );
+	//wp_send_json( 'hello' );
+	//echo "hello";
+	//echo json_encode('hello');
+	wp_die();
+
+}
+add_action( 'wp_ajax_get_status_callback', 'get_status_callback' );
+add_action( 'wp_ajax_nopriv_get_status_callback', 'get_status_callback' );

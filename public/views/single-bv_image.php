@@ -9,9 +9,12 @@ get_header();
 
 ?>
 
+
 <div id="primary" class="site-content">
 	<div id="content" role="main">
-
+	<script>
+		var carName = new Array();
+	</script>
 		<?php while (have_posts()) : the_post(); ?>
 			<?php echo do_shortcode('[boligvelger ID="' . get_the_id() . '"]'); ?>
 		<?php endwhile; // end of the loop. 

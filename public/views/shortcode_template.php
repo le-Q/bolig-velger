@@ -26,24 +26,20 @@ if (empty($has_hotspots)) : ?>
   <?php
   // In page builder edit mode - just display the image
   ?>
-  /*
+  
   <script>
-    window.daStyles<?php echo $settings['image_id']; ?> = <?php echo json_encode($formatted_styles); ?>
+		window.daStyles<?php echo $settings['image_id']; ?> = <?php echo json_encode($formatted_styles); ?>
   </script>
-  */ /* Error message for admins when there's a JS error */ /* Loop through the hotspots and output the more info content for each */<?php // There are hotspots! Show the interactive image // Grab the metadata from the database
-                                                                                                                                      // There are hotspots! Show the interactive image
-                                                                                                                                      /*
-<script>
-	window.daStyles<?php echo $settings['image_id']; ?> = <?php echo json_encode($formatted_styles); ?>
-</script>
-*/
-                                                                                                                                      /* Error message for admins when there's a JS error */
-                                                                                                                                      /* Loop through the hotspots and output the more info content for each */
-                                                                                                                                      // Grab the metadata from the database
-                                                                                                                                      ?>elseif (
-  !empty($_GET['fl_builder']) ||
-  !empty($_GET['elementor-preview']) ||
-  (!empty($_GET['action']) && $_GET['action'] == 'elementor')
+
+	<?php 
+// There are hotspots! Show the interactive image // Grab the metadata from the database
+// There are hotspots! Show the interactive image
+/* Error message for admins when there's a JS error */
+/* Loop through the hotspots and output the more info content for each */
+// Grab the metadata from the database
+
+elseif (
+  !empty($_GET['fl_builder']) || !empty($_GET['elementor-preview']) || (!empty($_GET['action']) && $_GET['action'] == 'elementor')
   ): ?>
   <div class="hotspots-image-container">
     <img width="<?php echo $settings['img_width']; ?>" height="<?php echo $settings['img_height']; ?>" src="<?php echo $settings['img_url']; ?>" alt="<?php echo esc_attr(
@@ -87,11 +83,17 @@ if (empty($has_hotspots)) : ?>
       stroke-opacity: <?php echo $style['hover']['borderOpacity']; ?>;
     }
 
-    <?php endforeach; ?>.hotspot-active,
+		<?php endforeach; ?>
+		
+		.hotspot-active,
     :hover {
-      fill: green;
+      fill: red;
       fill-opacity: .7;
-    }
+		}
+		
+		.ledig:hover {
+			fill: green;
+		}
 
     #<?php echo $settings['spot_id']; ?>.leaflet-tooltip,
     #<?php echo $settings['spot_id']; ?>.leaflet-rrose-content-wrapper {
@@ -237,6 +239,12 @@ if (empty($has_hotspots)) : ?>
 							$rooms = get_post_meta($hotspot['action'], '_cmb2_leilighet_antall', true);
 							$price = get_post_meta($hotspot['action'], '_cmb2_leilighet_pris', true);
 							?>
+							<script>
+							var nyEl={};
+							nyEl['id'] = '<?php echo $hotspot['action'] ?>';
+							nyEl['status'] = '<?php echo $status ?>';
+							carName.push(nyEl); 
+							</script>
 						</div>
 					</div>
 					<div class="aprt-content-info">

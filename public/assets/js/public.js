@@ -277,6 +277,7 @@
 				layout: container.data('layout'),
 				trigger: container.data('trigger')
 			};
+
 			switch (shape) {
 				case 'circle':
 					renderCircle(coords, map, img, areaData);
@@ -305,6 +306,7 @@
 		shapeEvents(circle, areaData);
 	};
 
+
 	var renderPoly = function (coords, map, img, areaData) {
 		var xCoords = [];
 		var yCoords = [];
@@ -320,8 +322,66 @@
 			return [img.data('natH') - coord, xCoords[index]];
 		});
 
+		var test_result = "ledig";
+
+		console.log(areaData.action);
+		console.log(carName);
+		if (carName.filter(x => x.id == areaData.action).map(x => x.status) == 'Ledig')
+			console.log('ledig');
+
+
+		/*
+		$.ajax({
+			url: my_ajax_object.ajaxurl,
+			data: {
+				value: areaData.action,
+				action: 'get_status_callback' //this is the name of the AJAX method called in WordPress
+			},
+			success: function (data) {
+				console.log(data);
+				test_result = "Ledig";
+			},
+			error: function () {
+				alert("error");
+			}
+		});*/
+
+
+		/*
+		$.post(my_ajax_object.ajaxurl, {
+			action: 'get_status_callback',
+			value: areaData.action
+		}, handle_response, 'json');
+
+		var handle_response = function (resp) {
+			if (!resp.success || !resp.data) {
+				alert("error");
+				return false;
+			}
+			console.log(resp);
+			test_result = resp.data;
+
+		};*/
+
+
+		/*
+		jQuery.ajax({ // We use jQuery instead $ sign, because WordPress convention.
+			url: my_ajax_object.ajaxurl, // This addres will redirect the query to the functions.php file, where we coded the function that we need.
+			type: 'POST',
+			dataType: "text",
+			data: {
+				action: 'get_status_callback',
+				value: areaData.action,
+			},
+			success: function (obj) {
+				//jsondata = obj;
+				console.log(obj);
+
+			}
+		});*/
+
 		var poly = L.polygon(polyCoords, {
-			className: 'hotspot-' + areaData.style,
+			className: test_result + ' hotspot-' + areaData.style,
 			title: areaData.title
 		}).addTo(map)
 

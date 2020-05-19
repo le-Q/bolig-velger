@@ -306,6 +306,9 @@ if (!class_exists('BoligVelger')) {
 			wp_register_script($this->plugin_slug . '-plugin-script', plugins_url('assets/js/public.js', __FILE__), array($this->plugin_slug . '-leaflet-rrose', 'jquery'), self::VERSION, true);
 			wp_register_script($this->plugin_slug . '-plugin-script-main', plugins_url('assets/js/main.js', __FILE__), array(), self::VERSION, true);
 
+			wp_localize_script($this->plugin_slug . '-plugin-script', 'my_ajax_object',
+            array( 'ajax_url' => admin_url( 'admin-ajax.php' ) ) );
+
 			wp_localize_script($this->plugin_slug . '-plugin-script', 'boligvelgerData', array(
 				'isLoggedIn' => is_user_logged_in(),
 				'isAdmin' => current_user_can('administrator')

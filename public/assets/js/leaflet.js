@@ -4351,7 +4351,7 @@
       },
       _initPath: function (t) {
         var i = t._path = wn("path");
-        t.options.className && Q(i, t.options.className), t.options.interactive && Q(i, "leaflet-interactive " + "leig"), this._updateStyle(t), this._layers[n(t)] = t
+        t.options.className && Q(i, t.options.className), t.options.interactive && Q(i, "leaflet-interactive "), this._updateStyle(t), this._layers[n(t)] = t
       },
       _addPath: function (t) {
         this._rootGroup || this._initContainer(), this._rootGroup.appendChild(t._path), t.addInteractiveTarget(t._path)
