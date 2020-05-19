@@ -77,7 +77,7 @@ class DrawAttention_CPT {
 				'singular_name' => 'Leilighet'
 			),
 			'menu_icon' => 'dashicons-welcome-learn-more',
-			'taxonomies' => array('category', 'post_tag')
+			'taxonomies' => array('category',)
 		));
 	}
 
