@@ -14,9 +14,6 @@ get_header();
 
 		<?php while (have_posts()) : the_post(); ?>
 			<?php echo do_shortcode('[boligvelger ID="' . get_the_id() . '"]'); ?>
-			<?php if (current_user_can('edit_others_posts')) : ?>
-				<?php edit_post_link(__('Edit Interactive Image', 'bolig-velger')); ?>
-			<?php endif ?>
 		<?php endwhile; // end of the loop. 
 		?>
 		<div class="aprt-list">
@@ -46,7 +43,7 @@ get_header();
 					number_format($price, 2, ".", " ");
 				?>
 
-					<tr class="aprt-row" id="<?php echo $settings['spot_id'] ?>
+					<tr class="aprt-row" >
 						<td><?php echo the_title(); ?></td>
 						<td><?php echo $area; ?></td>
 						<td><?php echo $floor; ?></td>
