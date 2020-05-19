@@ -27,6 +27,8 @@ class DrawAttention_CustomFields {
 		add_filter( 'cmb2_meta_boxes', array( $this, 'choosen_element' ));
 
 		//add_action( 'cmb2_admin_init', 'choosen_element' );
+		add_filter( 'cmb2_enqueue_js', array( $this, 'cmb2_scripts' ) );
+		add_action( 'wp_ajax_get_options', array( $this, 'return_options' ) );
 		
 	}
 
@@ -76,16 +78,6 @@ class DrawAttention_CustomFields {
 			$thumbnail_src = wp_get_attachment_image_src( get_post_thumbnail_id( esc_attr( $_REQUEST['post'] ) ), 'full' );
 		}
 
-		$leilighet = array(
-			'post_type' => 'leilighet'
-		);
-		$loop = new WP_Query($leilighet);
-		$leiligheter = array();
-
-		while($loop->have_posts()) : $loop->the_post();
-			$leiligheter[get_the_ID()] = get_the_title(); 
-		endwhile;
-
 		$metaboxes['field_group'] = apply_filters( 'bv_hotspot_area_group_details', array(
 			'id'           => 'field_group',
 			'title'        => __( 'Leiligheter', 'bolig-velger' ),
@@ -113,15 +105,50 @@ class DrawAttention_CustomFields {
 								'class' => 'cmb2_select action'
 							),
 							'type' => 'select',
-							'options' => $leiligheter
+							'options' => $this->set_option(),
 						)
 					)
 				)
 			)
 		) );
-  
+	
+		/*
+		function enhets_options() {
+
+			$select_value = get_post_meta( 37, 'blokk_velger', true );
+
+			if (!empty($select_value)) {
+				$leilighet = array(
+					'post_type' => 'leilighet'
+				);
+			} else {
+				$leilighet = array(
+					'post_type' => 'leilighet',
+					'category_name' => $select_value
+				);
+			}
+			
+			$loop = new WP_Query($leilighet);
+			$leiligheter = array();
+	
+			while($loop->have_posts()) : $loop->the_post();
+				$leiligheter[get_the_ID()] = get_the_title(); 
+			endwhile;
+	
+			return $leiligheter;
+		}
+		*/
+
+
+
+	
 		return $metaboxes;
 	}
+
+
+
+
+
 
 	function hotspot_area_override_title_and_content( $value, $object_id, $args, $field ) {
 		if ( $value != 'cmb2_field_no_override_val' ) return $value; // don't modify already overridden values
@@ -164,9 +191,6 @@ class DrawAttention_CustomFields {
 		update_post_meta( $_POST['_pid'], $this->prefix.'coordinates', $coordinates );
 	}
 
-	//Opprettet ny metode for custom fields til leiligheten
-
-	
 	//Oppretter ny metode for custom fields til blokken
 
 	function cmb2_blokk_metabox() {
@@ -203,5 +227,75 @@ class DrawAttention_CustomFields {
 
 		add_action( 'cmb2_admin_init', 'cmb2_blokk_metabox' );
 	}
+
+
+
+	
+
+		// Henter leiligheter
+		public function set_option() {
+
+		global $post;
+
+		$post_id = isset( $_GET['post'] ) ? absint( $_GET['post'] ) : false;
+		if( false == $post_id && isset( $post->ID )){
+			$post_id = $post->ID;
+		}
+
+		$current_option = '';
+		if( $post_id ) {
+			$current_option = get_post_meta( $post_id, 'blokk_velger', true );
+		}
+
+		$current_option = get_post_meta( 37, 'blokk_velger', true);
+		return $this->get_leilighet( $current_option );
+		}
+	
+		public function get_leilighet( $enhet = '' ) {
+
+		$leilighet = array(
+			'post_type' => 'leilighet',
+			'cat' => $enhet,
+		);
+
+		$loop = new WP_Query($leilighet);
+		$leiligheter = array();
+
+		while($loop->have_posts()) : $loop->the_post();
+			$leiligheter[get_the_ID()] = get_the_title(); 
+		endwhile;
+
+		return $leiligheter;
+	}
+	
+	// Kobler til AJAX - blokk_velger.js
+		public function cmb2_scripts( $return ) {
+	
+			wp_enqueue_script( 'ajaxified_dropdown', plugins_url( 'blokk_velger.js', __FILE__ ), array( 'jquery' ), 0, true );
+			return $return;
+		}
+	
+		public function return_options() {
+			$value = $_POST[ 'value' ];
+			$safe_value = esc_attr( $value );
+	
+			$options = $this->get_leilighet( $safe_value );
+			if( ! $options ){
+				wp_send_json_error( array( 'msg' => 'Value inaccessible') );
+			}
+	
+			$output = '';
+			foreach( $options as $enhets_value => $enhets_navn ){
+				$output .= sprintf( "<option value='%s'>%s</option>", $enhets_value, $enhets_navn );
+			}
+	
+			if( ! empty( $output ) ){
+				wp_send_json_success( $output );
+			}
+	
+			wp_send_json_error();
+		}
+
+	
 
 }

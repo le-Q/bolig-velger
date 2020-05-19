@@ -114,6 +114,9 @@ if (!class_exists('BoligVelger')) {
 
 			include_once('includes/class-block-image.php');
 			$this->block_image = new DrawAttention_Block_Image($this);
+
+			include_once( 'includes/import-export.php' );
+			$this->import_export = new Enhet_ImportExport( $this );
 		}
 
 		/**
