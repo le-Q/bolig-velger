@@ -1,13 +1,4 @@
-.leaflet-pane,
-.leaflet-tile,
-.leaflet-marker-icon,
-.leaflet-marker-shadow,
-.leaflet-tile-container,
-.leaflet-pane>svg,
-.leaflet-pane>canvas,
-.leaflet-zoom-box,
-.leaflet-image-layer,
-.leaflet-layer {
+.leaflet-pane, .leaflet-tile, .leaflet-marker-icon, .leaflet-marker-shadow, .leaflet-tile-container, .leaflet-pane>svg, .leaflet-pane>canvas, .leaflet-zoom-box, .leaflet-image-layer, .leaflet-layer {
   position: absolute;
   left: 0;
   top: 0
@@ -17,9 +8,7 @@
   overflow: hidden
 }
 
-.leaflet-tile,
-.leaflet-marker-icon,
-.leaflet-marker-shadow {
+.leaflet-tile, .leaflet-marker-icon, .leaflet-marker-shadow {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -37,17 +26,11 @@
   -webkit-transform-origin: 0 0
 }
 
-.leaflet-marker-icon,
-.leaflet-marker-shadow {
+.leaflet-marker-icon, .leaflet-marker-shadow {
   display: block
 }
 
-.leaflet-container .leaflet-overlay-pane svg,
-.leaflet-container .leaflet-marker-pane img,
-.leaflet-container .leaflet-shadow-pane img,
-.leaflet-container .leaflet-tile-pane img,
-.leaflet-container img.leaflet-image-layer,
-.leaflet-container .leaflet-tile {
+.leaflet-container .leaflet-overlay-pane svg, .leaflet-container .leaflet-marker-pane img, .leaflet-container .leaflet-shadow-pane img, .leaflet-container .leaflet-tile-pane img, .leaflet-container img.leaflet-image-layer, .leaflet-container .leaflet-tile {
   max-width: none !important;
   max-height: none !important
 }
@@ -153,8 +136,7 @@
   pointer-events: auto
 }
 
-.leaflet-top,
-.leaflet-bottom {
+.leaflet-top, .leaflet-bottom {
   position: absolute;
   z-index: 1000;
   pointer-events: none
@@ -239,8 +221,7 @@
   transition: transform 0.25s cubic-bezier(0, 0, 0.25, 1), -webkit-transform 0.25s cubic-bezier(0, 0, 0.25, 1), -moz-transform 0.25s cubic-bezier(0, 0, 0.25, 1), -o-transform 0.25s cubic-bezier(0, 0, 0.25, 1)
 }
 
-.leaflet-zoom-anim .leaflet-tile,
-.leaflet-pan-anim .leaflet-tile {
+.leaflet-zoom-anim .leaflet-tile, .leaflet-pan-anim .leaflet-tile {
   -webkit-transition: none;
   -moz-transition: none;
   -o-transition: none;
@@ -261,36 +242,26 @@
   cursor: grab
 }
 
-.leaflet-crosshair,
-.leaflet-crosshair .leaflet-interactive {
+.leaflet-crosshair, .leaflet-crosshair .leaflet-interactive {
   cursor: crosshair
 }
 
-.leaflet-popup-pane,
-.leaflet-control {
+.leaflet-popup-pane, .leaflet-control {
   cursor: auto
 }
 
-.leaflet-dragging .leaflet-grab,
-.leaflet-dragging .leaflet-grab .leaflet-interactive,
-.leaflet-dragging .leaflet-marker-draggable {
+.leaflet-dragging .leaflet-grab, .leaflet-dragging .leaflet-grab .leaflet-interactive, .leaflet-dragging .leaflet-marker-draggable {
   cursor: move;
   cursor: -webkit-grabbing;
   cursor: -moz-grabbing;
   cursor: grabbing
 }
 
-.leaflet-marker-icon,
-.leaflet-marker-shadow,
-.leaflet-image-layer,
-.leaflet-pane>svg path,
-.leaflet-tile-container {
+.leaflet-marker-icon, .leaflet-marker-shadow, .leaflet-image-layer, .leaflet-pane>svg path, .leaflet-tile-container {
   pointer-events: none
 }
 
-.leaflet-marker-icon.leaflet-interactive,
-.leaflet-image-layer.leaflet-interactive,
-.leaflet-pane>svg path.leaflet-interactive {
+.leaflet-marker-icon.leaflet-interactive, .leaflet-image-layer.leaflet-interactive, .leaflet-pane>svg path.leaflet-interactive {
   pointer-events: visiblePainted;
   pointer-events: auto
 }
@@ -322,8 +293,7 @@
   border-radius: 4px
 }
 
-.leaflet-bar a,
-.leaflet-bar a:hover {
+.leaflet-bar a, .leaflet-bar a:hover {
   background-color: #fff;
   border-bottom: 1px solid #ccc;
   width: 26px;
@@ -335,8 +305,7 @@
   color: black
 }
 
-.leaflet-bar a,
-.leaflet-control-layers-toggle {
+.leaflet-bar a, .leaflet-control-layers-toggle {
   background-position: 50% 50%;
   background-repeat: no-repeat;
   display: block
@@ -395,14 +364,12 @@
   border-bottom-right-radius: 2px
 }
 
-.leaflet-control-zoom-in,
-.leaflet-control-zoom-out {
+.leaflet-control-zoom-in, .leaflet-control-zoom-out {
   font: bold 18px 'Lucida Console', Monaco, monospace;
   text-indent: 1px
 }
 
-.leaflet-touch .leaflet-control-zoom-in,
-.leaflet-touch .leaflet-control-zoom-out {
+.leaflet-touch .leaflet-control-zoom-in, .leaflet-touch .leaflet-control-zoom-out {
   font-size: 22px
 }
 
@@ -434,8 +401,7 @@
   height: 44px
 }
 
-.leaflet-control-layers .leaflet-control-layers-list,
-.leaflet-control-layers-expanded .leaflet-control-layers-toggle {
+.leaflet-control-layers .leaflet-control-layers-list, .leaflet-control-layers-expanded .leaflet-control-layers-toggle {
   display: none
 }
 
@@ -482,8 +448,7 @@
   margin: 0
 }
 
-.leaflet-control-attribution,
-.leaflet-control-scale-line {
+.leaflet-control-attribution, .leaflet-control-scale-line {
   padding: 0 5px;
   color: #333
 }
@@ -496,8 +461,7 @@
   text-decoration: underline
 }
 
-.leaflet-container .leaflet-control-attribution,
-.leaflet-container .leaflet-control-scale {
+.leaflet-container .leaflet-control-attribution, .leaflet-container .leaflet-control-scale {
   font-size: 11px
 }
 
@@ -534,16 +498,13 @@
   border-bottom: 2px solid #777
 }
 
-.leaflet-touch .leaflet-control-attribution,
-.leaflet-touch .leaflet-control-layers,
-.leaflet-touch .leaflet-bar {
+.leaflet-touch .leaflet-control-attribution, .leaflet-touch .leaflet-control-layers, .leaflet-touch .leaflet-bar {
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none
 }
 
-.leaflet-touch .leaflet-control-layers,
-.leaflet-touch .leaflet-bar {
+.leaflet-touch .leaflet-control-layers, .leaflet-touch .leaflet-bar {
   border: 2px solid rgba(0, 0, 0, 0.2);
   background-clip: padding-box
 }
@@ -593,8 +554,7 @@
   transform: rotate(45deg)
 }
 
-.leaflet-popup-content-wrapper,
-.leaflet-popup-tip {
+.leaflet-popup-content-wrapper, .leaflet-popup-tip {
   background: white;
   color: #333;
   -webkit-box-shadow: 0 3px 14px rgba(0, 0, 0, 0.4);
@@ -643,10 +603,7 @@
   margin-top: -1px
 }
 
-.leaflet-oldie .leaflet-control-zoom,
-.leaflet-oldie .leaflet-control-layers,
-.leaflet-oldie .leaflet-popup-content-wrapper,
-.leaflet-oldie .leaflet-popup-tip {
+.leaflet-oldie .leaflet-control-zoom, .leaflet-oldie .leaflet-control-layers, .leaflet-oldie .leaflet-popup-content-wrapper, .leaflet-oldie .leaflet-popup-tip {
   border: 1px solid #999
 }
 
@@ -680,10 +637,7 @@
   pointer-events: auto
 }
 
-.leaflet-tooltip-top:before,
-.leaflet-tooltip-bottom:before,
-.leaflet-tooltip-left:before,
-.leaflet-tooltip-right:before {
+.leaflet-tooltip-top:before, .leaflet-tooltip-bottom:before, .leaflet-tooltip-left:before, .leaflet-tooltip-right:before {
   position: absolute;
   pointer-events: none;
   border: 6px solid transparent;
@@ -699,8 +653,7 @@
   margin-top: -6px
 }
 
-.leaflet-tooltip-bottom:before,
-.leaflet-tooltip-top:before {
+.leaflet-tooltip-bottom:before, .leaflet-tooltip-top:before {
   left: 50%;
   margin-left: -6px
 }
@@ -726,8 +679,7 @@
   margin-left: 6px
 }
 
-.leaflet-tooltip-left:before,
-.leaflet-tooltip-right:before {
+.leaflet-tooltip-left:before, .leaflet-tooltip-right:before {
   top: 50%;
   margin-top: -6px
 }
@@ -777,13 +729,11 @@ path[class^='hotspot-'] {
   overflow: hidden
 }
 
-.leaflet-rrose-tip-container-se,
-.leaflet-rrose-tip-container-ne {
+.leaflet-rrose-tip-container-se, .leaflet-rrose-tip-container-ne {
   margin-left: 0
 }
 
-.leaflet-rrose-tip-container-sw,
-.leaflet-rrose-tip-container-nw {
+.leaflet-rrose-tip-container-sw, .leaflet-rrose-tip-container-nw {
   margin-right: 0
 }
 
@@ -844,9 +794,7 @@ a.leaflet-rrose-close-button:hover {
   color: #999
 }
 
-.leaflet-rrose-s a.leaflet-rrose-close-button,
-.leaflet-rrose-se a.leaflet-rrose-close-button,
-.leaflet-rrose-sw a.leaflet-rrose-close-button {
+.leaflet-rrose-s a.leaflet-rrose-close-button, .leaflet-rrose-se a.leaflet-rrose-close-button, .leaflet-rrose-sw a.leaflet-rrose-close-button {
   top: 24px
 }
 
@@ -860,8 +808,7 @@ a.leaflet-rrose-close-button:hover {
   border-top: 1px solid #ddd
 }
 
-.leaflet-rrose-content-wrapper,
-.leaflet-rrose-tip {
+.leaflet-rrose-content-wrapper, .leaflet-rrose-tip {
   background: white;
   -webkit-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
   -moz-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
@@ -886,15 +833,13 @@ a.leaflet-rrose-close-button:hover {
   border-radius: 5px 0 5px 5px
 }
 
-.leaflet-rrose-content-wrapper-nw,
-.leaflet-rrose-content-wrapper-w {
+.leaflet-rrose-content-wrapper-nw, .leaflet-rrose-content-wrapper-w {
   -webkit-border-radius: 5px 5px 0 5px;
   -moz-border-radius: 5px 5px 0 5px;
   border-radius: 5px 5px 0 5px
 }
 
-.leaflet-rrose-content-wrapper-ne,
-.leaflet-rrose-content-wrapper-e {
+.leaflet-rrose-content-wrapper-ne, .leaflet-rrose-content-wrapper-e {
   -webkit-border-radius: 5px 5px 5px 0;
   -moz-border-radius: 5px 5px 5px 0;
   border-radius: 5px 5px 5px 0
@@ -910,7 +855,7 @@ a.leaflet-rrose-close-button:hover {
   display: -moz-box;
   display: -ms-flexbox;
   display: flex;
-  margin: 1em 0;
+  margin: 0 0 1em 0;
   width: 100%
 }
 
@@ -918,7 +863,6 @@ a.leaflet-rrose-close-button:hover {
   0% {
     opacity: 0
   }
-
   100% {
     opacity: 1
   }
@@ -928,7 +872,6 @@ a.leaflet-rrose-close-button:hover {
   0% {
     opacity: 0
   }
-
   100% {
     opacity: 1
   }
@@ -938,7 +881,6 @@ a.leaflet-rrose-close-button:hover {
   0% {
     opacity: 0
   }
-
   100% {
     opacity: 1
   }
@@ -948,7 +890,6 @@ a.leaflet-rrose-close-button:hover {
   0% {
     opacity: 0
   }
-
   100% {
     opacity: 1
   }
@@ -1076,9 +1017,7 @@ a.leaflet-rrose-close-button:hover {
 }
 
 @media screen and (min-width: 600px) {
-
-  .layout-left.links-only .hotspots-image-container,
-  .layout-right.links-only .hotspots-image-container {
+  .layout-left.links-only .hotspots-image-container, .layout-right.links-only .hotspots-image-container {
     -webkit-box-flex: 0;
     -webkit-flex: 0 0 100%;
     -moz-box-flex: 0;
@@ -1088,9 +1027,7 @@ a.leaflet-rrose-close-button:hover {
 }
 
 @media screen and (min-width: 900px) {
-
-  .layout-left.links-only .hotspots-image-container,
-  .layout-right.links-only .hotspots-image-container {
+  .layout-left.links-only .hotspots-image-container, .layout-right.links-only .hotspots-image-container {
     -webkit-box-flex: 0;
     -webkit-flex: 0 0 100%;
     -moz-box-flex: 0;
@@ -1099,15 +1036,13 @@ a.leaflet-rrose-close-button:hover {
   }
 }
 
-.hotspot-title,
-.entry-content .hotspot-title {
+.hotspot-title, .entry-content .hotspot-title {
   margin-top: 0;
   padding-top: 0;
   text-align: center
 }
 
-.hotspot-content p,
-.entry-content .hotspot-content p {
+.hotspot-content p, .entry-content .hotspot-content p {
   color: inherit
 }
 
@@ -1159,13 +1094,11 @@ a.leaflet-rrose-close-button:hover {
   top: 0
 }
 
-.hotspots-container.layout-left .bc-product-card--single,
-.hotspots-container.layout-right .bc-product-card--single {
+.hotspots-container.layout-left .bc-product-card--single, .hotspots-container.layout-right .bc-product-card--single {
   margin: 0
 }
 
-.hotspots-container.layout-left .bc-product-card--single .bc-product__gallery,
-.hotspots-container.layout-right .bc-product-card--single .bc-product__gallery {
+.hotspots-container.layout-left .bc-product-card--single .bc-product__gallery, .hotspots-container.layout-right .bc-product-card--single .bc-product__gallery {
   margin-bottom: 1em;
   -webkit-box-ordinal-group: 1;
   -webkit-order: 0;
@@ -1176,9 +1109,7 @@ a.leaflet-rrose-close-button:hover {
 }
 
 @media screen and (min-width: 960px) {
-
-  .hotspots-container.layout-left .bc-product-card--single .bc-product__gallery,
-  .hotspots-container.layout-right .bc-product-card--single .bc-product__gallery {
+  .hotspots-container.layout-left .bc-product-card--single .bc-product__gallery, .hotspots-container.layout-right .bc-product-card--single .bc-product__gallery {
     height: auto;
     left: auto;
     max-width: 100%;
@@ -1187,35 +1118,29 @@ a.leaflet-rrose-close-button:hover {
   }
 }
 
-.hotspots-container.layout-left .bc-product-card--single .bc-product-gallery--has-carousel,
-.hotspots-container.layout-right .bc-product-card--single .bc-product-gallery--has-carousel {
+.hotspots-container.layout-left .bc-product-card--single .bc-product-gallery--has-carousel, .hotspots-container.layout-right .bc-product-card--single .bc-product-gallery--has-carousel {
   margin-bottom: 0
 }
 
-.hotspots-container.layout-left .bc-product-card--single .bc-product-gallery__images,
-.hotspots-container.layout-right .bc-product-card--single .bc-product-gallery__images {
+.hotspots-container.layout-left .bc-product-card--single .bc-product-gallery__images, .hotspots-container.layout-right .bc-product-card--single .bc-product-gallery__images {
   margin: 0;
   max-width: 100%
 }
 
-.hotspots-container.layout-left .bc-product-card--single .bc-product-gallery__image-slide img,
-.hotspots-container.layout-right .bc-product-card--single .bc-product-gallery__image-slide img {
+.hotspots-container.layout-left .bc-product-card--single .bc-product-gallery__image-slide img, .hotspots-container.layout-right .bc-product-card--single .bc-product-gallery__image-slide img {
   margin: 0 auto
 }
 
-.hotspots-container.layout-left .bc-product-card--single .bc-product-flag--sale,
-.hotspots-container.layout-right .bc-product-card--single .bc-product-flag--sale {
+.hotspots-container.layout-left .bc-product-card--single .bc-product-flag--sale, .hotspots-container.layout-right .bc-product-card--single .bc-product-flag--sale {
   right: 0;
   top: 0
 }
 
-.hotspots-container.layout-left .bc-product-card--single .swiper-container+.swiper-container,
-.hotspots-container.layout-right .bc-product-card--single .swiper-container+.swiper-container {
+.hotspots-container.layout-left .bc-product-card--single .swiper-container+.swiper-container, .hotspots-container.layout-right .bc-product-card--single .swiper-container+.swiper-container {
   display: none
 }
 
-.hotspots-container.layout-left .bc-product-card--single .bc-product__meta,
-.hotspots-container.layout-right .bc-product-card--single .bc-product__meta {
+.hotspots-container.layout-left .bc-product-card--single .bc-product__meta, .hotspots-container.layout-right .bc-product-card--single .bc-product__meta {
   -webkit-box-ordinal-group: 1;
   -webkit-order: 0;
   -moz-box-ordinal-group: 1;
@@ -1224,9 +1149,7 @@ a.leaflet-rrose-close-button:hover {
 }
 
 @media screen and (min-width: 960px) {
-
-  .hotspots-container.layout-left .bc-product-card--single .bc-product__meta,
-  .hotspots-container.layout-right .bc-product-card--single .bc-product__meta {
+  .hotspots-container.layout-left .bc-product-card--single .bc-product__meta, .hotspots-container.layout-right .bc-product-card--single .bc-product__meta {
     -webkit-align-self: auto;
     -ms-flex-item-align: auto;
     -ms-grid-row-align: auto;
@@ -1235,40 +1158,32 @@ a.leaflet-rrose-close-button:hover {
   }
 }
 
-.hotspots-container.layout-left .bc-product-card--single .bc-product__title,
-.hotspots-container.layout-right .bc-product-card--single .bc-product__title {
+.hotspots-container.layout-left .bc-product-card--single .bc-product__title, .hotspots-container.layout-right .bc-product-card--single .bc-product__title {
   font-size: 1.5em
 }
 
-.hotspots-container.layout-left .bc-product-card--single .bc-product__pricing,
-.hotspots-container.layout-right .bc-product-card--single .bc-product__pricing {
+.hotspots-container.layout-left .bc-product-card--single .bc-product__pricing, .hotspots-container.layout-right .bc-product-card--single .bc-product__pricing {
   margin-bottom: 1em
 }
 
 @media screen and (min-width: 960px) {
-
-  .hotspots-container.layout-left .bc-product-card--single .bc-product__pricing,
-  .hotspots-container.layout-right .bc-product-card--single .bc-product__pricing {
+  .hotspots-container.layout-left .bc-product-card--single .bc-product__pricing, .hotspots-container.layout-right .bc-product-card--single .bc-product__pricing {
     margin-bottom: 1em
   }
 }
 
 @media screen and (min-width: 1200px) {
-
-  .hotspots-container.layout-left .bc-product-card--single .bc-product__pricing,
-  .hotspots-container.layout-right .bc-product-card--single .bc-product__pricing {
+  .hotspots-container.layout-left .bc-product-card--single .bc-product__pricing, .hotspots-container.layout-right .bc-product-card--single .bc-product__pricing {
     margin-bottom: 1em
   }
 }
 
-.hotspots-container.layout-left .bc-product-card--single .bc-product__sku,
-.hotspots-container.layout-right .bc-product-card--single .bc-product__sku {
+.hotspots-container.layout-left .bc-product-card--single .bc-product__sku, .hotspots-container.layout-right .bc-product-card--single .bc-product__sku {
   display: block;
   margin-bottom: 1em
 }
 
-.hotspots-container.layout-left .bc-product-card--single .bc-product__actions,
-.hotspots-container.layout-right .bc-product-card--single .bc-product__actions {
+.hotspots-container.layout-left .bc-product-card--single .bc-product__actions, .hotspots-container.layout-right .bc-product-card--single .bc-product__actions {
   margin-bottom: 1em;
   -webkit-box-ordinal-group: 1;
   -webkit-order: 0;
@@ -1279,15 +1194,12 @@ a.leaflet-rrose-close-button:hover {
   width: 100%
 }
 
-.hotspots-container.layout-left .bc-product-card--single .bc-product-form__quantity,
-.hotspots-container.layout-right .bc-product-card--single .bc-product-form__quantity {
+.hotspots-container.layout-left .bc-product-card--single .bc-product-form__quantity, .hotspots-container.layout-right .bc-product-card--single .bc-product-form__quantity {
   display: none
 }
 
 @media screen and (min-width: 960px) {
-
-  .hotspots-container.layout-left .bc-product-card--single .bc-product__description,
-  .hotspots-container.layout-right .bc-product-card--single .bc-product__description {
+  .hotspots-container.layout-left .bc-product-card--single .bc-product__description, .hotspots-container.layout-right .bc-product-card--single .bc-product__description {
     margin-bottom: 0
   }
 }
@@ -1302,8 +1214,7 @@ a.leaflet-rrose-close-button:hover {
   opacity: 0.1
 }
 
-.hotspots-container .hotspots-placeholder,
-.hotspots-container .hotspots-image-container {
+.hotspots-container .hotspots-placeholder, .hotspots-container .hotspots-image-container {
   opacity: 0.1;
   -webkit-transition: opacity 500ms ease-in-out;
   -o-transition: opacity 500ms ease-in-out;
@@ -1311,8 +1222,7 @@ a.leaflet-rrose-close-button:hover {
   transition: opacity 500ms ease-in-out
 }
 
-.hotspots-container .hotspots-placeholder>div.hotspot-initial,
-.hotspots-container .hotspots-image-container>div.hotspot-initial {
+.hotspots-container .hotspots-placeholder>div.hotspot-initial, .hotspots-container .hotspots-image-container>div.hotspot-initial {
   -webkit-animation: none;
   -moz-animation: none;
   -o-animation: none;
@@ -1321,8 +1231,7 @@ a.leaflet-rrose-close-button:hover {
   position: static
 }
 
-.hotspots-container:before,
-.hotspots-container:after {
+.hotspots-container:before, .hotspots-container:after {
   -webkit-animation: bounce 2.0s infinite ease-in-out;
   -moz-animation: bounce 2.0s infinite ease-in-out;
   -o-animation: bounce 2.0s infinite ease-in-out;
@@ -1352,23 +1261,19 @@ a.leaflet-rrose-close-button:hover {
   opacity: 0
 }
 
-.hotspots-container.loaded .hotspots-placeholder,
-.hotspots-container.loaded .hotspots-image-container {
+.hotspots-container.loaded .hotspots-placeholder, .hotspots-container.loaded .hotspots-image-container {
   opacity: 1
 }
 
-.hotspots-container.loaded .hotspots-placeholder>div.hotspot-initial,
-.hotspots-container.loaded .hotspots-image-container>div.hotspot-initial {
+.hotspots-container.loaded .hotspots-placeholder>div.hotspot-initial, .hotspots-container.loaded .hotspots-image-container>div.hotspot-initial {
   display: none
 }
 
-.hotspots-container.loaded .hotspots-placeholder>div.hotspot-initial.visible,
-.hotspots-container.loaded .hotspots-image-container>div.hotspot-initial.visible {
+.hotspots-container.loaded .hotspots-placeholder>div.hotspot-initial.visible, .hotspots-container.loaded .hotspots-image-container>div.hotspot-initial.visible {
   display: block
 }
 
-.hotspots-container.loaded:before,
-.hotspots-container.loaded:after {
+.hotspots-container.loaded:before, .hotspots-container.loaded:after {
   -webkit-animation: none;
   -moz-animation: none;
   -o-animation: none;
@@ -1383,13 +1288,10 @@ a.leaflet-rrose-close-button:hover {
 }
 
 @-webkit-keyframes bounce {
-
-  0%,
-  100% {
+  0%, 100% {
     -webkit-transform: scale(0);
     transform: scale(0)
   }
-
   50% {
     -webkit-transform: scale(1);
     transform: scale(1)
@@ -1397,13 +1299,10 @@ a.leaflet-rrose-close-button:hover {
 }
 
 @-moz-keyframes bounce {
-
-  0%,
-  100% {
+  0%, 100% {
     -moz-transform: scale(0);
     transform: scale(0)
   }
-
   50% {
     -moz-transform: scale(1);
     transform: scale(1)
@@ -1411,13 +1310,10 @@ a.leaflet-rrose-close-button:hover {
 }
 
 @-o-keyframes bounce {
-
-  0%,
-  100% {
+  0%, 100% {
     -o-transform: scale(0);
     transform: scale(0)
   }
-
   50% {
     -o-transform: scale(1);
     transform: scale(1)
@@ -1425,15 +1321,12 @@ a.leaflet-rrose-close-button:hover {
 }
 
 @keyframes bounce {
-
-  0%,
-  100% {
+  0%, 100% {
     -webkit-transform: scale(0);
     -moz-transform: scale(0);
     -o-transform: scale(0);
     transform: scale(0)
   }
-
   50% {
     -webkit-transform: scale(1);
     -moz-transform: scale(1);
