@@ -22,7 +22,7 @@ window = (function (window, document, $, undefined) {
 
     // ajaxurl is already defined in wp-admin, so no special stuff needed.
     $.post(ajaxurl, {
-      action: 'get_colors',
+      action: 'get_options',
       value: new_val
     }, app.handle_response, 'json');
   };

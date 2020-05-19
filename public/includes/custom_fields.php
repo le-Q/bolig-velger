@@ -28,7 +28,7 @@ class DrawAttention_CustomFields {
 
 		//add_action( 'cmb2_admin_init', 'choosen_element' );
 		add_filter( 'cmb2_enqueue_js', array( $this, 'cmb2_scripts' ) );
-		add_action( 'wp_ajax_get_colors', array( $this, 'return_colors' ) );
+		add_action( 'wp_ajax_get_options', array( $this, 'return_options' ) );
 		
 	}
 
@@ -191,9 +191,6 @@ class DrawAttention_CustomFields {
 		update_post_meta( $_POST['_pid'], $this->prefix.'coordinates', $coordinates );
 	}
 
-	//Opprettet ny metode for custom fields til leiligheten
-
-	
 	//Oppretter ny metode for custom fields til blokken
 
 	function cmb2_blokk_metabox() {
@@ -235,19 +232,31 @@ class DrawAttention_CustomFields {
 
 	
 
-		// TEST TEST
+		// Henter leiligheter
 		public function set_option() {
 
-			$current_vehicle = get_post_meta( get_the_ID(), 'blokk_velger', true);
-			return $this->get_colors( $current_vehicle );
+		global $post;
+
+		$post_id = isset( $_GET['post'] ) ? absint( $_GET['post'] ) : false;
+		if( false == $post_id && isset( $post->ID )){
+			$post_id = $post->ID;
+		}
+
+		$current_option = '';
+		if( $post_id ) {
+			$current_option = get_post_meta( $post_id, 'blokk_velger', true );
+		}
+
+		$current_option = get_post_meta( 37, 'blokk_velger', true);
+		return $this->get_leilighet( $current_option );
 		}
 	
-		public function get_colors( $vehicle = '' ) {
+		public function get_leilighet( $enhet = '' ) {
 
-			$leilighet = array(
-				'post_type' => 'leilighet',
-				'cat' => $vehicle,
-			);
+		$leilighet = array(
+			'post_type' => 'leilighet',
+			'cat' => $enhet,
+		);
 
 		$loop = new WP_Query($leilighet);
 		$leiligheter = array();
@@ -259,24 +268,25 @@ class DrawAttention_CustomFields {
 		return $leiligheter;
 	}
 	
+	// Kobler til AJAX - blokk_velger.js
 		public function cmb2_scripts( $return ) {
 	
 			wp_enqueue_script( 'ajaxified_dropdown', plugins_url( 'blokk_velger.js', __FILE__ ), array( 'jquery' ), 0, true );
 			return $return;
 		}
 	
-		public function return_colors() {
+		public function return_options() {
 			$value = $_POST[ 'value' ];
 			$safe_value = esc_attr( $value );
 	
-			$colors = $this->get_colors( $safe_value );
-			if( ! $colors ){
+			$options = $this->get_leilighet( $safe_value );
+			if( ! $options ){
 				wp_send_json_error( array( 'msg' => 'Value inaccessible') );
 			}
 	
 			$output = '';
-			foreach( $colors as $color_value => $color_name ){
-				$output .= sprintf( "<option value='%s'>%s</option>", $color_value, $color_name );
+			foreach( $options as $enhets_value => $enhets_navn ){
+				$output .= sprintf( "<option value='%s'>%s</option>", $enhets_value, $enhets_navn );
 			}
 	
 			if( ! empty( $output ) ){
