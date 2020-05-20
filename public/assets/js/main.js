@@ -1,5 +1,7 @@
 window.addEventListener('load', (event) => {
-    const hotspot = document.querySelector('.hotspot-default');
-
-
+    const tableRow = document.querySelectorAll('#aprt-info tr')
+        .forEach(e => e.addEventListener("click", function () {
+            console.log("clicked");
+            //document.querySelector('.hotspot-info, .visible').id = "hotspot-hotspot-6-1";
+        }));
 });

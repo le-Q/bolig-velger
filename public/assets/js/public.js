@@ -324,8 +324,6 @@
 
 		var test_result = "";
 
-		console.log(areaData.action);
-		console.log(carName);
 		if (carName.filter(x => x.id == areaData.action).map(x => x.status) == 'Ledig') {
 			test_result = 'ledig';
 		} else {
@@ -405,8 +403,6 @@
 			if ($shape.classList.contains('ledig')) {
 				$shape.addClass('hotspot-active2');
 				$shape.trigger('active.responsilight');
-			} else {
-
 			}
 		}
 	};

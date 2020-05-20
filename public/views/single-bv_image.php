@@ -46,9 +46,11 @@ get_header();
 					$price = get_post_meta(get_the_ID(), '_cmb2_leilighet_pris', true);
 
 					number_format($price, 2, ".", " ");
-				?>
 
-					<tr class="aprt-row">
+					require_once(__DIR__ . '/shortcode_template.php');
+
+				?>
+					<tr data-action="43" class="aprt-row">
 						<td><?php echo the_title(); ?></td>
 						<td><?php echo $area; ?></td>
 						<td><?php echo $floor; ?></td>

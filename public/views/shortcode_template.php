@@ -152,7 +152,6 @@ elseif (
 */ ?>
 
 	<div class="hotspots-container <?php echo $settings['urls_class']; ?> layout-<?php echo $settings['layout']; ?> event-<?php echo $settings['event_trigger']; ?>" id="<?php echo $settings['spot_id']; ?>" data-layout="<?php echo $settings['layout']; ?>" data-trigger="<?php echo $settings['event_trigger']; ?>">
-		<!--<div class="hotspots-container">-->
 		<div class="bolig-velger-area">
 			<?php if ($settings['urls_only']) {
 				require($this->get_plugin_dir() . '/public/views/image_template.php');
