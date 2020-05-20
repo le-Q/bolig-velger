@@ -20,6 +20,7 @@
 .aprt-content-info span {
   margin: 1rem;
   color: #fff;
+  font-size: 1.5rem;
 }
 
 h2 {
@@ -45,11 +46,13 @@ h2 {
 
 .aprt-list th {
   padding: 1.5rem;
+  cursor: pointer;
 }
 
 .aprt-list tr {
   text-align: center;
   border-bottom: 1px solid #D1D1D1;
+  cursor: pointer;
 }
 
 .aprt-list tr:last-child {
@@ -79,4 +82,22 @@ h2 {
 
 .free {
   fill: #00ce33;
+}
+
+@media screen and (max-width: 768px) {
+  .aprt-content {
+    flex-direction: column;
+  }
+  .aprt-content-info span {
+    font-size: 1rem;
+  }
+  table {
+    font-size: 1.2rem;
+  }
+  .aprt-list {
+    margin: 0 1em;
+  }
+  .aprt-list th {
+    padding: .75rem;
+  }
 }

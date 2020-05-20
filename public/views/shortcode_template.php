@@ -12,26 +12,26 @@ if (!empty($settings['hotspots']['0'])) {
 }
 
 if (empty($has_hotspots)) : ?>
-  <p><?php _e(
-        'You need to define some clickable areas for your image.',
-        'bolig-velger'
-      ); ?></p>
-  <p><?php echo edit_post_link(
-        __('Edit Image', 'bolig-velger'),
-        false,
-        false,
-        $settings['image_id']
-      ); ?></p>
+	<p><?php _e(
+			'You need to define some clickable areas for your image.',
+			'bolig-velger'
+		); ?></p>
+	<p><?php echo edit_post_link(
+			__('Edit Image', 'bolig-velger'),
+			false,
+			false,
+			$settings['image_id']
+		); ?></p>
 
-  <?php
-  // In page builder edit mode - just display the image
-  ?>
-  
-  <script>
+	<?php
+	// In page builder edit mode - just display the image
+	?>
+
+	<script>
 		window.daStyles<?php echo $settings['image_id']; ?> = <?php echo json_encode($formatted_styles); ?>
-  </script>
+	</script>
 
-	<?php 
+<?php
 // There are hotspots! Show the interactive image // Grab the metadata from the database
 // There are hotspots! Show the interactive image
 /* Error message for admins when there's a JS error */
@@ -39,101 +39,113 @@ if (empty($has_hotspots)) : ?>
 // Grab the metadata from the database
 
 elseif (
-  !empty($_GET['fl_builder']) || !empty($_GET['elementor-preview']) || (!empty($_GET['action']) && $_GET['action'] == 'elementor')
-  ): ?>
-  <div class="hotspots-image-container">
-    <img width="<?php echo $settings['img_width']; ?>" height="<?php echo $settings['img_height']; ?>" src="<?php echo $settings['img_url']; ?>" alt="<?php echo esc_attr(
-                                                                                                                                                        $settings['img_alt']
-                                                                                                                                                      ); ?>" class="hotspots-image skip-lazy" data-id="<?php echo $settings['image_id']; ?>" data-no-lazy="1" data-lazy-src="" data-lazy="false">
-  </div>
-  <?php
-  // There are hotspots! Show the interactive image
-  ?>
+	!empty($_GET['fl_builder']) || !empty($_GET['elementor-preview']) || (!empty($_GET['action']) && $_GET['action'] == 'elementor')
+) : ?>
+	<div class="hotspots-image-container">
+		<img width="<?php echo $settings['img_width']; ?>" height="<?php echo $settings['img_height']; ?>" src="<?php echo $settings['img_url']; ?>" alt="<?php echo esc_attr(
+																																								$settings['img_alt']
+																																							); ?>" class="hotspots-image skip-lazy" data-id="<?php echo $settings['image_id']; ?>" data-no-lazy="1" data-lazy-src="" data-lazy="false">
+	</div>
+	<?php
+	// There are hotspots! Show the interactive image
+	?>
 <?php else : ?>
 
-  <style>
-    #<?php echo $settings['spot_id']; ?>.hotspots-image-container,
-    #<?php echo $settings['spot_id']; ?>.leaflet-container {
-      background: <?php echo $settings['img_bg']; ?>
-    }
-
-    #<?php echo $settings['spot_id']; ?>.hotspots-placeholder {
-      background: <?php echo $settings['more_info_bg']; ?>;
-      border: 0 <?php echo $settings['more_info_bg']; ?> solid;
-      color: <?php echo $settings['more_info_text']; ?>;
-    }
-
-    #<?php echo $settings['spot_id']; ?>.hotspot-title {
-      color: <?php echo $settings['more_info_title']; ?>;
-    }
-
-    <?php foreach ($formatted_styles as $style) : ?>#<?php echo $settings['spot_id']; ?>.hotspot-<?php echo $style['name']; ?> {
-      stroke-width: <?php echo $style['borderWidth']; ?>;
-      fill: <?php echo $style['display']['fillColor']; ?>;
-      fill-opacity: <?php echo $style['display']['fillOpacity']; ?>;
-      stroke: <?php echo $style['display']['borderColor']; ?>;
-      stroke-opacity: <?php echo $style['display']['borderOpacity']; ?>;
-    }
-
-    #<?php echo $settings['spot_id']; ?>.hotspot-<?php echo $style['name']; ?>:hover,
-    #<?php echo $settings['spot_id']; ?>.hotspot-<?php echo $style['name']; ?>.hotspot-active {
-      fill: <?php echo (esc_html(get_post_meta($hotspot['action'], '_cmb2_leilighet_status', true)) == 'ledig') ? "#F00" : '#0F0'; ?>;
-      fill-opacity: <?php echo "0.7" ?>;
-      stroke: <?php echo $style['hover']['borderColor']; ?>;
-      stroke-opacity: <?php echo $style['hover']['borderOpacity']; ?>;
-    }
-
-		<?php endforeach; ?>
-		
-		.hotspot-active,
-    :hover {
-      fill: red;
-      fill-opacity: .7;
+	<style>
+		#<?php echo $settings['spot_id']; ?>.hotspots-image-container,
+		#<?php echo $settings['spot_id']; ?>.leaflet-container {
+			background: <?php echo $settings['img_bg']; ?>
 		}
-		
+
+		#<?php echo $settings['spot_id']; ?>.hotspots-placeholder {
+			background: <?php echo $settings['more_info_bg']; ?>;
+			border: 0 <?php echo $settings['more_info_bg']; ?> solid;
+			color: <?php echo $settings['more_info_text']; ?>;
+		}
+
+		#<?php echo $settings['spot_id']; ?>.hotspot-title {
+			color: <?php echo $settings['more_info_title']; ?>;
+		}
+
+		<?php foreach ($formatted_styles as $style) : ?>#<?php echo $settings['spot_id']; ?>.hotspot-<?php echo $style['name']; ?> {
+			stroke-width: <?php echo $style['borderWidth']; ?>;
+			fill: <?php echo $style['display']['fillColor']; ?>;
+			fill-opacity: <?php echo $style['display']['fillOpacity']; ?>;
+			stroke: <?php echo $style['display']['borderColor']; ?>;
+			stroke-opacity: <?php echo $style['display']['borderOpacity']; ?>;
+		}
+
+		#<?php echo $settings['spot_id']; ?>.hotspot-<?php echo $style['name']; ?>:hover,
+		#<?php echo $settings['spot_id']; ?>.hotspot-<?php echo $style['name']; ?>.hotspot-active {
+			fill: <?php echo (esc_html(get_post_meta($hotspot['action'], '_cmb2_leilighet_status', true)) == 'ledig') ? "#F00" : '#0F0'; ?>;
+			fill-opacity: <?php echo "0.7" ?>;
+			stroke: <?php echo $style['hover']['borderColor']; ?>;
+			stroke-opacity: <?php echo $style['hover']['borderOpacity']; ?>;
+		}
+
+		<?php endforeach; ?>.ledig {
+			fill: green;
+			fill-opacity: 0.3;
+			stroke: green;
+			stroke-opacity: 0.5;
+		}
+
 		.ledig:hover {
 			fill: green;
+			fill-opacity: 0.5;
 		}
 
-    #<?php echo $settings['spot_id']; ?>.leaflet-tooltip,
-    #<?php echo $settings['spot_id']; ?>.leaflet-rrose-content-wrapper {
-      background: <?php echo $settings['more_info_bg']; ?>;
-      border-color: <?php echo $settings['more_info_bg']; ?>;
-      color: <?php echo $settings['more_info_text']; ?>;
-    }
+		.opptatt {
+			fill: red;
+			fill-opacity: 0.3;
+			stroke: red;
+			stroke-opacity: 0.5;
+		}
 
-    #<?php echo $settings['spot_id']; ?>a.leaflet-rrose-close-button {
-      color: <?php echo $settings['more_info_title']; ?>;
-    }
+		.opptatt:hover {
+			fill: red;
+			fill-opacity: 0.5;
+		}
 
-    #<?php echo $settings['spot_id']; ?>.leaflet-rrose-tip {
-      background: <?php echo $settings['more_info_bg']; ?>;
-    }
+		#<?php echo $settings['spot_id']; ?>.leaflet-tooltip,
+		#<?php echo $settings['spot_id']; ?>.leaflet-rrose-content-wrapper {
+			background: <?php echo $settings['more_info_bg']; ?>;
+			border-color: <?php echo $settings['more_info_bg']; ?>;
+			color: <?php echo $settings['more_info_text']; ?>;
+		}
 
-    #<?php echo $settings['spot_id']; ?>.leaflet-popup-scrolled {
-      border-bottom-color: <?php echo $settings['more_info_text']; ?>;
-      border-top-color: <?php echo $settings['more_info_text']; ?>;
-    }
+		#<?php echo $settings['spot_id']; ?>a.leaflet-rrose-close-button {
+			color: <?php echo $settings['more_info_title']; ?>;
+		}
 
-    #<?php echo $settings['spot_id']; ?>.leaflet-tooltip-top:before {
-      border-top-color: <?php echo $settings['more_info_bg']; ?>;
-    }
+		#<?php echo $settings['spot_id']; ?>.leaflet-rrose-tip {
+			background: <?php echo $settings['more_info_bg']; ?>;
+		}
 
-    #<?php echo $settings['spot_id']; ?>.leaflet-tooltip-bottom:before {
-      border-bottom-color: <?php echo $settings['more_info_bg']; ?>;
-    }
+		#<?php echo $settings['spot_id']; ?>.leaflet-popup-scrolled {
+			border-bottom-color: <?php echo $settings['more_info_text']; ?>;
+			border-top-color: <?php echo $settings['more_info_text']; ?>;
+		}
 
-    #<?php echo $settings['spot_id']; ?>.leaflet-tooltip-left:before {
-      border-left-color: <?php echo $settings['more_info_bg']; ?>;
-    }
+		#<?php echo $settings['spot_id']; ?>.leaflet-tooltip-top:before {
+			border-top-color: <?php echo $settings['more_info_bg']; ?>;
+		}
 
-    #<?php echo $settings['spot_id']; ?>.leaflet-tooltip-right:before {
-      border-right-color: <?php echo $settings['more_info_bg']; ?>;
-    }
-  </style>
+		#<?php echo $settings['spot_id']; ?>.leaflet-tooltip-bottom:before {
+			border-bottom-color: <?php echo $settings['more_info_bg']; ?>;
+		}
 
-  <?php
-  /*
+		#<?php echo $settings['spot_id']; ?>.leaflet-tooltip-left:before {
+			border-left-color: <?php echo $settings['more_info_bg']; ?>;
+		}
+
+		#<?php echo $settings['spot_id']; ?>.leaflet-tooltip-right:before {
+			border-right-color: <?php echo $settings['more_info_bg']; ?>;
+		}
+	</style>
+
+	<?php
+	/*
 <script>
 	window.daStyles<?php echo $settings['image_id']; ?> = <?php echo json_encode($formatted_styles); ?>
 </script>
@@ -239,21 +251,23 @@ elseif (
 							$rooms = get_post_meta($hotspot['action'], '_cmb2_leilighet_antall', true);
 							$price = get_post_meta($hotspot['action'], '_cmb2_leilighet_pris', true);
 							?>
-							
+
 						</div>
 					</div>
 					<div class="aprt-content-info">
-						<span class="status">Status: <?php echo $status ?></span>
 						<span class="nr">Leilighet: <?php echo $nr ?></span>
+						<span class="nr">Brutto areal: <?php echo $area ?></span>
 						<span class="floor">Etasje: <?php echo $floor ?></span>
 						<span class="rooms">Antall rom: <?php echo $rooms ?></span>
-						<span class="price">Pris: <?php echo $price ?></span>
+						<span class="price">Pris: <?php echo number_format($price, 0, ".", " "); ?></span>
+						<span class="status">Status: <?php echo $status ?></span>
+
 						<script>
-							var nyEl={};
+							var nyEl = {};
 							nyEl['id'] = '<?php echo $hotspot['action'] ?>';
 							nyEl['status'] = '<?php echo $status ?>';
-							carName.push(nyEl); 
-							</script>
+							carName.push(nyEl);
+						</script>
 					</div>
 				</div>
 			</div>
