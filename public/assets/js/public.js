@@ -393,6 +393,7 @@
 		}
 
 		shapeEvents(poly, areaData);
+		tableEvents(areaData);
 	};
 
 	var shapeOver = function (shape, areaData, e) {
@@ -436,6 +437,18 @@
 		}
 	};
 
+	let tableEvents = function (areaData) {
+		const tableRow = document.querySelectorAll('.aprt-row')
+			.forEach(e => e.addEventListener("click", () => {
+				let data_href = document.createAttribute("data-href");
+				data_href.value = areaData.href;
+				e.setAttributeNode(data_href);
+
+				console.log('Clicked ' + tableRow[e]);
+			}));
+
+	};
+
 	var shapeEvents = function (shape, areaData) {
 		// Handle URL spots
 		if (areaData.action == 'url') {
@@ -466,6 +479,7 @@
 			});
 			return;
 		}
+
 
 		// Show right-click context menu for logged-in admins only
 		if (boligvelgerData.isLoggedIn && boligvelgerData.isAdmin) {
@@ -506,6 +520,7 @@
 					break;
 				case 'click':
 					shapeClick(shape, areaData, e);
+					tableEvents(areaData);
 					break;
 				case 'mouseover':
 					shapeOver(shape, areaData, e);
