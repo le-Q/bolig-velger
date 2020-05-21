@@ -50,7 +50,7 @@ get_header();
 					require_once(__DIR__ . '/shortcode_template.php');
 
 				?>
-					<tr data-action="43" class="aprt-row">
+					<tr class="aprt-row">
 						<td><?php echo the_title(); ?></td>
 						<td><?php echo $area; ?></td>
 						<td><?php echo $floor; ?></td>

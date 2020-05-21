@@ -443,8 +443,9 @@
 				let data_href = document.createAttribute("data-href");
 				data_href.value = areaData.href;
 				e.setAttributeNode(data_href);
+				//e.className += 'more-info-area';
 
-				console.log('Clicked ' + tableRow[e]);
+				console.log('Clicked ' + e.firstElementChild.innerHTML);
 			}));
 
 	};
