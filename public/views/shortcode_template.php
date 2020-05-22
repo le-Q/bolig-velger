@@ -75,12 +75,8 @@ elseif (
 			stroke-opacity: <?php echo $style['display']['borderOpacity']; ?>;
 		}
 
-		#<?php echo $settings['spot_id']; ?>.hotspot-<?php echo $style['name']; ?>:hover,
-		#<?php echo $settings['spot_id']; ?>.hotspot-<?php echo $style['name']; ?>.hotspot-active {
-			fill: <?php echo (esc_html(get_post_meta($hotspot['action'], '_cmb2_leilighet_status', true)) == 'ledig') ? "#F00" : '#0F0'; ?>;
-			fill-opacity: <?php echo "0.7" ?>;
-			stroke: <?php echo $style['hover']['borderColor']; ?>;
-			stroke-opacity: <?php echo $style['hover']['borderOpacity']; ?>;
+		.hotspot-active {
+			fill-opacity: 0.7;
 		}
 
 		<?php endforeach; ?>.ledig {
@@ -95,6 +91,11 @@ elseif (
 			fill-opacity: 0.5;
 		}
 
+		.ledig.hotspot-active {
+			fill: green;
+			fill-opacity: 0.5;
+		}
+
 		.opptatt {
 			fill: red;
 			fill-opacity: 0.3;
@@ -103,6 +104,11 @@ elseif (
 		}
 
 		.opptatt:hover {
+			fill: red;
+			fill-opacity: 0.5;
+		}
+
+		.opptatt.hotspot-active {
 			fill: red;
 			fill-opacity: 0.5;
 		}
@@ -271,6 +277,50 @@ elseif (
 				</div>
 			</div>
 		<?php endforeach; ?>
+		<div class="aprt-list">
+			<table id="aprt-info">
+				<tr>
+					<th id="aprt-nr" onclick="sortTable(0)">Leilighet <span id="arrowTh">&#9662;</span></th>
+					<th id="aprt-area" onclick="sortTable(1)">Brutto areal <span id="arrowTh"></span></th>
+					<th id="aprt-floor" onclick="sortTable(2)">Etasje <span id="arrowTh"></span></th>
+					<th id="aprt-rooms" onclick="sortTable(3)">Ant. rom <span id="arrowTh"></span></th>
+					<th id="aprt-price" onclick="sortTable(4)">Pris <span id="arrowTh"></span></th>
+					<th>Status</th>
+				</tr>
+				<?php
+				$aprtm = new WP_Query(array(
+					'post_type' => 'leilighet',
+					'orderby' => 'title',
+					'order' => 'ASC'
+				));
+
+				while ($aprtm->have_posts()) {
+					$aprtm->the_post();
+					$status = get_post_meta(get_the_ID(), '_cmb2_leilighet_status', true);
+					$nr = get_post_meta(get_the_ID(), '_cmb2_leilighet_nr', true);
+					$floor = get_post_meta(get_the_ID(), '_cmb2_leilighet_etasje', true);
+					$area = get_post_meta(get_the_ID(), '_cmb2_leilighet_bruttoareal', true);
+					$rooms = get_post_meta(get_the_ID(), '_cmb2_leilighet_antall', true);
+					$price = get_post_meta(get_the_ID(), '_cmb2_leilighet_pris', true);
+
+					number_format($price, 2, ".", " ");
+
+					require_once(__DIR__ . '/shortcode_template.php');
+				?>
+					<tr class="aprt-row">
+						<td><?php echo the_title(); ?></td>
+						<td><?php echo $area; ?></td>
+						<td><?php echo $floor; ?></td>
+						<td><?php echo $rooms; ?></td>
+						<td><?php echo number_format($price, 0, ".", " "); ?></td>
+						<td><?php echo $status; ?></td>
+					</tr>
+				<?php
+				}
+				?>
+			</table>
+
+		</div>
 	</div>
 
 <?php endif; ?>

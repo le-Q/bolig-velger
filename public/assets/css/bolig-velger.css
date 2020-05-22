@@ -7,6 +7,7 @@
   align-items: center;
   justify-content: center;
   padding: 2rem;
+  max-width: 50%;
 }
 
 .aprt-content-info {
@@ -63,6 +64,10 @@ h2 {
   background-color: #D1D1D1;
 }
 
+.aprt-list .aprt-row.hotspot-active {
+  background-color: #D1D1D1;
+}
+
 .bolig-velger-title {
   text-align: center;
 }
@@ -74,6 +79,10 @@ h2 {
 
 .hotspots-interaction {
   flex-direction: column;
+}
+
+.hotspot-content {
+  max-width: 700px;
 }
 
 .taken {

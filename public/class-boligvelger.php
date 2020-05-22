@@ -115,8 +115,8 @@ if (!class_exists('BoligVelger')) {
 			include_once('includes/class-block-image.php');
 			$this->block_image = new DrawAttention_Block_Image($this);
 
-			include_once( 'includes/import-export.php' );
-			$this->import_export = new Enhet_ImportExport( $this );
+			include_once('includes/import-export.php');
+			$this->import_export = new Enhet_ImportExport($this);
 		}
 
 		/**
@@ -291,7 +291,6 @@ if (!class_exists('BoligVelger')) {
 		{
 			wp_register_style($this->plugin_slug . '-plugin-styles-boligvelger', plugins_url('assets/css/bolig-velger.css', __FILE__), array(), self::VERSION);
 			wp_register_style($this->plugin_slug . '-plugin-styles', plugins_url('assets/css/public.css', __FILE__), array(), self::VERSION);
-			
 		}
 
 		/**
@@ -306,8 +305,11 @@ if (!class_exists('BoligVelger')) {
 			wp_register_script($this->plugin_slug . '-plugin-script', plugins_url('assets/js/public.js', __FILE__), array($this->plugin_slug . '-leaflet-rrose', 'jquery'), self::VERSION, true);
 			wp_register_script($this->plugin_slug . '-plugin-script-main', plugins_url('assets/js/main.js', __FILE__), array(), self::VERSION, true);
 
-			wp_localize_script($this->plugin_slug . '-plugin-script', 'my_ajax_object',
-            array( 'ajax_url' => admin_url( 'admin-ajax.php' ) ) );
+			wp_localize_script(
+				$this->plugin_slug . '-plugin-script',
+				'my_ajax_object',
+				array('ajax_url' => admin_url('admin-ajax.php'))
+			);
 
 			wp_localize_script($this->plugin_slug . '-plugin-script', 'boligvelgerData', array(
 				'isLoggedIn' => is_user_logged_in(),

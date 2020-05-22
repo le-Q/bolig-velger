@@ -19,51 +19,6 @@ get_header();
 			<?php echo do_shortcode('[boligvelger ID="' . get_the_id() . '"]'); ?>
 		<?php endwhile; // end of the loop. 
 		?>
-		<div class="aprt-list">
-			<table id="aprt-info">
-				<tr>
-					<th id="aprt-nr" onclick="sortTable(0)">Leilighet <span id="arrowTh">&#9662;</span></th>
-					<th id="aprt-area" onclick="sortTable(1)">Brutto areal <span id="arrowTh"></span></th>
-					<th id="aprt-floor" onclick="sortTable(2)">Etasje <span id="arrowTh"></span></th>
-					<th id="aprt-rooms" onclick="sortTable(3)">Ant. rom <span id="arrowTh"></span></th>
-					<th id="aprt-price" onclick="sortTable(4)">Pris <span id="arrowTh"></span></th>
-					<th>Status</th>
-				</tr>
-				<?php
-				$aprtm = new WP_Query(array(
-					'post_type' => 'leilighet',
-					'orderby' => 'title',
-					'order' => 'ASC'
-				));
-
-				while ($aprtm->have_posts()) {
-					$aprtm->the_post();
-					$status = get_post_meta(get_the_ID(), '_cmb2_leilighet_status', true);
-					$nr = get_post_meta(get_the_ID(), '_cmb2_leilighet_nr', true);
-					$floor = get_post_meta(get_the_ID(), '_cmb2_leilighet_etasje', true);
-					$area = get_post_meta(get_the_ID(), '_cmb2_leilighet_bruttoareal', true);
-					$rooms = get_post_meta(get_the_ID(), '_cmb2_leilighet_antall', true);
-					$price = get_post_meta(get_the_ID(), '_cmb2_leilighet_pris', true);
-
-					number_format($price, 2, ".", " ");
-
-					require_once(__DIR__ . '/shortcode_template.php');
-
-				?>
-					<tr class="aprt-row">
-						<td><?php echo the_title(); ?></td>
-						<td><?php echo $area; ?></td>
-						<td><?php echo $floor; ?></td>
-						<td><?php echo $rooms; ?></td>
-						<td><?php echo number_format($price, 0, ".", " "); ?></td>
-						<td><?php echo $status; ?></td>
-					</tr>
-				<?php
-				}
-				?>
-			</table>
-
-		</div>
 	</div><!-- #content -->
 </div><!-- #primary -->
 
