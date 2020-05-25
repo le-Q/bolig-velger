@@ -82,7 +82,6 @@
       if (e.type === "active") {
         info = $(data.href);
         console.log(data);
-        console.log(info);
       } else {
         info = initial;
       }
@@ -279,8 +278,7 @@
       var coords = area.attr("coords").split(",");
       var areaData = {
         style: area.data("color-scheme") ?
-          area.data("color-scheme") :
-          "default",
+          area.data("color-scheme") : "default",
         title: area.attr("title"),
         href: area.attr("href"),
         target: area.attr("target"),
@@ -383,6 +381,7 @@
   var shapeClick = function (shape, areaData, e) {
     var $shape = $(e.target.getElement());
     $shape.data("areaData", areaData);
+    console.log('AREADATA: ' + $shape.data);
     $shape.trigger("areaClick.responsilight");
     console.log($shape.trigger("areaClick.responsilight"));
     if (
@@ -410,8 +409,8 @@
     for (var i = 0; i < tableRow.length; i++) {
       tableRow[i].onclick = function (e) {
         $(this).data("areaData", areaData);
+        console.log('AREADATA: ' + $(this).data("areaData", areaData));
         $(this).trigger("areaClick.responsilight");
-        console.log($(this).trigger("areaClick.responsilight"));
 
         $(this).toggleClass("hotspot-active");
         if ($(this).hasClass("hotspot-active")) {
@@ -515,7 +514,6 @@
             break;
           case "click":
             shapeClick(shape, areaData, e);
-            tableClick(areaData, e);
             break;
           case "mouseover":
             shapeOver(shape, areaData, e);

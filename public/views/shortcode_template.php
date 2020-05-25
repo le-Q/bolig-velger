@@ -169,7 +169,9 @@ elseif (
 			} ?>
 		</div>
 		<map name="hotspots-image-<?php echo $settings['image_id']; ?>" class="hotspots-map">
-			<?php foreach ($settings['hotspots'] as $key => $hotspot) : ?>
+			<?php
+			$arrHref = array();
+			foreach ($settings['hotspots'] as $key => $hotspot) : ?>
 				<?php
 				$coords = $hotspot['coordinates'];
 				$target = !empty($hotspot['action']) ? $hotspot['action'] : '';
@@ -179,6 +181,11 @@ elseif (
 				$area_class = $target == 'url' ? 'url-area' : 'more-info-area';
 				$href = $target == 'url' ? $target_url : '#hotspot-' . $settings['spot_id'] . '-' . $key;
 				$href = !empty($href) ? $href : '#';
+				$arrTarget = array(
+					'id' => $target,
+					'href' => $href
+				);
+				array_push($arrHref, $arrTarget);
 				$title = !empty($hotspot['action']) ? 'Enhet ' . get_the_title($hotspot['action']) : '';
 				if (empty($hotspot['description'])) {
 					$hotspot['description'] = '';
@@ -305,7 +312,6 @@ elseif (
 					));
 				}
 
-				//if () {
 				while ($aprtm->have_posts()) {
 					$aprtm->the_post();
 					$status = get_post_meta(get_the_ID(), '_cmb2_leilighet_status', true);
@@ -317,18 +323,27 @@ elseif (
 
 					number_format($price, 2, ".", " ");
 
+
+
+					foreach ($arrHref as $href => $key) {
+						if ($key['id'] == get_the_ID()) {
+							$href = $key['href'];
+							$target = $key['id'];
+
+
 				?>
-					<tr class="aprt-row" data-href="<?php echo $href; ?>">
-						<td><?php echo the_title(); ?></td>
-						<td><?php echo $area; ?></td>
-						<td><?php echo $floor; ?></td>
-						<td><?php echo $rooms; ?></td>
-						<td><?php echo number_format($price, 0, ".", " "); ?></td>
-						<td><?php echo $status; ?></td>
-					</tr>
+							<tr class="aprt-row" data-href="<?php echo $href; ?>" data-target="<?php echo $target; ?>">
+								<td><?php echo the_title(); ?></td>
+								<td><?php echo $area; ?></td>
+								<td><?php echo $floor; ?></td>
+								<td><?php echo $rooms; ?></td>
+								<td><?php echo number_format($price, 0, ".", " "); ?></td>
+								<td><?php echo $status; ?></td>
+							</tr>
 				<?php
+						}
+					}
 				}
-				//}
 				?>
 			</table>
 
