@@ -82,8 +82,9 @@ elseif (
 		<?php endforeach; ?>.ledig {
 			fill: green;
 			fill-opacity: 0.3;
-			stroke: green;
-			stroke-opacity: 0.5;
+			stroke: white;
+			stroke-width: .2rem;
+			stroke-opacity: .8;
 		}
 
 		.ledig:hover {
@@ -99,8 +100,9 @@ elseif (
 		.opptatt {
 			fill: red;
 			fill-opacity: 0.3;
-			stroke: red;
-			stroke-opacity: 0.5;
+			stroke: white;
+			stroke-width: .2rem;
+			stroke-opacity: .8;
 		}
 
 		.opptatt:hover {
@@ -288,12 +290,22 @@ elseif (
 					<th>Status</th>
 				</tr>
 				<?php
-				$aprtm = new WP_Query(array(
-					'post_type' => 'leilighet',
-					'orderby' => 'title',
-					'order' => 'ASC'
-				));
+				if (null !== get_post_meta(get_the_ID(), 'blokk_velger', true)) {
+					$aprtm = new WP_Query(array(
+						'post_type' => 'leilighet',
+						'orderby' => 'title',
+						'order' => 'ASC',
+						'cat' => get_post_meta(get_the_ID(), 'blokk_velger', true)
+					));
+				} else {
+					$aprtm = new WP_Query(array(
+						'post_type' => 'leilighet',
+						'orderby' => 'title',
+						'order' => 'ASC'
+					));
+				}
 
+				//if () {
 				while ($aprtm->have_posts()) {
 					$aprtm->the_post();
 					$status = get_post_meta(get_the_ID(), '_cmb2_leilighet_status', true);
@@ -305,9 +317,8 @@ elseif (
 
 					number_format($price, 2, ".", " ");
 
-					require_once(__DIR__ . '/shortcode_template.php');
 				?>
-					<tr class="aprt-row">
+					<tr class="aprt-row" data-href="<?php echo $href; ?>">
 						<td><?php echo the_title(); ?></td>
 						<td><?php echo $area; ?></td>
 						<td><?php echo $floor; ?></td>
@@ -317,6 +328,7 @@ elseif (
 					</tr>
 				<?php
 				}
+				//}
 				?>
 			</table>
 

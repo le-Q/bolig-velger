@@ -9,9 +9,9 @@
     isBrowserVersion12Up = function () {
       var temp,
         M =
-          ua.match(
-            /(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i
-          ) || [];
+        ua.match(
+          /(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i
+        ) || [];
 
       M = M[2] ? [M[1], M[2]] : [navigator.appName, navigator.appVersion, "-?"];
       if ((temp = ua.match(/version\/(\d+)/i)) != null) {
@@ -82,7 +82,7 @@
       if (e.type === "active") {
         info = $(data.href);
         console.log(data);
-        console.log(container);
+        console.log(info);
       } else {
         info = initial;
       }
@@ -134,8 +134,7 @@
                 img.css({
                   width: "auto",
                 });
-                img.animate(
-                  {
+                img.animate({
                     height: newHeight,
                   },
                   200
@@ -195,8 +194,8 @@
     var id = img.data("id");
     var container = $(
       '<div id="hotspots-map-container-' +
-        id +
-        '" class="hotspots-map-container"></div>'
+      id +
+      '" class="hotspots-map-container"></div>'
     );
     var imgWidth = img.width();
     var imgHeight = img.height();
@@ -279,9 +278,9 @@
       var shape = area.attr("shape");
       var coords = area.attr("coords").split(",");
       var areaData = {
-        style: area.data("color-scheme")
-          ? area.data("color-scheme")
-          : "default",
+        style: area.data("color-scheme") ?
+          area.data("color-scheme") :
+          "default",
         title: area.attr("title"),
         href: area.attr("href"),
         target: area.attr("target"),
@@ -455,8 +454,7 @@
           }
           if (targetElem && targetElem.length) {
             // hash link to existing target
-            $("html, body").animate(
-              {
+            $("html, body").animate({
                 scrollTop: targetElem.offset().top - 50,
               },
               750,
@@ -649,12 +647,12 @@ window.onerror = function (errorMsg, url, lineNumber) {
     var contents = errorBox.html();
     errorBox.html(
       contents +
-        "<br/><br/><strong>Error:</strong> " +
-        errorMsg +
-        "<br/>Line " +
-        lineNumber +
-        ": " +
-        url
+      "<br/><br/><strong>Error:</strong> " +
+      errorMsg +
+      "<br/>Line " +
+      lineNumber +
+      ": " +
+      url
     );
   }
   return false;
