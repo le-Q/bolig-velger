@@ -328,10 +328,8 @@ elseif (
 					foreach ($arrHref as $href => $key) {
 						if ($key['id'] == get_the_ID()) {
 							$href = $key['href'];
-							$target = $key['id'];
+							$target = $key['id']; ?>
 
-
-				?>
 							<tr class="aprt-row" data-href="<?php echo $href; ?>" data-target="<?php echo $target; ?>">
 								<td><?php echo the_title(); ?></td>
 								<td><?php echo $area; ?></td>

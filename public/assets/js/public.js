@@ -381,9 +381,7 @@
   var shapeClick = function (shape, areaData, e) {
     var $shape = $(e.target.getElement());
     $shape.data("areaData", areaData);
-    console.log('AREADATA: ' + $shape.data);
     $shape.trigger("areaClick.responsilight");
-    console.log($shape.trigger("areaClick.responsilight"));
     if (
       areaData.trigger === "hover" &&
       e.type !== "touchstart" &&
@@ -403,14 +401,23 @@
     }
   };
 
-  let tableClick = function (areaData, e) {
+  let tableClick = function (areaData) {
     const tableRow = document.querySelectorAll(".aprt-row");
 
     for (var i = 0; i < tableRow.length; i++) {
       tableRow[i].onclick = function (e) {
+        areaData.action = $(this).attr('data-target');
+        areaData.href = $(this).attr('data-href');
         $(this).data("areaData", areaData);
-        console.log('AREADATA: ' + $(this).data("areaData", areaData));
         $(this).trigger("areaClick.responsilight");
+
+        if (
+          areaData.trigger === "hover" &&
+          e.type !== "touchstart" &&
+          !isMobileSafari
+        ) {
+          return;
+        }
 
         $(this).toggleClass("hotspot-active");
         if ($(this).hasClass("hotspot-active")) {
