@@ -247,7 +247,7 @@ class DrawAttention_CustomFields {
 			$current_option = get_post_meta( $post_id, 'blokk_velger', true );
 		}
 
-		$current_option = get_post_meta( 37, 'blokk_velger', true);
+
 		return $this->get_leilighet( $current_option );
 		}
 	
