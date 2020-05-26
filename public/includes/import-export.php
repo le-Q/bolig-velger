@@ -56,7 +56,7 @@ class Enhet_ImportExport {
 		$response = array();
 		foreach ($ids as $key => $id) {
 			$post = get_post( $id );
-			if ( empty( $post->post_type ) || $post->post_type !== 'da_image' ) {
+			if ( empty( $post->post_type ) || $post->post_type !== 'leilighet' ) {
 				continue;
 			}
 
@@ -66,7 +66,7 @@ class Enhet_ImportExport {
 			);
 			$metadata = get_post_meta( $id, '', true );
 			foreach ($metadata as $meta_key => $meta_value) {
-				if ( strpos( $meta_key, '_da_' ) !== 0 ) {
+				if ( strpos( $meta_key, '_bv_' ) !== 0 ) {
 					continue;
 				}
 				$response[$key]['post']['meta_input'][$meta_key] = maybe_unserialize( $meta_value[0] );
@@ -84,7 +84,7 @@ class Enhet_ImportExport {
 	public function admin_menu() {
 		global $submenu;
 
-		add_submenu_page( 'edit.php?post_type=da_image', __( 'Import / Export', 'leilighet' ), __( 'Import / Export', 'leilighet' ), 'manage_options', 'import_export', array( $this, 'output_import_export_page' ) );
+		add_submenu_page( 'edit.php?post_type=leilighet', __( 'Import / Export', 'leilighet' ), __( 'Import / Export', 'leilighet' ), 'manage_options', 'import_export', array( $this, 'output_import_export_page' ) );
 	}
 
 	public function output_import_export_page() {
@@ -92,7 +92,7 @@ class Enhet_ImportExport {
 		<div class="import">
 			<h3>Import</h3>
 			<p>If you've already exported from another site, paste the export code below:</p>
-			<form method="POST" name="import" action="edit.php?post_type=da_image&page=import_export">
+			<form method="POST" name="import" action="edit.php?post_type=leilighet&page=import_export">
 				<input type="hidden" name="action" value="import" />
 				<textarea name="import_code" cols="100" rows="5" placeholder=""></textarea><br />
 				<input type="submit" value="Import" />
@@ -114,13 +114,12 @@ class Enhet_ImportExport {
 		<div class="export">
 			<h3>Export</h3>
 			<p>Choose images to export</p>
-			<form method="POST" name="export" action="edit.php?post_type=da_image&page=import_export">
+			<form method="POST" name="export" action="edit.php?post_type=leilighet&page=import_export">
 				<input type="hidden" name="action" value="export" />
 				<?php
 				$da_images = new WP_Query( array(
-					'post_type' => 'da_image',
+					'post_type' => 'leilighet',
 					'post_status' => 'any',
-					'posts_per_page' => 1,
 					'order' => 'DESC',
 					'orderby' => 'ID',
 				) );

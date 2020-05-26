@@ -888,8 +888,8 @@ class CMB2_Field {
 		}
 
 		$args['options']    = 'group' == $args['type'] ? wp_parse_args( $args['options'], array(
-			'add_button'    => __( 'Add Group', 'cmb2' ),
-			'remove_button' => __( 'Remove Group', 'cmb2' ),
+			'add_button'    => __( 'Ny leilighet', 'cmb2' ),
+			'remove_button' => __( 'Slett leilighet', 'cmb2' ),
 		) ) : $args['options'];
 
 		$args['_id']        = $args['id'];
