@@ -71,6 +71,7 @@ class DrawAttention_CPT {
 			'public' => true,
 			'labels' => array(					
 				'name' => 'Leilighet',
+				'add_new' => 'Legg til leilighet',
 				'add_new_item' => 'Legg til leilighet',
 				'edit_item' => 'Endre leilighet',
 				'all_items' => 'Alle leiligheter',
