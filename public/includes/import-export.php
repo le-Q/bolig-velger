@@ -36,10 +36,12 @@ class Enhet_ImportExport {
 		foreach ($import_array as $key => $to_import) {
 			unset($to_import['post']['ID']);
 			$insert_id = wp_insert_post( $to_import['post'], $error );
+			$catID = wp_create_category('cats33');
 			if ( !empty( $insert_id ) ) {
 				$imported[] = array(
 					'ID' => $insert_id,
-					'post_title' => $to_import['post']['post_title'],
+					'post_title' => $to_import['post']['post_title']." yes ",
+					'post_category' => array(2,3),
 				);
 			} else {
 				$errors[] = $to_import;
@@ -64,9 +66,11 @@ class Enhet_ImportExport {
 				'id' => $id,
 				'post' => (array)$post,
 			);
+
+			$response[$key]['post']['post_category'] = array(get_the_category($id)[0]->cat_ID);
 			$metadata = get_post_meta( $id, '', true );
 			foreach ($metadata as $meta_key => $meta_value) {
-				if ( strpos( $meta_key, '_bv_' ) !== 0 ) {
+				if ( strpos( $meta_key, '_cmb2_' ) !== 0 ) {
 					continue;
 				}
 				$response[$key]['post']['meta_input'][$meta_key] = maybe_unserialize( $meta_value[0] );
