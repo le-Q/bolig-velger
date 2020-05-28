@@ -106,7 +106,7 @@ class Enhet_ImportExport {
 		?>
 		<div class="import">
 			<h3>Import</h3>
-			<p>If you've already exported from another site, paste the export code below:</p>
+			<p>Hvis du har har en kode, lim inn eksport koden under:</p>
 			<form method="POST" name="import" action="edit.php?post_type=leilighet&page=import_export">
 				<input type="hidden" name="action" value="import" />
 				<textarea name="import_code" cols="100" rows="5" placeholder=""></textarea><br />
@@ -116,19 +116,19 @@ class Enhet_ImportExport {
 			<?php if ( !empty( $response ) ): ?>
 				<?php foreach ($response['imported'] as $key => $value): ?>
 					<h4>
-						Successfully imported 
+						Vellykket import
 						<a href="<?php echo admin_url( 'post.php?post='.$value['ID'].'&action=edit' ); ?>">
 							<?php echo $value['post_title']; ?>
 						</a>
 					</h4>
 				<?php endforeach ?>
-				<h3>Note: the image itself isn't transferred over, so you will need to reupload it. But most importantly all the colors and shapes are transferred over!
+				<h3>Advarsel: Bilder blir ikke lastes opp, dette må gjøres manuelt og hvert enkelt.
 			<?php endif ?>
 		</div>
 		<br />
 		<div class="export">
 			<h3>Export</h3>
-			<p>Choose images to export</p>
+			<p>Velg leilighet for eksport.</p>
 			<form method="POST" name="export" action="edit.php?post_type=leilighet&page=import_export">
 				<input type="hidden" name="action" value="export" />
 				<?php
@@ -147,7 +147,7 @@ class Enhet_ImportExport {
 
 			<?php if ( $this->is_action( 'export' ) ): ?>
 				<?php if ( empty( $_POST['export_ids'] ) ): ?>
-					Please select one or more images above to export
+					Vennligst velg minst en leilighet for eksport.
 				<?php else: ?>
 					<?php
 					$export_ids = $_POST['export_ids'];
