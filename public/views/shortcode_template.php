@@ -175,11 +175,12 @@ elseif (
 				<?php
 				$coords = $hotspot['coordinates'];
 				$target = !empty($hotspot['action']) ? $hotspot['action'] : '';
+				$targetURL = get_post_type($hotspot['action']) == 'bv_image' ? 'url' : $hotspot['action'];
 				$new_window = !empty($hotspot['action-url-open-in-window']) ? $hotspot['action-url-open-in-window'] : '';
 				$target_window = $new_window == 'on' ? '_new' : '';
 				$target_url = !empty($hotspot['action-url-url']) ? $hotspot['action-url-url'] : '';
-				$area_class = $target == 'url' ? 'url-area' : 'more-info-area';
-				$href = $target == 'url' ? $target_url : '#hotspot-' . $settings['spot_id'] . '-' . $key;
+				$$area_class = get_post_type($hotspot['action']) == 'bv_image' ? 'url-area' : 'more-info-area';
+				$href = get_post_type($hotspot['action']) == 'bv_image' ? get_permalink($hotspot['action']) : '#hotspot-' . $settings['spot_id'] . '-' . $key;
 				$href = !empty($href) ? $href : '#';
 				$arrTarget = array(
 					'id' => $target,
@@ -197,7 +198,7 @@ elseif (
 				}
 
 				?>
-				<area shape="poly" coords="<?php echo $coords; ?>" href="<?php echo $href; ?>" title="<?php echo $title; ?>" alt="<?php echo esc_attr($title); ?>" data-action="<?php echo $target; ?>" data-color-scheme="<?php echo $color_scheme; ?>" target="<?php echo $target_window; ?>" class="<?php echo $area_class; ?>">
+				<area shape="poly" coords="<?php echo $coords; ?>" href="<?php echo $href; ?>" title="<?php echo $title; ?>" alt="<?php echo esc_attr($title); ?>" data-action="<?php echo $targetURL; ?>" data-color-scheme="<?php echo $color_scheme; ?>" target="<?php echo $target_window; ?>" class="<?php echo $area_class; ?>">
 			<?php endforeach; ?>
 		</map>
 
@@ -328,9 +329,9 @@ elseif (
 					foreach ($arrHref as $href => $key) {
 						if ($key['id'] == get_the_ID()) {
 							$href = $key['href'];
-							$target = $key['id']; ?>
+							$target2 = $key['id']; ?>
 
-							<tr class="aprt-row" data-href="<?php echo $href; ?>" data-target="<?php echo $target; ?>">
+							<tr class="aprt-row" data-href="<?php echo $href; ?>" data-target="<?php echo $target2; ?>">
 								<td><?php echo the_title(); ?></td>
 								<td><?php echo $area; ?></td>
 								<td><?php echo $floor; ?></td>
