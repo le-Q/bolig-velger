@@ -70,6 +70,7 @@ if ( !class_exists( 'BoligVelger_Admin' ) ) {
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_styles' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ) );
 
+			add_action( 'admin_menu', array( $this, 'admin_menu' ) );
 			add_action( 'new_to_publish', array( $this, 'admin_init' ) );
 			add_action( 'draft_to_publish', array( $this, 'admin_init' ) );
 			add_action( 'pending_to_publish', array( $this, 'admin_init' ) );
@@ -236,6 +237,14 @@ if ( !class_exists( 'BoligVelger_Admin' ) ) {
 				$links
 			);
 
+		}
+
+		public function admin_menu() {
+			global $submenu;
+
+			remove_submenu_page( 'edit.php?post_type=da_image', 'post-new.php?post_type=da_image'  );
+			remove_submenu_page( 'edit.php?post_type=da_image', 'edit.php?post_type=da_image'  );
+			add_submenu_page( 'edit.php?post_type=da_image', __('Edit Image', 'leilighet' ), __('Edit Image', 'leilighet' ), 'edit_others_posts', 'edit.php?post_type=da_image' );
 		}
 
 		public function admin_init() {
