@@ -122,6 +122,20 @@ function cmb2_leilighet_metabox()
 		'escape_cb'       => 'absint',
 	));
 
+	// Antall soverom
+	$cmb->add_field(array(
+		'name' => 'Antall soverom',
+		'id'   => '_cmb2_leilighet_sove_antall',
+		'desc' => 'Beskrivelse av antall soverom i leilighet',
+		'type' => 'text',
+		'attributes' => array(
+			'type' => 'number',
+			'pattern' => '\d*',
+		),
+		'sanitization_cb' => 'absint',
+		'escape_cb'       => 'absint',
+	));
+
 	// Antall rom
 	$cmb->add_field(array(
 		'name' => 'Antall rom',
@@ -162,6 +176,20 @@ function cmb2_leilighet_metabox()
 			'Opptatt'   => __('Opptatt'),
 		),
 	));
+
+	$cmb->add_field( array(
+		'name'             => 'Solforhold',
+		'desc'             => 'Solforhold til boligen',
+		'id'               => '_cmb2_leilighet_solforhold',
+		'type'             => 'select',
+		'default'          => 'custom',
+		'options'          => array(
+			'ost' => __( 'Øst' ),
+			'vest'   => __( 'Vest' ),
+			'nord'     => __( 'Nord' ),
+			'sor'     => __( 'Sør' ),
+		),
+	) );
 
 
 
