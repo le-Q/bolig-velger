@@ -69,6 +69,7 @@ class DrawAttention_CPT {
 		register_post_type('leilighet', array(
 			'supports' => array('title', 'editor', 'thumbnail'),
 			'public' => true,
+			'menu_position' => 9, 
 			'labels' => array(					
 				'name' => 'Leilighet',
 				'add_new' => 'Legg til leilighet',
@@ -77,7 +78,7 @@ class DrawAttention_CPT {
 				'all_items' => 'Alle leiligheter',
 				'singular_name' => 'Leilighet'
 			),
-			'menu_icon' => 'dashicons-welcome-learn-more',
+			'menu_icon' => 'dashicons-admin-multisite',
 			'taxonomies' => array('category',)
 		));
 	}
