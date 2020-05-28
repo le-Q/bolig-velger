@@ -26,7 +26,7 @@ class Enhet_ImportExport {
 		}
 		$import_code = stripslashes($_POST['import_code']);
 		$import_array = json_decode( $import_code, true );
-		if ( empty( $import_array['0']['post'] ) ) {
+		if ( empty( $import_array['0']['post']['ID'] ) ) {
 			return false;
 		}
 

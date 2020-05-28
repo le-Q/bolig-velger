@@ -44,7 +44,6 @@ class DrawAttention_CustomFields {
 			'parent'  => 0
 		) );
 		$cats = array();
-		$cats['blokk'] = 'Blokk';
 
 		foreach ( $categories as $category ) {
 			$cats[$category->term_id ] = $category->name;
@@ -111,7 +110,38 @@ class DrawAttention_CustomFields {
 					)
 				)
 			)
-		) );	
+		) );
+	
+		/*
+		function enhets_options() {
+
+			$select_value = get_post_meta( 37, 'blokk_velger', true );
+
+			if (!empty($select_value)) {
+				$leilighet = array(
+					'post_type' => 'leilighet'
+				);
+			} else {
+				$leilighet = array(
+					'post_type' => 'leilighet',
+					'category_name' => $select_value
+				);
+			}
+			
+			$loop = new WP_Query($leilighet);
+			$leiligheter = array();
+	
+			while($loop->have_posts()) : $loop->the_post();
+				$leiligheter[get_the_ID()] = get_the_title(); 
+			endwhile;
+	
+			return $leiligheter;
+		}
+		*/
+
+
+
+	
 		return $metaboxes;
 	}
 
@@ -223,26 +253,19 @@ class DrawAttention_CustomFields {
 	
 		public function get_leilighet( $enhet = '' ) {
 
-			if ($enhet == 'blokk') {
-				$leilighet = array(
-					'post_type' => 'bv_image',
-				);
-			} else {
-				$leilighet = array(
-					'post_type' => 'leilighet',
-					'cat' => $enhet,
-				);
-			}
-			
+		$leilighet = array(
+			'post_type' => 'leilighet',
+			'cat' => $enhet,
+		);
 
-			$loop = new WP_Query($leilighet);
-			$leiligheter = array();
+		$loop = new WP_Query($leilighet);
+		$leiligheter = array();
 
-			while($loop->have_posts()) : $loop->the_post();
-				$leiligheter[get_the_ID()] = get_the_title(); 
-			endwhile;
+		while($loop->have_posts()) : $loop->the_post();
+			$leiligheter[get_the_ID()] = get_the_title(); 
+		endwhile;
 
-			return $leiligheter;
+		return $leiligheter;
 	}
 	
 	// Kobler til AJAX - blokk_velger.js
